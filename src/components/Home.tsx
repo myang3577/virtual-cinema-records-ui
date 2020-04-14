@@ -41,9 +41,7 @@ function Home() {
           dispatch(searchMovies(movieQuery));
         }}
       >
-        {loading === LoadingState.LOADING
-          ? "Loading"
-          : "Search Movies EXTRA TEST"}
+        {loading === LoadingState.LOADING ? "Loading" : "Search Movies"}
       </button>
       {movieSearchResult.results
         ? movieSearchResult.results.map((e: any, index: number) => (
