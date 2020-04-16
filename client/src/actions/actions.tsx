@@ -8,8 +8,8 @@ const apiKey = "5e38014a47f9412c29d0ca4667091633";
  * values. Either FETCH_BEGIN or FETCH_END
  */
 export enum ActionType {
-  FETCH_BEGIN,
-  FETCH_END,
+  FETCH_BEGIN = "FETCH_BEGIN",
+  FETCH_END = "FETCH_END",
 }
 
 /**

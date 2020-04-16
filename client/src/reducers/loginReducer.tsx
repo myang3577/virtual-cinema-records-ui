@@ -22,6 +22,29 @@ const initialState2: loginInitialState = {
   password: "",
 };
 
+// export const loginReducer = (
+//   state = initialState2,
+//   action: Login
+// ): loginInitialState => {
+//   switch (action.type) {
+//     case LoginType.LOGIN_BEGIN:
+//       return {
+//         ...state,
+//         loading: LoadingState.LOADING,
+//         username: action.username,
+//         password: action.password,
+//       };
+//     case LoginType.LOGIN_END:
+//       return {
+//         ...state,
+//         loginResult: action.payload,
+//         loading: LoadingState.DONE,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
 export const loginReducer = (
   state = initialState2,
   action: Login

@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
 
 export enum LoginType {
-  LOGIN_BEGIN,
-  LOGIN_END,
+  LOGIN_BEGIN = "LOGIN_BEGIN",
+  LOGIN_END = "LOGIN_END",
 }
 
 export interface Login {

@@ -2,9 +2,9 @@ import { Action, ActionType } from "../actions/actions";
 
 // Defines the possible loading states
 export enum LoadingState {
-  IDLE,
-  LOADING,
-  DONE,
+  IDLE = "IDLE",
+  LOADING = "LOADING",
+  DONE = "DONE",
 }
 
 /**

@@ -151,8 +151,8 @@ function Home() {
             <br />
             <input type={"submit"} value={"Submit"} />
           </form>
-          {/* Current store username is: {username.toString()} and its password is:{" "}
-          {password} and loginResult is: {loginResult.toString()} */}
+          Current store username is: {username.toString()} and its password is:{" "}
+          {password} and loginResult is: {loginResult.toString()}
         </div>
       </div>
     </div>
