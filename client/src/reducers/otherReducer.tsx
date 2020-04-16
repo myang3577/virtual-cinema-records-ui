@@ -43,6 +43,10 @@ const initialState: InitialState = {
   movieSearchResult: {},
 };
 
+// const initialState2: InitialState = {
+//   loading: LoadingState.IDLE,
+// };
+
 /**
  * Define the other reducer. Takes 2 parameters state and action.
  * Every reducer must take these two things. The job of the
