@@ -67,7 +67,16 @@ function Home() {
           }}
           loading={loading === LoadingState.LOADING}
         >
-          Search Movies
+          Search Movies (primary color)
+        </LoadingButton>
+        <LoadingButton
+          onClick={() => {
+            dispatch(searchMovies(movieQuery));
+          }}
+          loading={loading === LoadingState.LOADING}
+          color={"secondary"}
+        >
+          Search Movies (secondary color)
         </LoadingButton>
       </ThemeProvider>
       {movieSearchResult.results
