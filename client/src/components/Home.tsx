@@ -7,6 +7,7 @@ import { checkLogin } from "../actions/loginActions";
 import { LoadingButton } from "./LoadingButton";
 import { tealLimeTheme } from "../styles/MUITheme";
 import "./App.css";
+import { GlobalState } from "../reducers/rootReducer";
 
 /**
  * Home is a component that we want to render. It has been implemented with
@@ -28,21 +29,21 @@ function Home() {
   // use in rendering the component. the userSelector is the magic function that
   // binds the local variable to a particular state. By binding them to that
   // state, this variable will be updated anytime the state its bound to changes
-  const movieSearchResult: any = useSelector<any>(
-    (state) => state.otherReducer.movieSearchResult
+  const movieSearchResult: any = useSelector<GlobalState>(
+    (state) => state.otherData.movieSearchResult
   );
-  const loading: LoadingState = useSelector<any>(
-    (state) => state.otherReducer.loading
+  const loading: LoadingState = useSelector<GlobalState>(
+    (state) => state.otherData.loading
   ) as LoadingState;
 
-  const username: any = useSelector<any>(
-    (state) => state.loginReducer.username
+  const username: any = useSelector<GlobalState>(
+    (state) => state.loginData.username
   );
-  const password: any = useSelector<any>(
-    (state) => state.loginReducer.password
+  const password: any = useSelector<GlobalState>(
+    (state) => state.loginData.password
   );
-  const loginResult: any = useSelector<any>(
-    (state) => state.loginReducer.loginResult
+  const loginResult: any = useSelector<GlobalState>(
+    (state) => state.loginData.loginResult
   );
 
   const dispatch = useDispatch();
