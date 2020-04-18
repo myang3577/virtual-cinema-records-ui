@@ -20,14 +20,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, "/../frontend/build")));
 app.use("/test", indexRouter);
 app.use("/users", usersRouter);
 // app.use('/testAPI', testAPIRouter);
 app.use("/aws", aws_router);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/../frontend/build/index.html"));
 });
 
 // catch 404 and forward to error handler
