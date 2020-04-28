@@ -25,7 +25,6 @@ export enum ActionType {
  */
 export interface Action {
   type: ActionType;
-  // text: string;
   payload: {};
 }
 
@@ -92,10 +91,8 @@ export const searchMovies = (query: string) => {
         query +
         "&include_adult=true"
     )
-      .then(
-        (response) => response.json(),
-        (error) => console.log("An error occurred.", error)
-      )
-      .then((json) => dispatch(fetchDataEnd(json)));
+      .then((response) => response.json())
+      .then((json) => dispatch(fetchDataEnd(json)))
+      .catch((error) => console.log("An error occurred.", error));
   };
 };

@@ -7,6 +7,7 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var login = require("./routes/login");
 var ping = require("./routes/ping");
+var users = require("./routes/users");
 var app = express();
 
 // view engine setup
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "/../frontend/build")));
 app.use("/login", login);
 app.use("/ping", ping);
+app.use("/users", users);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/../frontend/build/index.html"));
