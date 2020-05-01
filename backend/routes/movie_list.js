@@ -48,7 +48,7 @@ function putRating(req, res, next) {
     TableName: movieTableName,
     Item: {
       username: req.params.email,
-      imdb_id: req.body.imdb_id,
+      tmdb_id: req.body.tmdb_id,
       rating: req.body.rating,
     },
   };
@@ -73,9 +73,9 @@ function deleteRating(req, res, next) {
     TableName: movieTableName,
     Key: {
       username: req.params.email,
-      imdb_id: req.body.imdb_id,
+      tmdb_id: req.body.tmdb_id,
     },
-    ConditionExpression: "attribute_exists(imdb_id)",
+    ConditionExpression: "attribute_exists(tmdb_id)",
   };
 
   db.delete(params, function (err, data) {

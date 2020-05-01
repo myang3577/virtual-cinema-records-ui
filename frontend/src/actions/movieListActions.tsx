@@ -7,7 +7,7 @@ export enum MovieListActionType {
 }
 
 export interface MovieListElement {
-  imdb_id: string;
+  tmdb_id: number;
   rating: number;
 }
 
@@ -52,12 +52,12 @@ export const listMovies = (email: string) => {
   };
 };
 
-export const putRating = (email: string, imdb_id: string, rating: number) => {
+export const putRating = (email: string, tmdb_id: number, rating: number) => {
   return (dispatch: Dispatch) => {
     dispatch(putRatingBegin());
 
     const ratingRequestBody = {
-      imdb_id,
+      tmdb_id,
       rating,
     };
 
@@ -73,11 +73,11 @@ export const putRating = (email: string, imdb_id: string, rating: number) => {
   };
 };
 
-export const deleteRating = (email: string, imdb_id: string) => {
+export const deleteRating = (email: string, tmdb_id: number) => {
   return (dispatch: Dispatch) => {
     // Begin/end actions can be addd based on UI need
     const ratingRequestBody = {
-      imdb_id,
+      tmdb_id,
     };
 
     return fetch("/users/" + email + "/movie-rating", {
