@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { searchMovies } from "../actions/actions";
 import { LoadingState } from "../reducers/otherReducer";
-import { LoadingButton } from "./LoadingButton";
+import { LoadingButton } from "../components/LoadingButton";
 import { GlobalState } from "../reducers/rootReducer";
-import LoginForm from "../containers/LoginForm";
-import RegisterForm from "../containers/RegisterForm";
-import ChangePasswordForm from "../containers/ChangePasswordForm";
-import ForgotPassword from "../containers/ForgotPasswordForm";
-import LogoutForm from "../containers/LogoutForm";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import ChangePasswordForm from "./ChangePasswordForm";
+import ForgotPassword from "./ForgotPasswordForm";
+import LogoutForm from "./LogoutForm";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line

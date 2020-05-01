@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 // import rootReducer from "./reducers/otherReducer";
 import rootReducer from "./reducers/rootReducer";
-import App from "./components/App";
+import App from "./containers/App";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { tealLightGreenTheme } from "./styles/MUITheme";
 import { composeWithDevTools } from "redux-devtools-extension";

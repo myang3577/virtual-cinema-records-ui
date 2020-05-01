@@ -11,4 +11,13 @@ export const tealLightGreenTheme = createMuiTheme({
       main: lightGreen[500],
     },
   },
+  overrides: {
+    MuiTab: {
+      root: {
+        "&:hover": {
+          color: teal[400],
+        },
+      },
+    },
+  },
 });
