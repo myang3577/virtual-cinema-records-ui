@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 import { otherReducer, OtherState } from "./otherReducer";
 import { loginReducer, LoginState } from "./loginReducer";
 import { movieListReducer, MovieListState } from "./movieListReducer";
+import { userInfoReducer, UserInfoState } from "./userReducer";
 
 export interface GlobalState {
   otherData: OtherState;
   loginData: LoginState;
   movieListData: MovieListState;
+  userInfo: UserInfoState;
 }
 
 // combineReducers just takes multiple reducers and puts them all into one big
@@ -17,6 +19,7 @@ const rootReducer = combineReducers<GlobalState>({
   otherData: otherReducer,
   loginData: loginReducer,
   movieListData: movieListReducer,
+  userInfo: userInfoReducer,
 });
 
 export default rootReducer;

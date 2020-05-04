@@ -4,7 +4,7 @@ import { Button, CircularProgress } from "@material-ui/core";
 export interface LoadingButtonProps {
   onClick: () => any;
   loading: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   color?: "inherit" | "primary" | "secondary" | "default";
   variant?: "text" | "outlined" | "contained";
 }

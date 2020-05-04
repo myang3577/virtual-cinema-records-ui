@@ -32,18 +32,18 @@ export const putRatingEnd = (): MovieListAction => {
   };
 };
 
-export const listMoviesEnd = (payload: {}): MovieListAction => {
+export const listMoviesEnd = (payload: any): MovieListAction => {
   return {
     type: MovieListActionType.LIST_END,
     payload: {
-      movieList: payload as any,
+      movieList: payload,
     },
   };
 };
 
 export const listMovies = (email: string) => {
   return (dispatch: Dispatch) => {
-    // Begin/end actions can be addd based on UI need
+    // Begin/end actions can be added based on UI need
 
     return fetch("/users/" + email + "/movie-list")
       .then((response) => response.json())
@@ -75,7 +75,7 @@ export const putRating = (email: string, tmdb_id: number, rating: number) => {
 
 export const deleteRating = (email: string, tmdb_id: number) => {
   return (dispatch: Dispatch) => {
-    // Begin/end actions can be addd based on UI need
+    // Begin/end actions can be added based on UI need
     const ratingRequestBody = {
       tmdb_id,
     };
