@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   FormControl,
+  TextField,
   Input,
   InputAdornment,
   InputLabel,
@@ -21,27 +22,29 @@ export function PasswordField(props: PasswordFormProps) {
 
   return (
     <FormControl>
-      <InputLabel>{props.placeholder}</InputLabel>
-      <Input
-        startAdornment={
-          <InputAdornment position="start">
-            <Lock />
-          </InputAdornment>
-        }
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
+      <TextField
+        label={props.placeholder}
         type={showPassword ? "text" : "password"}
         value={props.password}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.setPassword(e.target.value);
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Lock />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
         }}
       />
     </FormControl>

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  FormControl,
-  Input,
-  InputAdornment,
-  InputLabel,
-} from "@material-ui/core";
+import { FormControl, TextField, InputAdornment } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import "../styles/App.css";
 
@@ -18,16 +13,18 @@ export interface UsernameFormProps {
 export function UsernameField(props: UsernameFormProps) {
   return (
     <FormControl error={props.error}>
-      <InputLabel>Username</InputLabel>
-      <Input
-        startAdornment={
-          <InputAdornment position="start">
-            <AccountCircle />
-          </InputAdornment>
-        }
+      <TextField
+        label={"Username"}
         value={props.username}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.setUsername(e.target.value);
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          ),
         }}
       />
     </FormControl>
