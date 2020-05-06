@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  FormControl,
-  TextField,
-  Input,
-  InputAdornment,
-  InputLabel,
-  IconButton,
-} from "@material-ui/core";
+import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import { Lock, Visibility, VisibilityOff } from "@material-ui/icons";
 import "../styles/App.css";
 
@@ -21,7 +14,7 @@ export function PasswordField(props: PasswordFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <FormControl>
+    <div>
       <TextField
         label={props.placeholder}
         type={showPassword ? "text" : "password"}
@@ -47,7 +40,7 @@ export function PasswordField(props: PasswordFormProps) {
           ),
         }}
       />
-    </FormControl>
+    </div>
   );
 }
 
