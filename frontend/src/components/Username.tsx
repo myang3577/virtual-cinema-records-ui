@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, TextField, InputAdornment } from "@material-ui/core";
+import { TextField, InputAdornment } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import "../styles/App.css";
 

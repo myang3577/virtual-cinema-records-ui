@@ -4,6 +4,10 @@
   width: 15vw;
 }
 
+.page-container {
+  padding: 50px;
+}
+
 .divider {
   height: 20px;
 }

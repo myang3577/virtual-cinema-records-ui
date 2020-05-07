@@ -1,8 +1,13 @@
 import React from "react";
-import MovieGrid from "./MovieGrid";
+import SearchBar from "./SearchBar";
 
 function Recommendations() {
-  return <MovieGrid />;
+  return (
+    <div className="page-container">
+      <SearchBar />
+      {/* Movie grid here */}
+    </div>
+  );
 }
 
 export default Recommendations;

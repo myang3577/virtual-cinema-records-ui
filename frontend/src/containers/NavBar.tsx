@@ -9,6 +9,7 @@ import {
   Card,
   IconButton,
   CardHeader,
+  Paper,
 } from "@material-ui/core";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MovieFilterIcon from "@material-ui/icons/MovieFilter";
@@ -23,17 +24,13 @@ import {
   accountLoginModal,
   accountLogoutModal,
 } from "../actions/uiActions";
+import { routes } from "./App";
 import { AccountModalType } from "../reducers/uiReducer";
 import LoginForm from "./LoginForm";
 import LogoutForm from "./LogoutForm";
 import RegisterForm from "./RegisterForm";
-
-const homeLink = "/";
-const recsLink = "/recommendations";
-const mymoviesLink = "/mymovies";
-
-const VCRBigLogo = require("../images/VCRBigLogo.png");
-const VCRSmallLogo = require("../images/VCRIconOnly.png");
+import VCRBigLogo from "../images/VCRBigLogo.png";
+import VCRSmallLogo from "../images/VCRIconOnly.png";
 
 function NavBar() {
   const isLoggedIn: any = useSelector<GlobalState>(
@@ -82,61 +79,62 @@ function NavBar() {
   }, [dispatch, isLoggedIn]);
 
   return (
-    <Tabs
-      value={false}
-      className="navbar"
-      indicatorColor="primary"
-      textColor="primary"
-      centered
-    >
-      <Tab
-        icon={<HomeOutlinedIcon />}
-        label={<span className="navbar-label">Home</span>}
-        component={RouterLink}
-        to={homeLink}
-      />
-      <Tab
-        icon={<MovieFilterIcon />}
-        label={<span className="navbar-label">Recommendations</span>}
-        component={RouterLink}
-        to={recsLink}
-      />
-      <img src={VCRBigLogo} id="navbar-img" />
-      <Tab
-        icon={<TheatersIcon />}
-        label={<span className="navbar-label">MyMovies</span>}
-        component={RouterLink}
-        to={mymoviesLink}
-      />
-      <Tab
-        icon={<PersonIcon />}
-        label={<span className="navbar-label">{accountString}</span>}
-        onClick={handleAccountClick}
-      />
-      <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        className="account-modal"
-        disableScrollLock={true}
-        disableBackdropClick={true}
-        disableAutoFocus={true}
-        disableEnforceFocus={true}
+    <Paper style={{ margin: 0 }} square>
+      <Tabs
+        value={false}
+        className="navbar"
+        indicatorColor="primary"
+        textColor="primary"
+        centered
       >
-        <Card className="account-card">
-          <CardHeader
-            action={
-              <IconButton onClick={handleModalClose}>
-                <CloseIcon />
-              </IconButton>
-            }
-          />
-          <div id="account-card-content">
-            <img src={VCRSmallLogo} id="modal-img" />
-            {accountModal()}
-          </div>
-        </Card>
-      </Modal>
-    </Tabs>
+        <Tab
+          icon={<HomeOutlinedIcon />}
+          label={<span className="navbar-label">Home</span>}
+          component={RouterLink}
+          to={routes.homeLink}
+        />
+        <Tab
+          icon={<MovieFilterIcon />}
+          label={<span className="navbar-label">Recommendations</span>}
+          component={RouterLink}
+          to={routes.recsLink}
+        />
+        <img src={VCRBigLogo} id="navbar-img" alt="VCR logo" />
+        <Tab
+          icon={<TheatersIcon />}
+          label={<span className="navbar-label">MyMovies</span>}
+          component={RouterLink}
+          to={routes.myMoviesLink}
+        />
+        <Tab
+          icon={<PersonIcon />}
+          label={<span className="navbar-label">{accountString}</span>}
+          onClick={handleAccountClick}
+        />
+        <Modal
+          open={modalOpen}
+          onClose={handleModalClose}
+          className="account-modal"
+          disableScrollLock={true}
+          disableAutoFocus={true}
+          disableEnforceFocus={true}
+        >
+          <Card className="account-card">
+            <CardHeader
+              action={
+                <IconButton onClick={handleModalClose}>
+                  <CloseIcon />
+                </IconButton>
+              }
+            />
+            <div id="account-card-content">
+              <img src={VCRSmallLogo} id="modal-img" alt="VCR logo" />
+              {accountModal()}
+            </div>
+          </Card>
+        </Modal>
+      </Tabs>
+    </Paper>
   );
 }
 

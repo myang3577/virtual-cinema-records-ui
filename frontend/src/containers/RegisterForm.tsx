@@ -7,7 +7,6 @@ import { LoadingButton } from "../components/LoadingButton";
 import { GlobalState } from "../reducers/rootReducer";
 import { Link } from "@material-ui/core";
 import { accountLoginModal } from "../actions/uiActions";
-import { FullscreenExit } from "@material-ui/icons";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line

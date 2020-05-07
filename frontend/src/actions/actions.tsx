@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 
 // API key to query themoviedb database
-const apiKey = "5e38014a47f9412c29d0ca4667091633";
+export const apiKey = "5e38014a47f9412c29d0ca4667091633";
 
 /**
  * Define your own enumerator called ActionType with two possible
@@ -88,8 +88,7 @@ export const searchMovies = (query: string) => {
       "https://api.themoviedb.org/3/search/movie?api_key=" +
         apiKey +
         "&language=en-US&query=" +
-        query +
-        "&include_adult=true"
+        query
     )
       .then((response) => response.json())
       .then((json) => dispatch(fetchDataEnd(json)))

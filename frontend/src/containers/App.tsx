@@ -1,20 +1,18 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import { Paper, CssBaseline } from "@material-ui/core";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
 import Home from "./Home";
 import About from "./About";
 import Recommendations from "./Recommendations";
 import MyMovies from "./MyMovies";
 import Navbar from "./NavBar";
 
-const homeLink = "/";
-const aboutLink = "/about";
-const recsLink = "/recommendations";
-const mymoviesLink = "/mymovies";
+export const routes = {
+  homeLink: "/",
+  aboutLink: "/about",
+  recsLink: "/recommendations",
+  myMoviesLink: "/my_movies",
+};
 
 function App() {
   return (
@@ -22,21 +20,19 @@ function App() {
       <div>
         {/* Remove margins */}
         <CssBaseline />
-        <Paper style={{ margin: 0 }} square>
-          <Navbar />
-        </Paper>
+        <Navbar />
 
         <Switch>
-          <Route path={recsLink}>
+          <Route path={routes.recsLink}>
             <Recommendations />
           </Route>
-          <Route path={mymoviesLink}>
+          <Route path={routes.myMoviesLink}>
             <MyMovies />
           </Route>
-          <Route path={aboutLink}>
+          <Route path={routes.aboutLink}>
             <About />
           </Route>
-          <Route path={homeLink}>
+          <Route path={routes.homeLink}>
             <Home />
           </Route>
         </Switch>

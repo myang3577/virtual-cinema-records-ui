@@ -1,9 +1,12 @@
 import { Dispatch } from "redux";
+import { apiKey } from "./actions";
 
 export enum MovieListActionType {
   PUT_BEGIN = "PUT_BEGIN",
   PUT_END = "PUT_END",
+  LIST_BEGIN = "LIST_BEGIN",
   LIST_END = "LIST_END",
+  ADD_MOVIE_DATA = "ADD_MOVIE_DATA",
 }
 
 export interface MovieListElement {
@@ -15,6 +18,7 @@ export interface MovieListAction {
   type: MovieListActionType;
   payload: {
     movieList?: MovieListElement[];
+    movieData?: {};
   };
 }
 
@@ -32,6 +36,13 @@ export const putRatingEnd = (): MovieListAction => {
   };
 };
 
+export const listMoviesBegin = (): MovieListAction => {
+  return {
+    type: MovieListActionType.LIST_BEGIN,
+    payload: {},
+  };
+};
+
 export const listMoviesEnd = (payload: any): MovieListAction => {
   return {
     type: MovieListActionType.LIST_END,
@@ -41,15 +52,54 @@ export const listMoviesEnd = (payload: any): MovieListAction => {
   };
 };
 
+const addMovieDataAction = (payload: any): MovieListAction => {
+  return {
+    type: MovieListActionType.ADD_MOVIE_DATA,
+    payload: {
+      movieData: payload,
+    },
+  };
+};
+
 export const listMovies = (email: string) => {
   return (dispatch: Dispatch) => {
-    // Begin/end actions can be added based on UI need
+    dispatch(listMoviesBegin());
 
     return fetch("/users/" + email + "/movie-list")
-      .then((response) => response.json())
-      .then((json) => dispatch(listMoviesEnd(json)))
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error occurred, status: " + response.status);
+        }
+      })
+      .then((json: MovieListElement[]) => {
+        dispatch(listMoviesEnd(json));
+        json.forEach((movie) => {
+          fetchAndAddMovieData(movie.tmdb_id, dispatch);
+        });
+      })
       .catch((error) => console.log("An error occurred.", error));
   };
+};
+
+const fetchAndAddMovieData = (tmdb_id: number, dispatch: Dispatch) => {
+  fetch(
+    "https://api.themoviedb.org/3/movie/" +
+      tmdb_id +
+      "?api_key=" +
+      apiKey +
+      "&language=en-US"
+  )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error("Error occurred, status: " + response.status);
+      }
+    })
+    .then((json) => dispatch(addMovieDataAction(json)))
+    .catch((error) => console.log("An error occurred.", error));
 };
 
 export const putRating = (email: string, tmdb_id: number, rating: number) => {

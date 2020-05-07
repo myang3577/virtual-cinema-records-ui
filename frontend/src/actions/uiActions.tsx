@@ -1,5 +1,3 @@
-import { Dispatch } from "redux";
-
 export enum UIType {
   LOGIN_MODAL = "LOGIN_MODAL",
   LOGOUT_MODAL = "LOGOUT_MODAL",
@@ -13,7 +11,7 @@ export interface UI {
 }
 
 export const accountLoginModal = (isLoggedIn: boolean): UI => {
-  if(isLoggedIn) {
+  if (isLoggedIn) {
     return {
       type: UIType.LOGOUT_MODAL,
     };
@@ -24,7 +22,7 @@ export const accountLoginModal = (isLoggedIn: boolean): UI => {
 };
 
 export const accountLogoutModal = (isLoggedIn: boolean): UI => {
-  if(isLoggedIn) {
+  if (isLoggedIn) {
     return {
       type: UIType.LOGOUT_MODAL,
     };
@@ -53,7 +51,7 @@ export const accountCloseModal = (): UI => {
 };
 
 export const accountToggleModal = (isLoggedIn: boolean): UI => {
-  if(isLoggedIn) {
+  if (isLoggedIn) {
     return {
       type: UIType.CLOSE_MODAL,
     };
@@ -62,4 +60,4 @@ export const accountToggleModal = (isLoggedIn: boolean): UI => {
   return {
     type: UIType.OPEN_MODAL,
   };
-}
+};
