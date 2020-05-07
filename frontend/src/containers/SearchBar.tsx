@@ -51,6 +51,9 @@ function SearchBar() {
           dispatch(searchMovies(movieQuery));
         }
       }}
+      style={{
+        marginBottom: "5px",
+      }}
     />
   );
 }

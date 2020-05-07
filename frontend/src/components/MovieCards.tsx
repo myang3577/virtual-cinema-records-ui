@@ -30,7 +30,7 @@ function MovieCards(props: MovieCardProps) {
   );
 
   return (
-    <Card>
+    <Card elevation={3} style={{ margin: "5px" }}>
       <CardHeader
         titleTypographyProps={{ variant: "body2" }}
         title={cardTitle()}

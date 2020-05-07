@@ -65,7 +65,7 @@ function MyMovies() {
     <div className="page-container">
       <Typography variant="h4" gutterBottom>
         MyMovies
-        <IconButton onClick={() => dispatch(listMovies(username))}>
+        <IconButton onClick={() => dispatch(listMovies(username))} size="small">
           <RefreshIcon />
         </IconButton>
       </Typography>
@@ -91,6 +91,9 @@ function MyMovies() {
           if (e.keyCode === ENTER_KEYCODE) {
             handleSubmit();
           }
+        }}
+        style={{
+          marginBottom: "5px",
         }}
       />
 

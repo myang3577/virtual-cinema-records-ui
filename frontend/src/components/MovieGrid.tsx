@@ -11,12 +11,12 @@ interface MovieGridProps {
 
 function MovieGrid(props: MovieGridProps) {
   const gridItemStyle = {
-    height: "500px",
+    height: "auto",
   };
 
   const gridStyle = {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
   };
 
   return (
