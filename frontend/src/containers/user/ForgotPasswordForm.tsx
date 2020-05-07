@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { forgotPassword } from "../actions/loginActions";
-import { GlobalState } from "../reducers/rootReducer";
-import { UsernameField } from "../components/Username";
-import { LoadingButton } from "../components/LoadingButton";
+import { forgotPassword } from "../../actions/loginActions";
+import { GlobalState } from "../../reducers/rootReducer";
+import { UsernameField } from "../../components/Username";
+import { LoadingButton } from "../../components/LoadingButton";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line

@@ -13,14 +13,14 @@ import {
 import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
+import { GlobalState } from "../../reducers/rootReducer";
 import {
   toggleAccountDrawer,
   openAccountModal,
   setAccountModalContent,
   AccountModalContent,
-} from "../actions/uiActions";
-import VCRSmallLogo from "../images/VCRIconOnly.png";
+} from "../../actions/uiActions";
+import VCRSmallLogo from "../../images/VCRIconOnly.png";
 
 const useStyles = makeStyles({
   list: {

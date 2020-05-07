@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { checkLogin } from "../actions/loginActions";
-import { UsernameField } from "../components/Username";
-import { PasswordField } from "../components/Password";
-import { LoadingButton } from "../components/LoadingButton";
-import { GlobalState } from "../reducers/rootReducer";
+import { checkLogin } from "../../actions/loginActions";
+import { UsernameField } from "../../components/Username";
+import { PasswordField } from "../../components/Password";
+import { LoadingButton } from "../../components/LoadingButton";
+import { GlobalState } from "../../reducers/rootReducer";
 import { Link } from "@material-ui/core";
 import {
   AccountModalContent,
   setAccountModalContent,
   openAccountModal,
-} from "../actions/uiActions";
+} from "../../actions/uiActions";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line

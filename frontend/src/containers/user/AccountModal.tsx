@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
+import { GlobalState } from "../../reducers/rootReducer";
 import {
   IconButton,
   Dialog,
@@ -8,16 +8,16 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import "../styles/App.css";
+import "../../styles/App.css";
 import {
   closeAccountModal,
   AccountModalContent,
   setAccountModalContent,
-} from "../actions/uiActions";
+} from "../../actions/uiActions";
 import LoginForm from "./LoginForm";
 import LogoutForm from "./LogoutForm";
 import RegisterForm from "./RegisterForm";
-import VCRSmallLogo from "../images/VCRIconOnly.png";
+import VCRSmallLogo from "../../images/VCRIconOnly.png";
 
 function AccountModal() {
   const isLoggedIn = useSelector<GlobalState, boolean>(

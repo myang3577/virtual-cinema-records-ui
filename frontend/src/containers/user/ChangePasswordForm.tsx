@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changePassword } from "../actions/loginActions";
-import { GlobalState } from "../reducers/rootReducer";
-import { PasswordField } from "../components/Password";
-import { LoadingButton } from "../components/LoadingButton";
+import { changePassword } from "../../actions/loginActions";
+import { GlobalState } from "../../reducers/rootReducer";
+import { PasswordField } from "../../components/Password";
+import { LoadingButton } from "../../components/LoadingButton";
 
 function ChangePassword() {
   const [localPassword, setLocalPassword] = useState("");

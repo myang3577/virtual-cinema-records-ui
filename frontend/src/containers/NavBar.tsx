@@ -14,10 +14,10 @@ import {
   setAccountModalContent,
   AccountModalContent,
 } from "../actions/uiActions";
-import { routes } from "./App";
+import { routes } from "./pages/App";
 import VCRBigLogo from "../images/VCRBigLogo.png";
-import AccountDrawer from "./AccountDrawer";
-import AccountModal from "./AccountModal";
+import AccountDrawer from "./user/AccountDrawer";
+import AccountModal from "./user/AccountModal";
 
 function NavBar() {
   const dispatch = useDispatch();

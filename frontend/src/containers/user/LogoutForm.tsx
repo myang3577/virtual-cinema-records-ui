@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../actions/loginActions";
-import { LoadingButton } from "../components/LoadingButton";
+import { logout } from "../../actions/loginActions";
+import { LoadingButton } from "../../components/LoadingButton";
 import {
   closeAccountModal,
   setAccountModalContent,
   AccountModalContent,
-} from "../actions/uiActions";
+} from "../../actions/uiActions";
 
 function LoginForm() {
   const dispatch = useDispatch();

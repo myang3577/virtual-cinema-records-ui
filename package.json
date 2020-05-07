@@ -1,7 +1,7 @@
 {
-  "name": "cao",
+  "name": "vcr",
   "version": "1.0.0",
-  "description": "cinema assistant online",
+  "description": "virtual cinema records",
   "main": "backend/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
