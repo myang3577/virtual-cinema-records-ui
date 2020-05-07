@@ -5,11 +5,11 @@ export const apiKey = "5e38014a47f9412c29d0ca4667091633";
 
 /**
  * Define your own enumerator called ActionType with two possible
- * values. Either FETCH_BEGIN or FETCH_END
+ * values.
  */
-export enum ActionType {
-  FETCH_BEGIN = "FETCH_BEGIN",
-  FETCH_END = "FETCH_END",
+export enum TMDBActionType {
+  SEARCH_MOVIES_BEGIN = "SEARCH_MOVIES_BEGIN",
+  SEARCH_MOVIES_END = "SEARCH_MOVIES_END",
 }
 
 /**
@@ -23,8 +23,8 @@ export enum ActionType {
  *
  * Actions MUST have a type. Everything else is up to you
  */
-export interface Action {
-  type: ActionType;
+export interface TMDBAction {
+  type: TMDBActionType;
   payload: {};
 }
 
@@ -37,9 +37,9 @@ export interface Action {
  * default parameters. Ie. type is ActionType.FETCH_BEGIN and the payload is an
  * empty object
  */
-export const fetchDataBegin = (): Action => {
+export const searchMoviesBegin = (): TMDBAction => {
   return {
-    type: ActionType.FETCH_BEGIN,
+    type: TMDBActionType.SEARCH_MOVIES_BEGIN,
     payload: {},
   };
 };
@@ -56,9 +56,9 @@ export const fetchDataBegin = (): Action => {
  *
  * @param payload
  */
-export const fetchDataEnd = (payload: {}): Action => {
+export const searchMoviesEnd = (payload: {}): TMDBAction => {
   return {
-    type: ActionType.FETCH_END,
+    type: TMDBActionType.SEARCH_MOVIES_END,
     payload: payload,
   };
 };
@@ -83,7 +83,7 @@ export const fetchDataEnd = (payload: {}): Action => {
  */
 export const searchMovies = (query: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(fetchDataBegin());
+    dispatch(searchMoviesBegin());
     return fetch(
       "https://api.themoviedb.org/3/search/movie?api_key=" +
         apiKey +
@@ -91,7 +91,7 @@ export const searchMovies = (query: string) => {
         query
     )
       .then((response) => response.json())
-      .then((json) => dispatch(fetchDataEnd(json)))
+      .then((json) => dispatch(searchMoviesEnd(json)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };

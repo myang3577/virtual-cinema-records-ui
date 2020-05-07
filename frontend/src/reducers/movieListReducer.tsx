@@ -1,4 +1,4 @@
-import { LoadingState } from "./otherReducer";
+import { LoadingState } from "./tmdbReducer";
 import {
   MovieListActionType,
   MovieListAction,

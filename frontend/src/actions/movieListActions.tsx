@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { apiKey } from "./actions";
+import { apiKey } from "./tmdbActions";
 
 export enum MovieListActionType {
   PUT_BEGIN = "PUT_BEGIN",

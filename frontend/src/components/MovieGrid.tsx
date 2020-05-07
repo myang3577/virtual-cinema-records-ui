@@ -2,7 +2,7 @@ import React from "react";
 import { GridList, GridListTile } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import MovieCards from "./MovieCards";
-import { LoadingState } from "../reducers/otherReducer";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 interface MovieGridProps {
   movieList: [];

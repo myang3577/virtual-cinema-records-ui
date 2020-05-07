@@ -1,4 +1,4 @@
-import { Action, ActionType } from "../actions/actions";
+import { TMDBAction, TMDBActionType } from "../actions/tmdbActions";
 
 // Defines the possible loading states
 export enum LoadingState {
@@ -15,9 +15,7 @@ export enum LoadingState {
  * There is another variable called movieSearchResult
  * that is of type object. {} means object type
  */
-// Need to change name from OtherState to something else if we decide to use
-// this code, could be used for search in future
-export interface OtherState {
+export interface TMDBState {
   loading: LoadingState;
   movieSearchResult: {};
 }
@@ -40,14 +38,10 @@ export interface OtherState {
  * but only if you are a reducer with the set attribute can you modify the
  * state.
  */
-const initialState: OtherState = {
+const initialState: TMDBState = {
   loading: LoadingState.IDLE,
   movieSearchResult: {},
 };
-
-// const initialState2: InitialState = {
-//   loading: LoadingState.IDLE,
-// };
 
 /**
  * Define the other reducer. Takes 2 parameters state and action.
@@ -65,21 +59,21 @@ const initialState: OtherState = {
  *
  * @param action the action we want to perform on the states in the store
  */
-export const otherReducer = (
+export const tmdbReducer = (
   state = initialState,
-  action: Action
-): OtherState => {
+  action: TMDBAction
+): TMDBState => {
   // Check the action type and choose the appropriate action. Within each action
   // you set the states you want to set
   switch (action.type) {
-    case ActionType.FETCH_BEGIN:
+    case TMDBActionType.SEARCH_MOVIES_BEGIN:
       // Function calling because sometimes the cases get a bit long.
       // In this case you are just passing on the state and action for the
       // fetch reducer to do the state setting.
       // Reducers always return back the state. The action of returning back the
       // state is what actually sets the state within the store
       return fetchBeginReducer(state, action);
-    case ActionType.FETCH_END:
+    case TMDBActionType.SEARCH_MOVIES_END:
       // Another example of setting state. In this case it sets the
       // movieSearchResult and the loading state. Note that states are
       // overrided. That's what it means to set them
@@ -95,7 +89,7 @@ export const otherReducer = (
   }
 };
 
-const fetchBeginReducer = (state: OtherState, action: Action) => {
+const fetchBeginReducer = (state: TMDBState, action: TMDBAction) => {
   // Reducers always return back the state. The action of returning back the
   // state is what actually sets the state within the store
   return {
@@ -104,4 +98,4 @@ const fetchBeginReducer = (state: OtherState, action: Action) => {
   };
 };
 
-export default otherReducer;
+export default tmdbReducer;

@@ -12,7 +12,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { ENTER_KEYCODE } from "./SearchBar";
-import { LoadingState } from "../reducers/otherReducer";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 function MyMovies() {
   const dispatch = useDispatch();

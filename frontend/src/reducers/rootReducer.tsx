@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import { otherReducer, OtherState } from "./otherReducer";
+import { tmdbReducer, TMDBState } from "./tmdbReducer";
 import { loginReducer, LoginState } from "./loginReducer";
 import { movieListReducer, MovieListState } from "./movieListReducer";
 import { userInfoReducer, UserInfoState } from "./userReducer";
 import { uiReducer, UIState } from "./uiReducer";
 
 export interface GlobalState {
-  otherData: OtherState;
+  tmdbData: TMDBState;
   loginData: LoginState;
   movieListData: MovieListState;
   userInfo: UserInfoState;
@@ -18,7 +18,7 @@ export interface GlobalState {
 // separate them. This also means never write the exact same case for two
 // reducers because the behavior will be unexpected
 const rootReducer = combineReducers<GlobalState>({
-  otherData: otherReducer,
+  tmdbData: tmdbReducer,
   loginData: loginReducer,
   movieListData: movieListReducer,
   userInfo: userInfoReducer,

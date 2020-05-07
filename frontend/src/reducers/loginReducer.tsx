@@ -1,5 +1,5 @@
 import { Login, LoginType } from "../actions/loginActions";
-import { LoadingState } from "./otherReducer";
+import { LoadingState } from "./tmdbReducer";
 
 export interface LoginState {
   loading: LoadingState;
@@ -9,13 +9,12 @@ export interface LoginState {
   passwordRecoverFeedback: String;
   isLoggedIn: boolean;
   username: string;
-  password: string;
   // add additional attributes here.
   // These attributes can come from the payload or another
   // separate variable from the action
 }
 
-const initialState2: LoginState = {
+const initialState: LoginState = {
   loading: LoadingState.IDLE,
   loginFeedback: "",
   createAcctFeedback: "",
@@ -23,11 +22,10 @@ const initialState2: LoginState = {
   passwordRecoverFeedback: "",
   isLoggedIn: false,
   username: "",
-  password: "",
 };
 
 export const loginReducer = (
-  state = initialState2,
+  state = initialState,
   action: Login
 ): LoginState => {
   switch (action.type) {
@@ -47,12 +45,10 @@ export const loginReducer = (
         loading: LoadingState.DONE,
         loginFeedback: action.payload.requestFeedback,
         username: "",
-        password: "",
       };
 
       if (statesToSet.isLoggedIn) {
         statesToSet.username = action.username;
-        statesToSet.password = action.password;
       }
 
       return statesToSet;
@@ -67,7 +63,6 @@ export const loginReducer = (
         ...state,
         loading: LoadingState.DONE,
         passwordChangeFeedback: action.payload.requestFeedback,
-        password: action.password,
       };
     case LoginType.RESET_PASSWORD_END:
       return {
@@ -81,7 +76,6 @@ export const loginReducer = (
         loading: LoadingState.DONE,
         isLoggedIn: action.payload.isLoggedIn,
         username: "",
-        password: "",
       };
 
     default:

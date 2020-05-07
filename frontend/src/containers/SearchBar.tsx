@@ -8,8 +8,8 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { searchMovies } from "../actions/actions";
-import { LoadingState } from "../reducers/otherReducer";
+import { searchMovies } from "../actions/tmdbActions";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 export const ENTER_KEYCODE = 13;
 
@@ -18,7 +18,7 @@ function SearchBar() {
   const [movieQuery, setMovieQuery] = useState("");
 
   const loading: LoadingState = useSelector<GlobalState>(
-    (state) => state.otherData.loading
+    (state) => state.tmdbData.loading
   ) as LoadingState;
 
   return (

@@ -6,7 +6,7 @@ import { getUserInfo, setPreferencesFlag } from "../actions/userInfoActions";
 
 function About() {
   const movieSearchResult: any = useSelector<GlobalState>(
-    (state) => state.otherData.movieSearchResult
+    (state) => state.tmdbData.movieSearchResult
   );
 
   const userData: any = useSelector<GlobalState>((state) => state.userInfo);
