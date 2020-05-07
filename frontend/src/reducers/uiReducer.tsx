@@ -1,50 +1,40 @@
-import { UI, UIType } from "../actions/uiActions";
-
-export enum AccountModalType {
-  LOGIN = "LOGIN",
-  LOGOUT = "LOGOUT",
-  REGISTER = "REGISTER",
-}
+import {
+  UIAction,
+  UIActionType,
+  AccountModalContent,
+  UISetModalContentAction,
+} from "../actions/uiActions";
 
 export interface UIState {
   accountModalOpen: boolean;
-  accountModalType: AccountModalType;
-  // add additional attributes here.
-  // These attributes can come from the payload or another
-  // separate variable from the action
+  accountModalContent: AccountModalContent;
 }
 
 const initialState: UIState = {
   accountModalOpen: false,
-  accountModalType: AccountModalType.LOGIN,
+  accountModalContent: AccountModalContent.LOGIN,
 };
 
-export const uiReducer = (state = initialState, action: UI): UIState => {
+export const uiReducer = (
+  state = initialState,
+  action: UIAction | UISetModalContentAction
+): UIState => {
   switch (action.type) {
-    case UIType.LOGIN_MODAL:
-      return {
-        ...state,
-        accountModalType: AccountModalType.LOGIN,
-      };
-    case UIType.LOGOUT_MODAL:
-      return {
-        ...state,
-        accountModalType: AccountModalType.LOGOUT,
-      };
-    case UIType.REGISTER_MODAL:
-      return {
-        ...state,
-        accountModalType: AccountModalType.REGISTER,
-      };
-    case UIType.OPEN_MODAL:
+    case UIActionType.OPEN_ACCOUNT_MODAL:
       return {
         ...state,
         accountModalOpen: true,
       };
-    case UIType.CLOSE_MODAL:
+    case UIActionType.CLOSE_ACCOUNT_MODAL:
       return {
         ...state,
         accountModalOpen: false,
+      };
+    case UIActionType.SET_ACCOUNT_MODAL_CONTENT:
+      return {
+        ...state,
+        accountModalContent: (action as UISetModalContentAction).payload
+          .modalContent,
       };
     default:
       return state;

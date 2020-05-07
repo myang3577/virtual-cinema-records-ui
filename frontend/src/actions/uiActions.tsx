@@ -1,63 +1,45 @@
-export enum UIType {
-  LOGIN_MODAL = "LOGIN_MODAL",
-  LOGOUT_MODAL = "LOGOUT_MODAL",
-  REGISTER_MODAL = "REGISTER_MODAL",
-  OPEN_MODAL = "OPEN_MODAL",
-  CLOSE_MODAL = "CLOSE_MODAL",
+export enum UIActionType {
+  OPEN_ACCOUNT_MODAL = "OPEN_MODAL",
+  CLOSE_ACCOUNT_MODAL = "CLOSE_MODAL",
+  SET_ACCOUNT_MODAL_CONTENT = "SET_ACCOUNT_MODAL_CONTENT",
 }
 
-export interface UI {
-  type: UIType;
+export interface UIAction {
+  type: UIActionType;
 }
 
-export const accountLoginModal = (isLoggedIn: boolean): UI => {
-  if (isLoggedIn) {
-    return {
-      type: UIType.LOGOUT_MODAL,
-    };
-  }
+export interface UISetModalContentAction {
+  type: UIActionType;
+  payload: {
+    modalContent: AccountModalContent;
+  };
+}
+
+export enum AccountModalContent {
+  LOGIN = "LOGIN",
+  LOGOUT = "LOGOUT",
+  REGISTER = "REGISTER",
+}
+
+export const setAccountModalContent = (
+  modalContent: AccountModalContent
+): UISetModalContentAction => {
   return {
-    type: UIType.LOGIN_MODAL,
+    type: UIActionType.SET_ACCOUNT_MODAL_CONTENT,
+    payload: {
+      modalContent,
+    },
   };
 };
 
-export const accountLogoutModal = (isLoggedIn: boolean): UI => {
-  if (isLoggedIn) {
-    return {
-      type: UIType.LOGOUT_MODAL,
-    };
-  }
+export const openAccountModal = (): UIAction => {
   return {
-    type: UIType.LOGIN_MODAL,
+    type: UIActionType.OPEN_ACCOUNT_MODAL,
   };
 };
 
-export const accountRegisterModal = (): UI => {
+export const closeAccountModal = (): UIAction => {
   return {
-    type: UIType.REGISTER_MODAL,
-  };
-};
-
-export const accountOpenModal = (): UI => {
-  return {
-    type: UIType.OPEN_MODAL,
-  };
-};
-
-export const accountCloseModal = (): UI => {
-  return {
-    type: UIType.CLOSE_MODAL,
-  };
-};
-
-export const accountToggleModal = (isLoggedIn: boolean): UI => {
-  if (isLoggedIn) {
-    return {
-      type: UIType.CLOSE_MODAL,
-    };
-  }
-
-  return {
-    type: UIType.OPEN_MODAL,
+    type: UIActionType.CLOSE_ACCOUNT_MODAL,
   };
 };

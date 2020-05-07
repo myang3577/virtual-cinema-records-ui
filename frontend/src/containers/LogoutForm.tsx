@@ -2,15 +2,19 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../actions/loginActions";
 import { LoadingButton } from "../components/LoadingButton";
-import { accountLoginModal, accountCloseModal } from "../actions/uiActions";
+import {
+  closeAccountModal,
+  setAccountModalContent,
+  AccountModalContent,
+} from "../actions/uiActions";
 
 function LoginForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
     dispatch(logout());
-    dispatch(accountCloseModal());
-    dispatch(accountLoginModal(false));
+    dispatch(closeAccountModal());
+    dispatch(setAccountModalContent(AccountModalContent.LOGIN));
   };
 
   return (

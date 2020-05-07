@@ -6,7 +6,11 @@ import { PasswordField } from "../components/Password";
 import { LoadingButton } from "../components/LoadingButton";
 import { GlobalState } from "../reducers/rootReducer";
 import { Link } from "@material-ui/core";
-import { accountRegisterModal } from "../actions/uiActions";
+import {
+  AccountModalContent,
+  setAccountModalContent,
+  openAccountModal,
+} from "../actions/uiActions";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line
@@ -36,7 +40,8 @@ function LoginForm() {
   };
 
   const openRegister = () => {
-    dispatch(accountRegisterModal());
+    dispatch(openAccountModal());
+    dispatch(setAccountModalContent(AccountModalContent.REGISTER));
   };
 
   return (
@@ -64,7 +69,9 @@ function LoginForm() {
       {feedback}
       <br />
       <div className="account-link">
-        <Link onClick={openRegister}>Not a member? Register</Link>
+        <Link onClick={openRegister} className="text-link">
+          Not a member? Register
+        </Link>
       </div>
     </div>
   );
