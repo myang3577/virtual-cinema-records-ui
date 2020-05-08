@@ -10,8 +10,7 @@ import { RatingButtons, RatingType } from "../containers/RatingButtons";
 import { Add, Delete } from "@material-ui/icons";
 import { PageType } from "../containers/pages/Constants";
 import { useDispatch, useSelector } from "react-redux";
-import { openAccountModal, toggleDetailDrawer } from "../actions/uiActions";
-import MovieDescription from "../containers/MovieDescription";
+import { toggleDetailDrawer } from "../actions/uiActions";
 import { GlobalState } from "../reducers/rootReducer";
 
 export interface MovieCardProps {

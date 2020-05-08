@@ -17,6 +17,12 @@ export const tealLightGreenTheme = createMuiTheme({
         "&:hover": {
           color: teal[400],
         },
+        // height: "20%",
+      },
+    },
+    MuiPaper: {
+      root: {
+        // height: "20%",
       },
     },
   },
