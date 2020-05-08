@@ -3,10 +3,13 @@ import { GridList, GridListTile } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import MovieCards from "./MovieCards";
 import { LoadingState } from "../reducers/tmdbReducer";
+import { PageType } from "../containers/pages/Constants";
 
 interface MovieGridProps {
-  movieList: [];
+  displayMovieList: [];
+  userMyMoviesList: [];
   loading: LoadingState;
+  page: PageType;
 }
 
 function MovieGrid(props: MovieGridProps) {
@@ -19,13 +22,20 @@ function MovieGrid(props: MovieGridProps) {
     justifyContent: "flex-start",
   };
 
+  const movieInUserList = (movie: any): boolean =>
+    props.userMyMoviesList.some((e: any) => movie.id === e.id);
+
   return (
     <div className="movie-grid">
       <GridList cols={6} style={gridStyle}>
-        {props.loading !== LoadingState.LOADING && props.movieList
-          ? props.movieList.map((e: any, i: number) => (
+        {props.loading !== LoadingState.LOADING && props.displayMovieList
+          ? props.displayMovieList.map((e: any, i: number) => (
               <GridListTile key={i} cols={1} style={gridItemStyle}>
-                <MovieCards movie={e} />
+                <MovieCards
+                  movie={e}
+                  inUserList={movieInUserList(e)}
+                  page={props.page}
+                />
               </GridListTile>
             ))
           : [...Array(18).keys()].map((e, i) => (

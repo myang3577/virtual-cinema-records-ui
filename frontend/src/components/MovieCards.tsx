@@ -1,13 +1,19 @@
 import React from "react";
-import { Card, CardHeader, CardMedia, CardContent } from "@material-ui/core";
-import { RatingButtons, RatingType } from "./RatingButtons";
-import { useSelector } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
-import { PageType } from "../actions/uiActions";
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  IconButton,
+} from "@material-ui/core";
+import { RatingButtons, RatingType } from "../containers/RatingButtons";
+import { Add, Delete } from "@material-ui/icons";
+import { PageType } from "../containers/pages/Constants";
 
-// Material UI coode will be copy pasted in here and customized
 export interface MovieCardProps {
   movie: any;
+  inUserList: boolean;
+  page: PageType;
 }
 
 function MovieCards(props: MovieCardProps) {
@@ -26,35 +32,22 @@ function MovieCards(props: MovieCardProps) {
     return title;
   };
 
-  const username: any = useSelector<GlobalState>(
-    (state) => state.loginData.username
-  );
-
-  const currentPageType: any = useSelector<GlobalState>(
-    (state) => state.uiData.currentPage
-  );
-
-  const ratingButtons = () => {
-    if (currentPageType == PageType.HOME) {
-      return;
-    } else {
-      return (
-        <RatingButtons
-          username={username}
-          movie_id={props.movie.id}
-          rating={RatingType.TWO}
-        />
-      );
-    }
-  };
-
   return (
     <Card elevation={3} style={{ margin: "5px" }}>
       <CardHeader
-        titleTypographyProps={{ variant: "body2" }}
+        titleTypographyProps={{ variant: "subtitle1" }}
         title={cardTitle()}
+        action={
+          <IconButton size="medium">
+            {props.inUserList ? <Delete /> : <Add />}
+          </IconButton>
+        }
       />
-      <CardContent>{ratingButtons()}</CardContent>
+      <CardContent>
+        {props.page === PageType.MY_MOVIES && (
+          <RatingButtons movie_id={props.movie.id} rating={RatingType.TWO} />
+        )}
+      </CardContent>
       <CardMedia
         component="img"
         image={

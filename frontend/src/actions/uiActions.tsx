@@ -18,19 +18,6 @@ export interface UISetModalContentAction {
   };
 }
 
-export interface UISetPageAction {
-  type: UIActionType;
-  payload: {
-    pageType: PageType;
-  };
-}
-
-export enum PageType {
-  HOME = "HOME",
-  RECS = "RECS",
-  MYMOVIES = "MYMOVIES",
-}
-
 export enum AccountModalContent {
   LOGIN = "LOGIN",
   LOGOUT = "LOGOUT",
@@ -69,14 +56,5 @@ export const toggleAccountDrawer = (open: boolean): UIAction => {
   }
   return {
     type: UIActionType.CLOSE_ACCOUNT_DRAWER,
-  };
-};
-
-export const setPageType = (pageType: PageType): UISetPageAction => {
-  return {
-    type: UIActionType.SET_CURRENT_PAGE,
-    payload: {
-      pageType,
-    },
   };
 };

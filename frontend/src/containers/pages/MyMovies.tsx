@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import MovieGrid from "../components/MovieGrid";
+import MovieGrid from "../../components/MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { listMovies } from "../actions/movieListActions";
-import { GlobalState } from "../reducers/rootReducer";
+import { listMovies } from "../../actions/movieListActions";
+import { GlobalState } from "../../reducers/rootReducer";
 import {
   Typography,
   TextField,
@@ -11,13 +11,17 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { ENTER_KEYCODE } from "./SearchBar";
-import { LoadingState } from "../reducers/tmdbReducer";
+import { ENTER_KEYCODE } from "../SearchBar";
+import { LoadingState } from "../../reducers/tmdbReducer";
+import { PageType } from "./Constants";
 
 function MyMovies() {
   const dispatch = useDispatch();
   const username = useSelector<GlobalState, string>(
     (state) => state.loginData.username
+  );
+  const isLoggedIn = useSelector<GlobalState, boolean>(
+    (state) => state.loginData.isLoggedIn
   );
   const movieListData = useSelector<GlobalState, []>(
     (state) => state.movieListData.movieListData
@@ -30,8 +34,8 @@ function MyMovies() {
   const [filterMovieList, setFilterMovieList]: any = useState([]);
 
   useEffect(() => {
-    dispatch(listMovies(username));
-  }, [dispatch, username]);
+    if (isLoggedIn && username !== "") dispatch(listMovies(username));
+  }, [dispatch, username, isLoggedIn]);
 
   useEffect(() => {
     setFilterMovieList(movieListData);
@@ -97,7 +101,12 @@ function MyMovies() {
         }}
       />
 
-      <MovieGrid movieList={filterMovieList} loading={movieListLoading} />
+      <MovieGrid
+        displayMovieList={filterMovieList}
+        loading={movieListLoading}
+        userMyMoviesList={movieListData}
+        page={PageType.MY_MOVIES}
+      />
     </div>
   );
 }

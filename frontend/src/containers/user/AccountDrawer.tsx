@@ -8,8 +8,6 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
-  Tab,
-  Icon,
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -68,7 +66,7 @@ function AccountDrawer() {
       } else {
         dispatch(setAccountModalContent(AccountModalContent.LOGIN));
       }
-    } else if (index == 1) {
+    } else if (index === 1) {
       if (isLoggedIn) {
         dispatch(setAccountModalContent(AccountModalContent.LOGOUT));
       } else {
@@ -103,7 +101,7 @@ function AccountDrawer() {
   );
 
   useEffect(() => {
-    setButtonOptions(isLoggedIn);
+    setButtonOptions(isLoggedIn); // eslint-disable-next-line
   }, [isLoggedIn]);
 
   const list = (anchor: string) => (
@@ -135,7 +133,7 @@ function AccountDrawer() {
       </List>
       <Divider />
       <div id="account-drawer-pic">
-        <img src={VCRSmallLogo} height="70px" />
+        <img src={VCRSmallLogo} height="70px" alt="VCR logo" />
       </div>
     </div>
   );

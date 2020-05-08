@@ -4,7 +4,7 @@ import { CssBaseline } from "@material-ui/core";
 import Home from "./Home";
 import About from "./About";
 import Recommendations from "./Recommendations";
-import MyMovies from "../MyMovies";
+import MyMovies from "./MyMovies";
 import Navbar from "../NavBar";
 
 export const routes = {

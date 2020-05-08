@@ -14,7 +14,6 @@ export enum RatingType {
 }
 
 export interface RatingButtonsProps {
-  username: any;
   movie_id: any;
   rating: any;
 }

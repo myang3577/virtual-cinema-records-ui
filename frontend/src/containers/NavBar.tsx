@@ -8,12 +8,7 @@ import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import PersonIcon from "@material-ui/icons/Person";
 import "../styles/App.css";
-import {
-  openAccountModal,
-  toggleAccountDrawer,
-  setAccountModalContent,
-  AccountModalContent,
-} from "../actions/uiActions";
+import { toggleAccountDrawer } from "../actions/uiActions";
 import { routes } from "./pages/App";
 import VCRBigLogo from "../images/VCRBigLogo.png";
 import AccountDrawer from "./user/AccountDrawer";
@@ -71,7 +66,11 @@ function NavBar() {
           component={RouterLink}
           to={routes.recsLink}
         />
-        <img src={VCRBigLogo} id="navbar-img" alt="VCR logo" />
+        <Tab
+          icon={<img src={VCRBigLogo} id="navbar-img" alt="VCR logo" />}
+          component={RouterLink}
+          to={routes.homeLink}
+        />
         <Tab
           icon={<TheatersIcon />}
           label={<span className="navbar-label">MyMovies</span>}

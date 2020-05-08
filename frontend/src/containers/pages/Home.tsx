@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../../reducers/rootReducer";
 import MovieGrid from "../../components/MovieGrid";
 import { Typography } from "@material-ui/core";
 import SearchBar from "../SearchBar";
 import { LoadingState } from "../../reducers/tmdbReducer";
-import { setPageType, PageType } from "../../actions/uiActions";
+import { listMovies } from "../../actions/movieListActions";
+import { PageType } from "./Constants";
 
 function Home() {
-  const movieSearchResult: any = useSelector<GlobalState>(
+  const dispatch = useDispatch();
+  const movieSearchResult = useSelector<GlobalState, any>(
     (state) => state.tmdbData.movieSearchResult
   );
-
-  const movieDataLoading: any = useSelector<GlobalState, LoadingState>(
+  const userMyMoviesList = useSelector<GlobalState, []>(
+    (state) => state.movieListData.movieListData
+  );
+  const movieDataLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.tmdbData.loading
   );
+  const isLoggedIn = useSelector<GlobalState, boolean>(
+    (state) => state.loginData.isLoggedIn
+  );
+  const username = useSelector<GlobalState, string>(
+    (state) => state.loginData.username
+  );
 
-  const dispatch = useDispatch();
-
-  dispatch(setPageType(PageType.HOME));
+  useEffect(() => {
+    if (isLoggedIn && username !== "") dispatch(listMovies(username));
+  }, [dispatch, username, isLoggedIn]);
 
   return (
     <div className="page-container">
@@ -27,8 +37,10 @@ function Home() {
       </Typography>
       <SearchBar />
       <MovieGrid
-        movieList={movieSearchResult.results}
+        displayMovieList={movieSearchResult.results}
         loading={movieDataLoading}
+        userMyMoviesList={userMyMoviesList}
+        page={PageType.HOME}
       />
     </div>
   );

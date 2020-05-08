@@ -1,0 +1,5 @@
+export enum PageType {
+  HOME = "HOME",
+  RECOMMENDATIONS = "RECOMMENDATIONS",
+  MY_MOVIES = "MY_MOVIES",
+}
