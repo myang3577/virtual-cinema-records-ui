@@ -5,6 +5,7 @@ import {
   CardMedia,
   CardContent,
   IconButton,
+  CardActionArea,
 } from "@material-ui/core";
 import { RatingButtons, RatingType } from "../containers/RatingButtons";
 import { Add, Delete } from "@material-ui/icons";
@@ -72,15 +73,17 @@ function MovieCards(props: MovieCardProps) {
             <RatingButtons movie_id={props.movie.id} rating={RatingType.TWO} />
           )}
         </CardContent>
-        <CardMedia
-          component="img"
-          image={
-            props.movie.poster_path
-              ? baseUrl + props.movie.poster_path
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
-          }
-          style={{ height: "auto", width: "100%" }}
-        />
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            image={
+              props.movie.poster_path
+                ? baseUrl + props.movie.poster_path
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
+            }
+            style={{ height: "auto", width: "100%" }}
+          />
+        </CardActionArea>
       </Card>
     </div>
   );

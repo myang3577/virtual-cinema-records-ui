@@ -79,6 +79,7 @@ function MyMovies() {
         variant={"outlined"}
         value={movieFilter}
         fullWidth
+        disabled={!isLoggedIn || !movieListData}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

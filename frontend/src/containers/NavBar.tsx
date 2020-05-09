@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
-import { Tabs, Tab, Paper, Collapse } from "@material-ui/core";
+import { Tabs, Tab, Paper } from "@material-ui/core";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import PersonIcon from "@material-ui/icons/Person";
 import "../styles/App.css";
 import { toggleAccountDrawer } from "../actions/uiActions";
-import App, { routes } from "./pages/App";
+import { routes } from "./pages/App";
 import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
 import MovieDescription from "./MovieDescription";
-import { PlayCircleFilledWhite } from "@material-ui/icons";
+
+const IMG_TAB_VAL = 2;
+const LOGIN_TAB_VAL = 4;
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -77,8 +79,10 @@ function NavBar() {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
+  const onTabChange = (event: any, newValue: any) => {
+    if (newValue !== LOGIN_TAB_VAL)
+      if (newValue === IMG_TAB_VAL) setValue(0);
+      else setValue(newValue);
   };
 
   return (
@@ -89,7 +93,7 @@ function NavBar() {
         indicatorColor="primary"
         textColor="primary"
         variant="fullWidth"
-        onChange={handleChange}
+        onChange={onTabChange}
         centered
       >
         <Tab
@@ -113,7 +117,11 @@ function NavBar() {
         <Tab
           className={"navbar-img-tab"}
           icon={
-            <img src={VCRIconOnly} id={"navbar-small-img"} alt="VCR logo" />
+            <img
+              src={displayFullBar ? VCRBigLogo : VCRIconOnly}
+              id={displayFullBar ? "navbar-img" : "navbar-small-img"}
+              alt="VCR logo"
+            />
           }
           component={RouterLink}
           to={routes.homeLink}

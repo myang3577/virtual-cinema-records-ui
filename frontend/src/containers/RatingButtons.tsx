@@ -29,6 +29,7 @@ export function RatingButtons(props: RatingButtonsProps) {
 
   return (
     <Rating
+      name="rating-buttons"
       value={value}
       onChange={(event, newValue) => {
         if (newValue !== null) {

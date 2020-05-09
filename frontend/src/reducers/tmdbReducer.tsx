@@ -78,7 +78,6 @@ export const tmdbReducer = (
       // movieSearchResult and the loading state. Note that states are
       // overrided. That's what it means to set them
 
-      console.log(action.payload);
       return {
         ...state,
         movieSearchResult: action.payload,
