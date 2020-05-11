@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createAcct } from "../../actions/loginActions";
 import { UsernameField } from "../../components/Username";
@@ -10,6 +10,8 @@ import {
   AccountModalContent,
   setAccountModalContent,
   openAccountModal,
+  closeAccountModal,
+  openSnackBar,
 } from "../../actions/uiActions";
 
 // Email regex used to determine if the entered email address is valid
@@ -29,21 +31,28 @@ function LoginForm() {
 
   const handleSubmit = () => {
     if (localUsername === "" || localPassword === "") {
-      alert(
-        "Your username or password is empty. Please provide" +
-          " both a username and a password"
+      dispatch(
+        openSnackBar(
+          "Your username or password is empty. Please provide" +
+            " both a username and a password"
+        )
       );
     } else if (!EMAIL_FORMAT.test(String(localUsername).toLowerCase())) {
-      alert("Your username must be a valid email address");
+      dispatch(openSnackBar("Your username must be a valid email address"));
     } else if (localPassword !== localRepeatPassword) {
-      alert("Passwords do not match");
+      dispatch(openSnackBar("Passwords do not match"));
     } else {
       dispatch(createAcct(localUsername, localPassword, localRepeatPassword));
     }
   };
 
+  useEffect(() => {
+    if (feedback != "") {
+      dispatch(openSnackBar(feedback));
+    }
+  }, [dispatch, feedback]);
+
   const openLogin = () => {
-    dispatch(openAccountModal());
     dispatch(setAccountModalContent(AccountModalContent.LOGIN));
   };
 
@@ -82,7 +91,6 @@ function LoginForm() {
           Already a member? Login
         </Link>
       </div>
-      {feedback}
     </div>
   );
 }

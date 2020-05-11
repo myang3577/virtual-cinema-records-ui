@@ -1,6 +1,8 @@
 import { Dispatch } from "redux";
 import { clearMovieListData } from "./movieListActions";
 import { clearRecommendationData } from "./recommendationActions";
+import { closeAccountModal, openSnackBar } from "./uiActions";
+import { useDispatch } from "react-redux";
 
 export enum LoginType {
   LOGIN_BEGIN = "LOGIN_BEGIN",
@@ -136,6 +138,8 @@ export const checkLogin = (username: string, password: string) => {
       .then((response) => response.json())
       .then((json) => {
         dispatch(checkLoginEnd(json, username, password));
+        if (json.requestFeedback == "Welcome to VCR!")
+          dispatch(closeAccountModal());
       })
       .catch((err) => {
         alert(err);
@@ -169,6 +173,8 @@ export const createAcct = (
       .then((response) => response.json())
       .then((json) => {
         dispatch(createAcctEnd(json, username, password));
+        if (json.requestFeedback == "Account successfully created!")
+          dispatch(closeAccountModal());
       })
       .catch((err) => alert(err));
   };
@@ -206,6 +212,8 @@ export const changePassword = (
         // Save the new password only if successfully changed
         if (json.isPassChange) {
           password = newPassword;
+          dispatch(closeAccountModal());
+          dispatch(openSnackBar(json.requestFeedback));
         }
         dispatch(changePasswordEnd(json, username, password));
       })
@@ -233,6 +241,11 @@ export const forgotPassword = (username: string) => {
       .then((response) => response.json())
       .then((json) => {
         dispatch(forgotPasswordEnd(json));
+        if (
+          json.requestFeedback ==
+          "An email with your password has been sent. Please also check your spam folder"
+        )
+          dispatch(closeAccountModal());
       })
       .catch((err) => alert(err));
   };

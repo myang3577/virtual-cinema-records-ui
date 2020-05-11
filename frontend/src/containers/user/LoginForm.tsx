@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLogin } from "../../actions/loginActions";
 import { UsernameField } from "../../components/Username";
@@ -10,6 +10,7 @@ import {
   AccountModalContent,
   setAccountModalContent,
   openAccountModal,
+  openSnackBar,
 } from "../../actions/uiActions";
 
 // Email regex used to determine if the entered email address is valid
@@ -28,20 +29,31 @@ function LoginForm() {
 
   const handleSubmit = () => {
     if (localUsername === "" || localPassword === "") {
-      alert(
-        "Your username or password is empty. Please provide" +
-          " both a username and a password"
+      dispatch(
+        openSnackBar(
+          "Your username or password is empty. Please provide" +
+            " both a username and a password"
+        )
       );
     } else if (!EMAIL_FORMAT.test(String(localUsername).toLowerCase())) {
-      alert("Your username must be a valid email address");
+      dispatch(openSnackBar("Your username must be a valid email address"));
     } else {
       dispatch(checkLogin(localUsername, localPassword));
     }
   };
 
+  useEffect(() => {
+    if (feedback != "") {
+      dispatch(openSnackBar(feedback));
+    }
+  }, [dispatch, feedback]);
+
   const openRegister = () => {
-    dispatch(openAccountModal());
     dispatch(setAccountModalContent(AccountModalContent.REGISTER));
+  };
+
+  const openForgotPassword = () => {
+    dispatch(setAccountModalContent(AccountModalContent.FORGOT_PASSWORD));
   };
 
   return (
@@ -66,11 +78,16 @@ function LoginForm() {
       <LoadingButton onClick={handleSubmit} loading={false}>
         Login
       </LoadingButton>
-      {feedback}
       <br />
       <div className="account-link">
         <Link onClick={openRegister} className="text-link">
           Not a member? Register
+        </Link>
+      </div>
+      <br />
+      <div className="account-link">
+        <Link onClick={openForgotPassword} className="text-link">
+          Forgot password?
         </Link>
       </div>
     </div>

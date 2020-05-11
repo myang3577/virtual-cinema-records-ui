@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changePassword } from "../../actions/loginActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import { PasswordField } from "../../components/Password";
 import { LoadingButton } from "../../components/LoadingButton";
+import {
+  openSnackBar,
+  setAccountModalContent,
+  AccountModalContent,
+} from "../../actions/uiActions";
+import { Link } from "@material-ui/core";
 
 function ChangePassword() {
   const [localPassword, setLocalPassword] = useState("");
@@ -20,18 +26,28 @@ function ChangePassword() {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (feedback != "") {
+      dispatch(openSnackBar(feedback));
+    }
+  }, [dispatch, feedback]);
+
   const handleSubmit = () => {
     if (
       localPassword === "" ||
       newLocalPassword === "" ||
       newRepeatLocalPassword === ""
     ) {
-      alert(
-        "Your current password, new password, or confirm password is empty. Please provide" +
-          " both your current password, a new password, and a confirm password"
+      dispatch(
+        openSnackBar(
+          "Your current password, new password, or confirm password is empty. Please provide" +
+            " both your current password, a new password, and a confirm password"
+        )
       );
     } else if (newLocalPassword !== newRepeatLocalPassword) {
-      alert("Your new password does not match your confirm password");
+      dispatch(
+        openSnackBar("Your new password does not match your confirm password")
+      );
     } else {
       dispatch(
         changePassword(
@@ -42,6 +58,10 @@ function ChangePassword() {
         )
       );
     }
+  };
+
+  const openForgotPassword = () => {
+    dispatch(setAccountModalContent(AccountModalContent.FORGOT_PASSWORD));
   };
 
   return (
@@ -68,9 +88,13 @@ function ChangePassword() {
       />
       <div className="divider"></div>
       <LoadingButton onClick={handleSubmit} loading={false}>
-        Submit
+        Change Password
       </LoadingButton>
-      {feedback}
+      <div className="account-link">
+        <Link onClick={openForgotPassword} className="text-link">
+          Forgot password?
+        </Link>
+      </div>
     </div>
   );
 }

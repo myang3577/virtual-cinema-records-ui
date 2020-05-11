@@ -16,8 +16,8 @@ import {
   openSnackBar,
 } from "../../actions/uiActions";
 import LoginForm from "./LoginForm";
-import LogoutForm from "./LogoutForm";
 import RegisterForm from "./RegisterForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import VCRSmallLogo from "../../images/VCRIconOnly.png";
 
@@ -48,19 +48,17 @@ function AccountModal() {
     switch (modalType) {
       case AccountModalContent.LOGIN:
         return <LoginForm />;
-      case AccountModalContent.LOGOUT:
-        return <LogoutForm />;
       case AccountModalContent.REGISTER:
         return <RegisterForm />;
       case AccountModalContent.CHANGE_PASSWORD:
         return <ChangePasswordForm />;
+      case AccountModalContent.FORGOT_PASSWORD:
+        return <ForgotPasswordForm />;
     }
   };
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(closeAccountModal());
-      dispatch(setAccountModalContent(AccountModalContent.LOGOUT));
       dispatch(openSnackBar(username + " logged in"));
     }
   }, [dispatch, isLoggedIn]);

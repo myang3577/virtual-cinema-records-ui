@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { forgotPassword } from "../../actions/loginActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import { UsernameField } from "../../components/Username";
 import { LoadingButton } from "../../components/LoadingButton";
+import { openSnackBar } from "../../actions/uiActions";
 
 // Email regex used to determine if the entered email address is valid
 //eslint-disable-next-line
@@ -20,15 +21,23 @@ function ForgotPassword() {
 
   const handleSubmit = () => {
     if (localUsername === "") {
-      alert(
-        "Your entered username is empty. Please provide a valid email username"
+      dispatch(
+        openSnackBar(
+          "Your entered username is empty. Please provide a valid email username"
+        )
       );
     } else if (!EMAIL_FORMAT.test(String(localUsername).toLowerCase())) {
-      alert("Your username must be a valid email address");
+      dispatch(openSnackBar("Your username must be a valid email address"));
     } else {
       dispatch(forgotPassword(localUsername));
     }
   };
+
+  useEffect(() => {
+    if (feedback != "") {
+      dispatch(openSnackBar(feedback));
+    }
+  }, [dispatch, feedback]);
 
   return (
     <div className="user-form">
@@ -45,7 +54,6 @@ function ForgotPassword() {
       <LoadingButton onClick={handleSubmit} loading={false}>
         Submit
       </LoadingButton>
-      {feedback}
     </div>
   );
 }
