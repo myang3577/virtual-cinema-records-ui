@@ -12,24 +12,22 @@ export interface UsernameFormProps {
 
 export function UsernameField(props: UsernameFormProps) {
   return (
-    <div>
-      <TextField
-        label={"Username"}
-        value={props.username}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          props.setUsername(e.target.value);
-        }}
-        error={props.error}
-        fullWidth
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircle />
-            </InputAdornment>
-          ),
-        }}
-      />
-    </div>
+    <TextField
+      label={"Username"}
+      value={props.username}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        props.setUsername(e.target.value);
+      }}
+      error={props.error}
+      fullWidth
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <AccountCircle />
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
 

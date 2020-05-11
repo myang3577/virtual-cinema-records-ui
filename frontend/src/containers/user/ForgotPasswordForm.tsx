@@ -34,7 +34,7 @@ function ForgotPassword() {
   };
 
   useEffect(() => {
-    if (feedback != "") {
+    if (feedback !== "") {
       dispatch(openSnackBar(feedback));
     }
   }, [dispatch, feedback]);

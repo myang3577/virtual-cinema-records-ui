@@ -14,33 +14,32 @@ export function PasswordField(props: PasswordFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div>
-      <TextField
-        label={props.placeholder}
-        type={showPassword ? "text" : "password"}
-        value={props.password}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          props.setPassword(e.target.value);
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Lock />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-    </div>
+    <TextField
+      label={props.placeholder}
+      type={showPassword ? "text" : "password"}
+      value={props.password}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        props.setPassword(e.target.value);
+      }}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <Lock />
+          </InputAdornment>
+        ),
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+      fullWidth
+    />
   );
 }
 

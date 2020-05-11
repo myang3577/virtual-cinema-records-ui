@@ -22,7 +22,7 @@ import VCRIconOnly from "../images/VCRIconOnly.png";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
 import MovieDetails from "./MovieDetails";
-import SnackBar from "../components/SnackBar";
+import SnackBar from "./SnackBar";
 
 const IMG_TAB_VAL = 2;
 const LOGIN_TAB_VAL = 4;
