@@ -21,7 +21,7 @@ import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
-import MovieDescription from "./MovieDescription";
+import MovieDetails from "./MovieDetails";
 import SnackBar from "../components/SnackBar";
 
 const IMG_TAB_VAL = 2;
@@ -169,7 +169,7 @@ function NavBar(props: any) {
           />
           <AccountDrawer />
           <AccountModal />
-          <MovieDescription />
+          <MovieDetails />
           <SnackBar />
         </Tabs>
       </Collapse>

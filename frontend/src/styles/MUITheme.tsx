@@ -25,11 +25,6 @@ export const tealLightGreenTheme = createMuiTheme({
         minHeight: 0,
       },
     },
-    MuiPaper: {
-      root: {
-        // height: "20%",
-      },
-    },
   },
   breakpoints: {
     values: {

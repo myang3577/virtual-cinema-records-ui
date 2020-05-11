@@ -10,7 +10,6 @@ import {
   createStyles,
   Theme,
   Divider,
-  Icon,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
@@ -41,7 +40,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function MovieDescription() {
+function MovieDetails() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -68,15 +67,15 @@ function MovieDescription() {
     dispatch(toggleDetailDrawer(false, false));
   };
 
-  const display = () => (
-    <div
-      role="presentation"
-      onClick={() => {
+  return (
+    <Dialog
+      fullScreen
+      open={dialogOpen}
+      onClose={() => {
         handleClose();
       }}
-      onKeyDown={() => {
-        handleClose();
-      }}
+      TransitionComponent={Transition}
+      transitionDuration={500}
     >
       <Toolbar>
         <IconButton
@@ -98,10 +97,11 @@ function MovieDescription() {
         >
           <img
             src={
-              currMovie.movie
+              currMovie.movie.poster_path
                 ? baseUrl + currMovie.movie.poster_path
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
             }
+            alt="movie poster"
           />
         </Grid>
         <Grid className={classes.paper} item xs={4}>
@@ -110,7 +110,7 @@ function MovieDescription() {
           </Typography>
           {currMovie.movie.production_companies &&
             currMovie.movie.production_companies.map((e: any) => (
-              <img src={baseUrl + e.logo_path} />
+              <img src={baseUrl + e.logo_path} alt="company logos" />
             ))}
           <br />
           <Divider />
@@ -132,22 +132,8 @@ function MovieDescription() {
           </Typography>
         </Grid>
       </Grid>
-    </div>
-  );
-
-  return (
-    <Dialog
-      fullScreen
-      open={dialogOpen}
-      onClose={() => {
-        handleClose();
-      }}
-      TransitionComponent={Transition}
-      transitionDuration={1000}
-    >
-      {display()}
     </Dialog>
   );
 }
 
-export default MovieDescription;
+export default MovieDetails;
