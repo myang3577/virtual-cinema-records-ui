@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 
 // API key to query themoviedb database
 export const apiKey = "5e38014a47f9412c29d0ca4667091633";
@@ -10,6 +10,7 @@ export const apiKey = "5e38014a47f9412c29d0ca4667091633";
 export enum TMDBActionType {
   SEARCH_MOVIES_BEGIN = "SEARCH_MOVIES_BEGIN",
   SEARCH_MOVIES_END = "SEARCH_MOVIES_END",
+  GET_POPULAR_MOVIES_END = "GET_POPULAR_MOVIES_END",
 }
 
 /**
@@ -37,10 +38,9 @@ export interface TMDBAction {
  * default parameters. Ie. type is ActionType.FETCH_BEGIN and the payload is an
  * empty object
  */
-export const searchMoviesBegin = (): TMDBAction => {
+export const searchMoviesBegin = (): Action => {
   return {
     type: TMDBActionType.SEARCH_MOVIES_BEGIN,
-    payload: {},
   };
 };
 
@@ -59,7 +59,14 @@ export const searchMoviesBegin = (): TMDBAction => {
 export const searchMoviesEnd = (payload: {}): TMDBAction => {
   return {
     type: TMDBActionType.SEARCH_MOVIES_END,
-    payload: payload,
+    payload,
+  };
+};
+
+export const getPopularMoviesEnd = (payload: {}): TMDBAction => {
+  return {
+    type: TMDBActionType.GET_POPULAR_MOVIES_END,
+    payload,
   };
 };
 
@@ -92,6 +99,19 @@ export const searchMovies = (query: string) => {
     )
       .then((response) => response.json())
       .then((json) => dispatch(searchMoviesEnd(json)))
+      .catch((error) => console.log("An error occurred.", error));
+  };
+};
+
+export const getPopularMovies = () => {
+  return (dispatch: Dispatch) => {
+    return fetch(
+      "https://api.themoviedb.org/3/movie/popular?api_key=" +
+        apiKey +
+        "&language=en-US"
+    )
+      .then((response) => response.json())
+      .then((json) => dispatch(getPopularMoviesEnd(json)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };

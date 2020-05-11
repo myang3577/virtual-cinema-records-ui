@@ -5,10 +5,7 @@ import { GlobalState } from "../../reducers/rootReducer";
 import { UsernameField } from "../../components/Username";
 import { LoadingButton } from "../../components/LoadingButton";
 import { openSnackBar } from "../../actions/uiActions";
-
-// Email regex used to determine if the entered email address is valid
-//eslint-disable-next-line
-const EMAIL_FORMAT = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+import { validEmail } from "../../Constants";
 
 function ForgotPassword() {
   const [localUsername, setLocalUsername] = useState("");
@@ -26,7 +23,7 @@ function ForgotPassword() {
           "Your entered username is empty. Please provide a valid email username"
         )
       );
-    } else if (!EMAIL_FORMAT.test(String(localUsername).toLowerCase())) {
+    } else if (!validEmail(localUsername)) {
       dispatch(openSnackBar("Your username must be a valid email address"));
     } else {
       dispatch(forgotPassword(localUsername));
@@ -42,10 +39,7 @@ function ForgotPassword() {
   return (
     <div className="user-form">
       <UsernameField
-        error={
-          localUsername !== "" &&
-          !EMAIL_FORMAT.test(String(localUsername).toLowerCase())
-        }
+        error={localUsername !== "" && !validEmail(localUsername)}
         username={localUsername}
         loading={false}
         setUsername={setLocalUsername}

@@ -4,7 +4,6 @@ import { GlobalState } from "../../reducers/rootReducer";
 import MovieGrid from "../../components/MovieGrid";
 import { Typography, IconButton, Slide } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import SearchBar from "../SearchBar";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
 import {
@@ -12,7 +11,7 @@ import {
   getActorRecommendation,
   getGenreRecommendation,
 } from "../../actions/recommendationActions";
-import { PageType } from "./Constants";
+import { PageType } from "../../Constants";
 
 function Recommendations() {
   const dispatch = useDispatch();
@@ -52,7 +51,6 @@ function Recommendations() {
   );
 
   useEffect(() => {
-    console.log(movieRecommendationResult);
     if (isLoggedIn && username !== "") {
       dispatch(listMovies(username));
       if (movieRecommendationResult.length === 0) {
@@ -115,7 +113,7 @@ function Recommendations() {
             <RefreshIcon />
           </IconButton>
         </Typography>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {renderMovieRecommendation(movieRecommendationResult)}
         {renderMovieRecommendation(actorRecommendationResult)}
         {renderMovieRecommendation(genreRecommendationResult)}

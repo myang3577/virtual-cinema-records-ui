@@ -8,10 +8,9 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
-  Popper,
-  PopperPlacementType,
-  Fade,
-  Paper,
+  Menu,
+  MenuItem,
+  withStyles,
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -24,11 +23,9 @@ import {
   openAccountModal,
   setAccountModalContent,
   AccountModalContent,
-  closeAccountModal,
   openSnackBar,
 } from "../../actions/uiActions";
 import VCRSmallLogo from "../../images/VCRIconOnly.png";
-import LoadingButton from "../../components/LoadingButton";
 import { logout } from "../../actions/loginActions";
 
 const useStyles = makeStyles({
@@ -51,6 +48,9 @@ function AccountDrawer() {
   const drawerOpen: any = useSelector<GlobalState>(
     (state) => state.uiData.accountDrawerOpen
   );
+
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<any>(null);
 
   useEffect(() => {
     dispatch(toggleAccountDrawer(drawerOpen));
@@ -117,6 +117,17 @@ function AccountDrawer() {
     setButtonOptions(isLoggedIn); // eslint-disable-next-line
   }, [isLoggedIn]);
 
+  const StyledMenuItem = withStyles((theme) => ({
+    root: {
+      "&:focus": {
+        backgroundColor: theme.palette.primary.main,
+        "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+          color: theme.palette.common.white,
+        },
+      },
+    },
+  }))(MenuItem);
+
   const list = (anchor: string) => (
     <div
       className={clsx(classes.list, {
@@ -128,23 +139,17 @@ function AccountDrawer() {
       }}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Popper
-        className={classes.popper}
-        open={menuOpen}
+      <Menu
+        id="simple-menu"
         anchorEl={menuAnchorEl}
-        placement="left"
-        transition
+        keepMounted
+        open={Boolean(menuAnchorEl)}
+        onClose={() => setMenuAnchorEl(null)}
       >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <LoadingButton onClick={handleLogoutSubmit} loading={false}>
-                Confirm Logout
-              </LoadingButton>
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+        <StyledMenuItem onClick={handleLogoutSubmit}>
+          Confirm Logout
+        </StyledMenuItem>
+      </Menu>
       <List>
         {setButtonOptions(isLoggedIn)[0].map((text, index) => (
           <ListItem
@@ -168,15 +173,13 @@ function AccountDrawer() {
     </div>
   );
 
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [menuAnchorEl, setMenuAnchorEl] = React.useState<any>(null);
-
   const handleLogoutSubmit = () => {
     dispatch(logout());
     dispatch(setAccountModalContent(AccountModalContent.LOGIN));
     dispatch(toggleAccountDrawer(false));
     dispatch(openSnackBar("Logged out"));
     setMenuOpen(false);
+    setMenuAnchorEl(null);
   };
 
   const handleLogoutClick = (event: any) => {

@@ -9,13 +9,9 @@ import { Link } from "@material-ui/core";
 import {
   AccountModalContent,
   setAccountModalContent,
-  openAccountModal,
   openSnackBar,
 } from "../../actions/uiActions";
-
-// Email regex used to determine if the entered email address is valid
-//eslint-disable-next-line
-const EMAIL_FORMAT = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+import { validEmail } from "../../Constants";
 
 function LoginForm() {
   const [localUsername, setLocalUsername] = useState("");
@@ -35,7 +31,7 @@ function LoginForm() {
             " both a username and a password"
         )
       );
-    } else if (!EMAIL_FORMAT.test(String(localUsername).toLowerCase())) {
+    } else if (!validEmail(localUsername)) {
       dispatch(openSnackBar("Your username must be a valid email address"));
     } else {
       dispatch(checkLogin(localUsername, localPassword));
@@ -43,7 +39,7 @@ function LoginForm() {
   };
 
   useEffect(() => {
-    if (feedback != "") {
+    if (feedback !== "") {
       dispatch(openSnackBar(feedback));
     }
   }, [dispatch, feedback]);
@@ -59,10 +55,7 @@ function LoginForm() {
   return (
     <div className="user-form">
       <UsernameField
-        error={
-          localUsername !== "" &&
-          !EMAIL_FORMAT.test(String(localUsername).toLowerCase())
-        }
+        error={localUsername !== "" && !validEmail(localUsername)}
         username={localUsername}
         loading={false}
         setUsername={setLocalUsername}

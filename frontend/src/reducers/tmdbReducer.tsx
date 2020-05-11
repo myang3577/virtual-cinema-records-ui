@@ -18,6 +18,7 @@ export enum LoadingState {
 export interface TMDBState {
   loading: LoadingState;
   movieSearchResult: {};
+  popularMovies: {};
 }
 
 /**
@@ -41,6 +42,7 @@ export interface TMDBState {
 const initialState: TMDBState = {
   loading: LoadingState.IDLE,
   movieSearchResult: {},
+  popularMovies: {},
 };
 
 /**
@@ -81,6 +83,11 @@ export const tmdbReducer = (
         ...state,
         movieSearchResult: action.payload,
         loading: LoadingState.DONE,
+      };
+    case TMDBActionType.GET_POPULAR_MOVIES_END:
+      return {
+        ...state,
+        popularMovies: action.payload,
       };
     default:
       return state;

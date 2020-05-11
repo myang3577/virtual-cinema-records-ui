@@ -12,7 +12,6 @@ import "../../styles/App.css";
 import {
   closeAccountModal,
   AccountModalContent,
-  setAccountModalContent,
   openSnackBar,
 } from "../../actions/uiActions";
 import LoginForm from "./LoginForm";
@@ -61,7 +60,7 @@ function AccountModal() {
     if (isLoggedIn) {
       dispatch(openSnackBar(username + " logged in"));
     }
-  }, [dispatch, isLoggedIn]);
+  }, [dispatch, isLoggedIn, username]);
 
   return (
     <Dialog open={isModalOpen} onClose={closeModal} className="account-modal">

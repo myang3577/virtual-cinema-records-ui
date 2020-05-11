@@ -12,10 +12,10 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { ENTER_KEYCODE } from "../SearchBar";
 import { LoadingState } from "../../reducers/tmdbReducer";
-import { PageType } from "./Constants";
+import { PageType } from "../../Constants";
 import NoLogin from "./NoLogin";
+import { ENTER_KEYCODE } from "./Home";
 
 function MyMovies() {
   const dispatch = useDispatch();

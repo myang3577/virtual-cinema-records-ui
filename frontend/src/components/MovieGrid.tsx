@@ -3,7 +3,7 @@ import { GridList, GridListTile } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import MovieCards from "./MovieCards";
 import { LoadingState } from "../reducers/tmdbReducer";
-import { PageType } from "../containers/pages/Constants";
+import { PageType } from "../Constants";
 
 interface MovieGridProps {
   displayMovieList: [];

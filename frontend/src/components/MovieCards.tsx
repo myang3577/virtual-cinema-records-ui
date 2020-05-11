@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { RatingButtons, RatingType } from "../containers/RatingButtons";
 import { Add, Delete } from "@material-ui/icons";
-import { PageType } from "../containers/pages/Constants";
+import { PageType } from "../Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDetailDrawer } from "../actions/uiActions";
 import { GlobalState } from "../reducers/rootReducer";
