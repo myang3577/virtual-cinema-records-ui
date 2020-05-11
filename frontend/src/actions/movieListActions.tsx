@@ -109,6 +109,45 @@ const fetchAndAddMovieData = (tmdb_id: number, dispatch: Dispatch) => {
     .catch((error) => console.log("An error occurred.", error));
 };
 
+export const putMovie = (email: string, tmdb_id: number) => {
+  return (dispatch: Dispatch) => {
+    dispatch(putRatingBegin());
+
+    const ratingRequestBody = {
+      tmdb_id,
+    };
+
+    return fetch("/users/" + email + "/movie", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ratingRequestBody),
+    })
+      .then(() => dispatch(putRatingEnd()))
+      .catch((error) => console.log("An error occurred.", error));
+  };
+};
+
+export const deleteMovie = (email: string, tmdb_id: number) => {
+  return (dispatch: Dispatch) => {
+    // Begin/end actions can be added based on UI need
+    const ratingRequestBody = {
+      tmdb_id,
+    };
+
+    return fetch("/users/" + email + "/movie", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ratingRequestBody),
+    })
+      .then(() => dispatch(putRatingEnd()))
+      .catch((error) => console.log("An error occurred.", error));
+  };
+};
+
 export const putRating = (email: string, tmdb_id: number, rating: number) => {
   return (dispatch: Dispatch) => {
     dispatch(putRatingBegin());

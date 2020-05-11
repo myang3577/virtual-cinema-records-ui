@@ -43,6 +43,10 @@ const DECAY_RATE = 0.9;
 // users/:email/movie-list
 router.get("/:email/movie-list", getList);
 
+// users/:email/movie
+router.delete("/:email/movie", deleteMovie);
+router.put("/:email/movie", putMovie);
+
 // users/:email/movie-rating
 router.delete("/:email/movie-rating", deleteRating);
 router.put("/:email/movie-rating", putRating);
@@ -67,6 +71,30 @@ function getList(req, res, next) {
       res.send("Unable to query. See console for output.");
     } else {
       res.send(data.Items);
+    }
+  });
+}
+
+function putMovie(req, res, next) {
+  var params = {
+    TableName: movieTableName,
+    Item: {
+      username: req.params.email,
+      tmdb_id: req.body.tmdb_id,
+    },
+  };
+
+  // Place or update the rating in the table
+  db.put(params, function (err, data) {
+    if (err) {
+      res.status(err.statusCode).end();
+      throw new Error(
+        "Unable to put movie item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+    } else {
+      console.log("Put item successfully.");
+      res.end();
     }
   });
 }
@@ -166,8 +194,8 @@ function putRating(req, res, next) {
     });
 }
 
-// Delete a user's rating
-function deleteRating(req, res, next) {
+// Delete a user's movie
+function deleteMovie(req, res, next) {
   var params = {
     TableName: movieTableName,
     Key: {
@@ -246,193 +274,36 @@ function deleteRating(req, res, next) {
       };
 
       updateMovieCategories(genreParams);
-
-      // let apiEndPoint =
-      //   "https://api.themoviedb.org/3/movie/" +
-      //   req.body.tmdb_id +
-      //   "/credits?api_key=" +
-      //   apiKey;
-
-      // // Fetch and check api response is ok
-      // fetchAndCheck(apiEndPoint)
-      //   .then((json) => {
-      //     let castArray = json.cast;
-
-      //     // Loop through the top ACTOR_THRESHOLD actors and delete/update each
-      //     for (let i = 0; i < ACTOR_THRESHOLD; i++) {
-      //       let searchActor = getSearchParam(
-      //         actorTableName,
-      //         "username",
-      //         "actor_id",
-      //         req.params.email,
-      //         castArray[i].id
-      //       );
-
-      //       db.query(searchActor, function (err, data) {
-      //         if (err) {
-      //           throw new Error(
-      //             "Unable to query Actors table. Error:",
-      //             JSON.stringify(err, null, 2)
-      //           );
-      //         } else {
-      //           if (data.Items.length === 0) {
-      //             throw new Error(
-      //               "Empty data.Items object of actor query." +
-      //                 " This means a movie was added successfully but one of the actors were not. "
-      //             );
-      //           }
-
-      //           // If deleting sets the movie_count for this actor to 0 remove
-      //           // the entry instead and skip update
-      //           if (data.Items[0].movie_count === 1) {
-      //             let deleteActor = {
-      //               TableName: actorTableName,
-      //               Key: {
-      //                 username: req.params.email,
-      //                 actor_id: data.Items[0].actor_id,
-      //               },
-      //               ConditionExpression: "attribute_exists(actor_id)",
-      //             };
-      //             db.delete(deleteActor, function (err, data) {
-      //               if (err) {
-      //                 throw new Error(
-      //                   "Unable to delete Actor item. Error:",
-      //                   JSON.stringify(err, null, 2)
-      //                 );
-      //               } else {
-      //                 console.log("Deleted Actor item successfully.");
-      //               }
-      //             });
-      //           }
-
-      //           // Otherwise update the movie
-      //           else {
-      //             let putActor = {
-      //               TableName: actorTableName,
-      //               Item: {
-      //                 username: req.params.email,
-      //                 actor_id: castArray[i].id,
-      //                 rating:
-      //                   (data.Items[0].rating * data.Items[0].movie_count -
-      //                     updateRating) /
-      //                   (data.Items[0].movie_count - 1),
-      //                 movie_count: data.Items[0].movie_count - 1,
-      //               },
-      //             };
-
-      //             db.put(putActor, function (err, data) {
-      //               if (err) {
-      //                 throw new Error(
-      //                   "Unable to put actor into table on delete movie. Error:",
-      //                   JSON.stringify(err, null, 2)
-      //                 );
-      //               } else {
-      //                 console.log(
-      //                   "Actor rating successfully updated on movie delete"
-      //                 );
-      //               }
-      //             });
-      //           }
-      //         }
-      //       });
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.error(err);
-      //   });
-
-      // apiEndPoint =
-      //   "https://api.themoviedb.org/3/movie/" +
-      //   req.body.tmdb_id +
-      //   "?api_key=" +
-      //   apiKey;
-
-      // // Fetch and check api response is ok
-      // fetchAndCheck(apiEndPoint)
-      //   .then((json) => {
-      //     let genreArray = json.genres;
-
-      //     // Loop through the genres and update each
-      //     for (let i = 0; i < genreArray.length; i++) {
-      //       let searchGenre = getSearchParam(
-      //         genreTableName,
-      //         "username",
-      //         "genre_id",
-      //         req.params.email,
-      //         genreArray[i].id
-      //       );
-
-      //       db.query(searchGenre, function (err, data) {
-      //         if (err) {
-      //           throw new Error(
-      //             "Unable to query Genre table. Error:",
-      //             JSON.stringify(err, null, 2)
-      //           );
-      //         } else {
-      //           if (data.Items.length === 0) {
-      //             throw new Error(
-      //               "Empty data.Items object of genre query." +
-      //                 " This means a movie was added successfully but one of the genres was not. "
-      //             );
-      //           }
-
-      //           if (data.Items[0].movie_count === 1) {
-      //             let deleteGenre = {
-      //               TableName: genreTableName,
-      //               Key: {
-      //                 username: req.params.email,
-      //                 genre_id: data.Items[0].genre_id,
-      //               },
-      //               ConditionExpression: "attribute_exists(genre_id)",
-      //             };
-      //             db.delete(deleteGenre, function (err, data) {
-      //               if (err) {
-      //                 throw new Error(
-      //                   "Unable to delete Genre item. Error:",
-      //                   JSON.stringify(err, null, 2)
-      //                 );
-      //               } else {
-      //                 console.log("Deleted Genre item successfully.");
-      //               }
-      //             });
-      //           } else {
-      //             let putGenre = {
-      //               TableName: genreTableName,
-      //               Item: {
-      //                 username: req.params.email,
-      //                 genre_id: genreArray[i].id,
-      //                 rating:
-      //                   (data.Items[0].rating * data.Items[0].movie_count -
-      //                     updateRating) /
-      //                   (data.Items[0].movie_count - 1),
-      //                 movie_count: data.Items[0].movie_count - 1,
-      //               },
-      //             };
-
-      //             db.put(putGenre, function (err, data) {
-      //               if (err) {
-      //                 throw new Error(
-      //                   "Unable to put genre into table on movie delete. Error:",
-      //                   JSON.stringify(err, null, 2)
-      //                 );
-      //               } else {
-      //                 console.log(
-      //                   "Genre rating successfully updated on movie delete"
-      //                 );
-      //               }
-      //             });
-      //           }
-      //         }
-      //       });
-      //     }
-      //   })
-      // .catch((err) => {
-      //   console.error(err);
-      // });
     })
     .catch((err) => {
       console.error(err);
     });
+}
+
+// Delete a user's rating
+function deleteRating(req, res, next) {
+  var params = {
+    TableName: movieTableName,
+    Key: {
+      username: req.params.email,
+      tmdb_id: req.body.tmdb_id,
+    },
+    UpdateExpression: "REMOVE rating",
+    ConditionExpression: "attribute_exists(tmdb_id)",
+  };
+
+  db.update(params, function (err, data) {
+    if (err) {
+      console.error(
+        "Unable to update item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+      res.status(err.statusCode).end();
+    } else {
+      console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+      res.send();
+    }
+  });
 }
 
 module.exports = router;
