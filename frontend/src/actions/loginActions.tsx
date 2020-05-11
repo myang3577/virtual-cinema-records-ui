@@ -1,4 +1,6 @@
 import { Dispatch } from "redux";
+import { clearMovieListData } from "./movieListActions";
+import { clearRecommendationData } from "./recommendationActions";
 
 export enum LoginType {
   LOGIN_BEGIN = "LOGIN_BEGIN",
@@ -240,5 +242,7 @@ export const logout = () => {
   return (dispatch: Dispatch) => {
     dispatch(initiateLoading());
     dispatch(logoutEnd());
+    dispatch(clearMovieListData());
+    dispatch(clearRecommendationData());
   };
 };

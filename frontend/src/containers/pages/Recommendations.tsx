@@ -38,7 +38,7 @@ function Recommendations() {
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
   const userMyMoviesList = useSelector<GlobalState, []>(
-    (state) => state.movieListData.movieListData
+    (state) => state.movieListData.movieDataList
   );
 
   const movieDataLoading = useSelector<GlobalState, LoadingState>(

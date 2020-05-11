@@ -8,8 +8,6 @@ import {
   Paper,
   Fade,
   Typography,
-  Hidden,
-  makeStyles,
   Collapse,
 } from "@material-ui/core";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
@@ -50,10 +48,6 @@ function NavBar(props: any) {
       (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
-    }
-
-    if (isLoggedIn) {
-      dispatch(toggleAccountDrawer(open));
     }
 
     dispatch(toggleAccountDrawer(open));

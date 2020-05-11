@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 import { apiKey } from "./tmdbActions";
 
 export enum MovieListActionType {
@@ -7,6 +7,7 @@ export enum MovieListActionType {
   LIST_BEGIN = "LIST_BEGIN",
   LIST_END = "LIST_END",
   ADD_MOVIE_DATA = "ADD_MOVIE_DATA",
+  CLEAR_MOVIE_LIST_DATA = "CLEAR_MOVIE_LIST_DATA",
 }
 
 export interface MovieListElement {
@@ -58,6 +59,12 @@ const addMovieDataAction = (payload: any): MovieListAction => {
     payload: {
       movieData: payload,
     },
+  };
+};
+
+export const clearMovieListData = (): Action => {
+  return {
+    type: MovieListActionType.CLEAR_MOVIE_LIST_DATA,
   };
 };
 

@@ -1,12 +1,11 @@
-import { Dispatch } from "redux";
-import { apiKey } from "./tmdbActions";
-import { ErrorOutline } from "@material-ui/icons";
+import { Dispatch, Action } from "redux";
 
 export enum RecommendationActionType {
   GET_RECOMMENDATION_BEGIN = "GET_RECOMMENDATION_BEGIN",
   GET_MOVIE_RECOMMENDATION_END = "GET_MOVIE_RECOMMENDATION_END",
   GET_ACTOR_RECOMMENDATION_END = "GET_ACTOR_RECOMMENDATION_END",
   GET_GENRE_RECOMMENDATION_END = "GET_GENRE_RECOMMENDATION_END",
+  CLEAR_RECOMMENDATION_DATA = "CLEAR_RECOMMENDATION_DATA",
 }
 
 // Represents all of the data that will be sent back by the recommmendation
@@ -60,6 +59,12 @@ export const getRecommendationBegin = (): RecommendationAction => {
   return {
     type: RecommendationActionType.GET_RECOMMENDATION_BEGIN,
     payload: {},
+  };
+};
+
+export const clearRecommendationData = (): Action => {
+  return {
+    type: RecommendationActionType.CLEAR_RECOMMENDATION_DATA,
   };
 };
 

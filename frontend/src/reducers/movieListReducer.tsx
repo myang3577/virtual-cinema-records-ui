@@ -7,14 +7,14 @@ import {
 
 export interface MovieListState {
   loading: LoadingState;
-  movieList: MovieListElement[];
-  movieListData: [];
+  movieIDList: MovieListElement[];
+  movieDataList: [];
 }
 
 const initialState: MovieListState = {
   loading: LoadingState.IDLE,
-  movieList: [],
-  movieListData: [],
+  movieIDList: [],
+  movieDataList: [],
 };
 
 export const movieListReducer = (
@@ -26,23 +26,25 @@ export const movieListReducer = (
       return {
         ...state,
         loading: LoadingState.LOADING,
-        movieList: [],
-        movieListData: [],
+        movieIDList: [],
+        movieDataList: [],
       };
     case MovieListActionType.LIST_END:
       return {
         ...state,
         loading: LoadingState.DONE,
-        movieList: action.payload.movieList!, // this tells typescript that it exists and is not undefined
+        movieIDList: action.payload.movieList!, // this tells typescript that it exists and is not undefined
       };
     case MovieListActionType.ADD_MOVIE_DATA:
       return {
         ...state,
-        movieListData: [
-          ...state.movieListData,
+        movieDataList: [
+          ...state.movieDataList,
           action.payload.movieData,
         ] as any,
       };
+    case MovieListActionType.CLEAR_MOVIE_LIST_DATA:
+      return initialState;
     default:
       return state;
   }

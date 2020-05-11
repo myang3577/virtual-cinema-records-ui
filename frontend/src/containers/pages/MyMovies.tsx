@@ -14,6 +14,7 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import { ENTER_KEYCODE } from "../SearchBar";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { PageType } from "./Constants";
+import NoLogin from "./NoLogin";
 
 function MyMovies() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function MyMovies() {
     (state) => state.loginData.isLoggedIn
   );
   const movieListData = useSelector<GlobalState, []>(
-    (state) => state.movieListData.movieListData
+    (state) => state.movieListData.movieDataList
   );
   const movieListLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.movieListData.loading
@@ -67,47 +68,56 @@ function MyMovies() {
 
   return (
     <div className="page-container">
-      <Typography variant="h4" gutterBottom>
-        MyMovies
-        <IconButton onClick={() => dispatch(listMovies(username))} size="small">
-          <RefreshIcon />
-        </IconButton>
-      </Typography>
+      {isLoggedIn ? (
+        <div>
+          <Typography variant="h4" gutterBottom>
+            MyMovies
+            <IconButton
+              onClick={() => dispatch(listMovies(username))}
+              size="small"
+            >
+              <RefreshIcon />
+            </IconButton>
+          </Typography>
 
-      <TextField
-        label="Filter MyMovies"
-        variant={"outlined"}
-        value={movieFilter}
-        fullWidth
-        disabled={!isLoggedIn || !movieListData}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={handleSubmit}>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        onChange={(e) => {
-          setMovieFilter(e.target.value.toLowerCase());
-        }}
-        onKeyDown={(e: any) => {
-          if (e.keyCode === ENTER_KEYCODE) {
-            handleSubmit();
-          }
-        }}
-        style={{
-          marginBottom: "5px",
-        }}
-      />
+          <TextField
+            label="Filter MyMovies"
+            variant={"outlined"}
+            value={movieFilter}
+            fullWidth
+            disabled={!isLoggedIn || !movieListData}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleSubmit}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            onChange={(e) => {
+              setMovieFilter(e.target.value.toLowerCase());
+            }}
+            onKeyDown={(e: any) => {
+              if (e.keyCode === ENTER_KEYCODE) {
+                handleSubmit();
+              }
+            }}
+            style={{
+              marginBottom: "5px",
+            }}
+          />
 
-      <MovieGrid
-        displayMovieList={filterMovieList}
-        loading={movieListLoading}
-        userMyMoviesList={movieListData}
-        page={PageType.MY_MOVIES}
-      />
+          <MovieGrid
+            displayMovieList={filterMovieList}
+            loading={movieListLoading}
+            userMyMoviesList={movieListData}
+            page={PageType.MY_MOVIES}
+          />
+        </div>
+      ) : (
+        <NoLogin />
+      )}
     </div>
   );
 }

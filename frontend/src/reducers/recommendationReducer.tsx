@@ -51,6 +51,8 @@ export const recommendationReducer = (
         loading: LoadingState.DONE,
         genreRecommendationList: action.payload.recommendationList!,
       };
+    case RecommendationActionType.CLEAR_RECOMMENDATION_DATA:
+      return initialState;
     default:
       return state;
   }
