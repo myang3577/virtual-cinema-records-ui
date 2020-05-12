@@ -9,6 +9,8 @@ export enum UIActionType {
   CLOSE_DETAIL_DRAWER = "CLOSE_DETAILS",
   OPEN_SNACKBAR = "OPEN_SNACKBAR",
   CLOSE_SNACKBAR = "CLOSE_SNACKBAR",
+  ADD_CURRENT_MOVIE = "ADD_CURRENT_MOVIE",
+  REMOVE_CURRENT_MOVIE = "REMOVE_CURRENT_MOVIE",
 }
 
 export interface UIAction {
@@ -113,5 +115,17 @@ export const openSnackBar = (str: string): UISnackBarAction => {
 export const closeSnackBar = (): UIAction => {
   return {
     type: UIActionType.CLOSE_SNACKBAR,
+  };
+};
+
+export const addCurrentMovie = (): UIAction => {
+  return {
+    type: UIActionType.ADD_CURRENT_MOVIE,
+  };
+};
+
+export const removeCurrentMovie = (): UIAction => {
+  return {
+    type: UIActionType.REMOVE_CURRENT_MOVIE,
   };
 };

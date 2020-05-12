@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   GridList,
   GridListTile,
@@ -7,14 +7,16 @@ import {
   WithWidthProps,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import MovieCards from "./MovieCards";
+import MovieCard from "./MovieCard";
 import { LoadingState } from "../reducers/tmdbReducer";
 import { PageType } from "../Constants";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
+import { MovieListElement } from "../actions/movieListActions";
 
 interface MovieGridProps {
   displayMovieList: [];
   userMyMoviesList: [];
+  userMovieIDList?: MovieListElement[];
   loading: LoadingState;
   page: PageType;
 }
@@ -56,15 +58,22 @@ function MovieGrid(props: MovieGridProps) {
   const movieInUserList = (movie: any): boolean =>
     props.userMyMoviesList.some((e: any) => movie.id === e.id);
 
+  const getUserRating = (tmdb_id: number) => {
+    if (props.page === PageType.MY_MOVIES)
+      return props.userMovieIDList!.find((e) => e.tmdb_id === tmdb_id)!.rating;
+    return 0;
+  };
+
   return (
     <div className="movie-grid">
       <GridList cellHeight={140} cols={getGridListCols()} style={gridStyle}>
         {props.loading !== LoadingState.LOADING && props.displayMovieList
           ? props.displayMovieList.map((e: any, i: number) => (
               <GridListTile key={i} cols={1} rows={1} style={gridItemStyle}>
-                <MovieCards
+                <MovieCard
                   movie={e}
                   inUserList={movieInUserList(e)}
+                  userRating={getUserRating(e.id)}
                   page={props.page}
                 />
               </GridListTile>

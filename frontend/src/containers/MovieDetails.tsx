@@ -9,16 +9,20 @@ import {
   Grid,
   createStyles,
   Theme,
-  Divider,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
-import { toggleDetailDrawer } from "../actions/uiActions";
+import {
+  toggleDetailDrawer,
+  openAccountModal,
+  removeCurrentMovie,
+  addCurrentMovie,
+} from "../actions/uiActions";
 import CloseIcon from "@material-ui/icons/Close";
 import { Add, Delete } from "@material-ui/icons";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import RatingButtons, { RatingType } from "./RatingButtons";
 import Prices from "./Prices";
+import { deleteMovie, putMovie } from "../actions/movieListActions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,26 +58,50 @@ function MovieDetails() {
 
   const dispatch = useDispatch();
 
-  const baseUrl: any = useSelector<GlobalState>(
+  const username = useSelector<GlobalState, string>(
+    (state) => state.loginData.username
+  );
+
+  const isLoggedIn = useSelector<GlobalState, boolean>(
+    (state) => state.loginData.isLoggedIn
+  );
+
+  const baseUrl = useSelector<GlobalState, string>(
     (state) => state.uiData.tmdbBaseUrl
   );
 
-  const dialogOpen: any = useSelector<GlobalState>(
+  const dialogOpen = useSelector<GlobalState, boolean>(
     (state) => state.uiData.detailDrawerOpen
   );
 
-  const currMovie: any = useSelector<GlobalState>(
-    (state) => state.uiData.currentMovie
+  const currMovie = useSelector<GlobalState, any>(
+    (state) => state.uiData.currentMovie.movie
+  );
+
+  const movieInUserList = useSelector<GlobalState, boolean>(
+    (state) => state.uiData.currentMovie.inUserList
   );
 
   useEffect(() => {
-    dispatch(
-      toggleDetailDrawer(dialogOpen, currMovie.inUserList, currMovie.movie)
-    );
-  }, [dispatch, dialogOpen]);
+    dispatch(toggleDetailDrawer(dialogOpen, movieInUserList, currMovie));
+  }, [dispatch, dialogOpen, movieInUserList, currMovie]);
 
   const handleClose = () => {
     dispatch(toggleDetailDrawer(false, false));
+  };
+
+  const iconButtonClick = () => {
+    if (movieInUserList) {
+      dispatch(deleteMovie(username, currMovie.id));
+      dispatch(removeCurrentMovie());
+    } else {
+      if (isLoggedIn) {
+        dispatch(putMovie(username, currMovie.id));
+      } else {
+        dispatch(openAccountModal());
+        dispatch(addCurrentMovie());
+      }
+    }
   };
 
   return (
@@ -95,7 +123,9 @@ function MovieDetails() {
         >
           <CloseIcon />
         </IconButton>
-        <IconButton>{currMovie.inUserList ? <Delete /> : <Add />}</IconButton>
+        <IconButton onClick={iconButtonClick}>
+          {movieInUserList ? <Delete /> : <Add />}
+        </IconButton>
       </Toolbar>
       <Grid container spacing={3} className={classes.root}>
         {/* movie poster */}
@@ -110,8 +140,8 @@ function MovieDetails() {
           <img
             style={{ maxWidth: "95%" }}
             src={
-              currMovie.movie.poster_path
-                ? baseUrl + currMovie.movie.poster_path
+              currMovie.poster_path
+                ? baseUrl + currMovie.poster_path
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
             }
             alt="movie poster"
@@ -120,22 +150,16 @@ function MovieDetails() {
         {/* movie description, rating, and title */}
         <Grid className={classes.paper} item xs={5}>
           <Grid className={classes.descriptionHeader}>
-            <Typography variant="h3">
-              {currMovie.movie && currMovie.movie.title}
-            </Typography>
-            {currMovie.movie.production_companies &&
-              currMovie.movie.production_companies.map((e: any) => (
+            <Typography variant="h3">{currMovie && currMovie.title}</Typography>
+            {currMovie.production_companies &&
+              currMovie.production_companies.map((e: any) => (
                 <img src={baseUrl + e.logo_path} alt="company logos" />
               ))}
-            <RatingButtons
-              movie_id={currMovie.movie.id}
-              rating={RatingType.TWO}
-            />
           </Grid>
           <br />
           <br />
           <Typography variant="body1">
-            {currMovie.movie && currMovie.movie.overview}
+            {currMovie && currMovie.overview}
           </Typography>
         </Grid>
         {/* movie prices */}

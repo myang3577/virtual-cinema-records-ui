@@ -8,22 +8,32 @@ import {
   CardActionArea,
   Typography,
 } from "@material-ui/core";
-import { RatingButtons, RatingType } from "../containers/RatingButtons";
 import { Add, Delete } from "@material-ui/icons";
 import { PageType } from "../Constants";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDetailDrawer } from "../actions/uiActions";
+import { toggleDetailDrawer, openAccountModal } from "../actions/uiActions";
 import { GlobalState } from "../reducers/rootReducer";
+import { putMovie, deleteMovie } from "../actions/movieListActions";
+import RatingButtons from "../containers/RatingButtons";
 
 export interface MovieCardProps {
   movie: any;
   inUserList: boolean;
   page: PageType;
+  userRating?: number;
 }
 
-function MovieCards(props: MovieCardProps) {
-  const baseUrl: any = useSelector<GlobalState>(
+function MovieCard(props: MovieCardProps) {
+  const baseUrl = useSelector<GlobalState, string>(
     (state) => state.uiData.tmdbBaseUrl
+  );
+
+  const isLoggedIn = useSelector<GlobalState, boolean>(
+    (state) => state.loginData.isLoggedIn
+  );
+
+  const username = useSelector<GlobalState, string>(
+    (state) => state.loginData.username
   );
 
   const cardTitle = () => {
@@ -33,9 +43,13 @@ function MovieCards(props: MovieCardProps) {
 
   const iconButtonClick = () => {
     if (props.inUserList) {
-      //dispatch call for adding to user list
+      dispatch(deleteMovie(username, props.movie.id));
     } else {
-      //dispatch call for deleting from user list
+      if (isLoggedIn) {
+        dispatch(putMovie(username, props.movie.id));
+      } else {
+        dispatch(openAccountModal());
+      }
     }
   };
 
@@ -67,7 +81,7 @@ function MovieCards(props: MovieCardProps) {
         />
         {props.page === PageType.MY_MOVIES && (
           <CardContent>
-            <RatingButtons movie_id={props.movie.id} rating={RatingType.TWO} />
+            <RatingButtons movie={props.movie} userRating={props.userRating!} />
           </CardContent>
         )}
         <CardActionArea onClick={openMovieDetailDrawer}>
@@ -85,4 +99,4 @@ function MovieCards(props: MovieCardProps) {
   );
 }
 
-export default MovieCards;
+export default MovieCard;

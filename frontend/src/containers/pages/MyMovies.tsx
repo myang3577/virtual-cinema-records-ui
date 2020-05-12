@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieGrid from "../../components/MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { listMovies } from "../../actions/movieListActions";
+import { listMovies, MovieListElement } from "../../actions/movieListActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import {
   Typography,
@@ -9,6 +9,7 @@ import {
   InputAdornment,
   IconButton,
   Slide,
+  CircularProgress,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import RefreshIcon from "@material-ui/icons/Refresh";
@@ -25,8 +26,11 @@ function MyMovies() {
   const isLoggedIn = useSelector<GlobalState, boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const movieListData = useSelector<GlobalState, []>(
+  const movieDataList = useSelector<GlobalState, []>(
     (state) => state.movieListData.movieDataList
+  );
+  const movieIDList = useSelector<GlobalState, MovieListElement[]>(
+    (state) => state.movieListData.movieIDList
   );
   const movieListLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.movieListData.loading
@@ -40,8 +44,8 @@ function MyMovies() {
   }, [dispatch, username, isLoggedIn]);
 
   useEffect(() => {
-    setFilterMovieList(movieListData);
-  }, [movieListData]);
+    setFilterMovieList(movieDataList);
+  }, [movieDataList]);
 
   useEffect(() => {
     if (movieFilter.trim() !== "") {
@@ -51,9 +55,9 @@ function MyMovies() {
         )
       );
     } else {
-      setFilterMovieList(movieListData);
+      setFilterMovieList(movieDataList);
     }
-  }, [movieFilter, movieListData]);
+  }, [movieFilter, movieDataList]);
 
   const handleSubmit = () => {
     if (movieFilter.trim() !== "") {
@@ -63,7 +67,7 @@ function MyMovies() {
         )
       );
     } else {
-      setFilterMovieList(movieListData);
+      setFilterMovieList(movieDataList);
     }
   };
 
@@ -87,7 +91,9 @@ function MyMovies() {
               variant={"outlined"}
               value={movieFilter}
               fullWidth
-              disabled={!isLoggedIn || !movieListData}
+              disabled={
+                !isLoggedIn || !movieDataList || movieDataList.length === 0
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -110,12 +116,21 @@ function MyMovies() {
               }}
             />
 
-            <MovieGrid
-              displayMovieList={filterMovieList}
-              loading={movieListLoading}
-              userMyMoviesList={movieListData}
-              page={PageType.MY_MOVIES}
-            />
+            {movieListLoading === LoadingState.LOADING ? (
+              <CircularProgress />
+            ) : movieDataList.length === 0 ? (
+              <Typography variant="h5" gutterBottom>
+                Add movies to view them here.
+              </Typography>
+            ) : (
+              <MovieGrid
+                displayMovieList={filterMovieList}
+                loading={movieListLoading}
+                userMyMoviesList={movieDataList}
+                userMovieIDList={movieIDList}
+                page={PageType.MY_MOVIES}
+              />
+            )}
           </div>
         ) : (
           <NoLogin />

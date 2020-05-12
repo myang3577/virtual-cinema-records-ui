@@ -1,4 +1,5 @@
 import { Dispatch, Action } from "redux";
+import { RecommendationListObject } from "../reducers/recommendationReducer";
 
 export enum RecommendationActionType {
   GET_RECOMMENDATION_BEGIN = "GET_RECOMMENDATION_BEGIN",
@@ -51,7 +52,7 @@ export interface MovieResultElement {
 export interface RecommendationAction {
   type: RecommendationActionType;
   payload: {
-    recommendationList?: MovieResultElement[];
+    recommendationList?: RecommendationListObject;
   };
 }
 
@@ -69,7 +70,7 @@ export const clearRecommendationData = (): Action => {
 };
 
 export const getRecommendationEnd = (
-  payload: MovieResultElement[],
+  payload: RecommendationListObject,
   recommendationType: string
 ): RecommendationAction => {
   switch (recommendationType) {
@@ -117,7 +118,7 @@ const fetchRecommendation = (
         throw Error("Error occurred, status: " + response.status);
       }
     })
-    .then((json: MovieResultElement[]) => {
+    .then((json: RecommendationListObject) => {
       dispatch(getRecommendationEnd(json, recommendationType));
     })
     .catch((error) => console.log("An error occurred.", error));

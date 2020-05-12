@@ -12,27 +12,33 @@ import {
   getGenreRecommendation,
 } from "../../actions/recommendationActions";
 import { PageType } from "../../Constants";
+import { RecommendationListObject } from "../../reducers/recommendationReducer";
+
+const isEmpty = (object: {}) => Object.keys(object).length === 0;
 
 function Recommendations() {
   const dispatch = useDispatch();
 
   // This is movie recommendations that need to be rendered to the user on the
   // gridlist
-  const movieRecommendationResult = useSelector<GlobalState, any>(
-    (state) => state.recommendationData.movieRecommendationList
-  );
+  const movieRecommendationResult = useSelector<
+    GlobalState,
+    RecommendationListObject
+  >((state) => state.recommendationData.movieRecommendationList);
 
   // This is actor recommendations that need to be rendered to the user on the
   // gridlist
-  const actorRecommendationResult = useSelector<GlobalState, any>(
-    (state) => state.recommendationData.actorRecommendationList
-  );
+  const actorRecommendationResult = useSelector<
+    GlobalState,
+    RecommendationListObject
+  >((state) => state.recommendationData.actorRecommendationList);
 
   // This is genre recommendations that need to be rendered to the user on the
   // gridlist
-  const genreRecommendationResult = useSelector<GlobalState, any>(
-    (state) => state.recommendationData.genreRecommendationList
-  );
+  const genreRecommendationResult = useSelector<
+    GlobalState,
+    RecommendationListObject
+  >((state) => state.recommendationData.genreRecommendationList);
 
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
@@ -53,17 +59,17 @@ function Recommendations() {
   useEffect(() => {
     if (isLoggedIn && username !== "") {
       dispatch(listMovies(username));
-      if (movieRecommendationResult.length === 0) {
+      if (isEmpty(movieRecommendationResult)) {
         dispatch(getMovieRecommendation(username));
       }
-      if (actorRecommendationResult.length === 0) {
+      if (isEmpty(actorRecommendationResult)) {
         dispatch(getActorRecommendation(username));
       }
-      if (genreRecommendationResult === 0) {
+      if (isEmpty(genreRecommendationResult)) {
         dispatch(getGenreRecommendation(username));
       }
-    } else {
     }
+    // eslint-disable-next-line
   }, [dispatch, username, isLoggedIn]);
 
   // Note: This is NOT what is defined as refresh in the use case document.
@@ -78,15 +84,17 @@ function Recommendations() {
     dispatch(getGenreRecommendation(username));
   };
 
-  const renderMovieRecommendation = (recommendationResult: any): any[] => {
-    // let renderArray: any[] = [];
+  useEffect(() => {
+    if (isLoggedIn) refreshRecommendations();
+    // eslint-disable-next-line
+  }, [isLoggedIn, userMyMoviesList]);
 
+  const renderMovieRecommendation = (recommendationResult: any): any[] => {
     if (movieDataLoading !== LoadingState.LOADING && recommendationResult) {
       return Object.keys(recommendationResult).map(
         (keyName: any, keyIndex: number) => {
-          // renderArray.push(
           return (
-            <div>
+            <div key={keyIndex}>
               <h2>Because you liked {keyName}</h2>
               <MovieGrid
                 displayMovieList={recommendationResult[keyName]}
@@ -96,7 +104,6 @@ function Recommendations() {
               />
             </div>
           );
-          // );
         }
       );
     } else {
@@ -114,6 +121,15 @@ function Recommendations() {
           </IconButton>
         </Typography>
         {/* <SearchBar /> */}
+        {isLoggedIn &&
+          isEmpty(movieRecommendationResult) &&
+          isEmpty(actorRecommendationResult) &&
+          isEmpty(genreRecommendationResult) && (
+            <Typography variant="h5" gutterBottom>
+              Rate more movies to get recommendations.
+            </Typography>
+          )}
+
         {renderMovieRecommendation(movieRecommendationResult)}
         {renderMovieRecommendation(actorRecommendationResult)}
         {renderMovieRecommendation(genreRecommendationResult)}

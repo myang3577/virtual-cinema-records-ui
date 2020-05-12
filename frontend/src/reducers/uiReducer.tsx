@@ -29,7 +29,7 @@ const initialState: UIState = {
   snackBarOpen: false,
   snackBarString: "",
   currentMovie: {
-    movie: "",
+    movie: {},
     inUserList: false,
   },
   tmdbBaseUrl: "https://image.tmdb.org/t/p/w500/",
@@ -94,6 +94,22 @@ export const uiReducer = (
       return {
         ...state,
         snackBarOpen: false,
+      };
+    case UIActionType.ADD_CURRENT_MOVIE:
+      return {
+        ...state,
+        currentMovie: {
+          ...state.currentMovie,
+          inUserList: true,
+        },
+      };
+    case UIActionType.REMOVE_CURRENT_MOVIE:
+      return {
+        ...state,
+        currentMovie: {
+          ...state.currentMovie,
+          inUserList: false,
+        },
       };
     default:
       return state;

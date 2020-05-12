@@ -5,18 +5,22 @@ import {
   MovieResultElement,
 } from "../actions/recommendationActions";
 
+export interface RecommendationListObject {
+  [key: string]: MovieResultElement[];
+}
+
 export interface RecommendationState {
   loading: LoadingState;
-  movieRecommendationList: MovieResultElement[];
-  actorRecommendationList: MovieResultElement[];
-  genreRecommendationList: MovieResultElement[];
+  movieRecommendationList: RecommendationListObject;
+  actorRecommendationList: RecommendationListObject;
+  genreRecommendationList: RecommendationListObject;
 }
 
 const initialState: RecommendationState = {
   loading: LoadingState.IDLE,
-  movieRecommendationList: [],
-  actorRecommendationList: [],
-  genreRecommendationList: [],
+  movieRecommendationList: {},
+  actorRecommendationList: {},
+  genreRecommendationList: {},
 };
 
 export const recommendationReducer = (

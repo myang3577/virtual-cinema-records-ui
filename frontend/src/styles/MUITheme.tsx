@@ -28,22 +28,16 @@ export const tealLightGreenTheme = createMuiTheme({
         minHeight: 0,
       },
     },
-    MuiCard: {
-      root: {
-        width: "100%",
-        height: "auto",
-      },
-    },
     MuiCardHeader: {
       root: {
         width: "100%",
-        height: 100,
+        height: 85,
       },
     },
     MuiCardContent: {
       root: {
-        width: "80%",
-        height: 50,
+        width: "100%",
+        height: 80,
       },
     },
     MuiCardMedia: {
