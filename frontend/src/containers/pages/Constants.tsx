@@ -1,11 +1,3 @@
-import { FormatAlignCenter } from "@material-ui/icons";
-
-export enum PageType {
-  HOME = "HOME",
-  RECOMMENDATIONS = "RECOMMENDATIONS",
-  MY_MOVIES = "MY_MOVIES",
-}
-
 export interface GenreItem {
   id: number;
   name: string;

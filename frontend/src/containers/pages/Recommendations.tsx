@@ -70,6 +70,9 @@ function Recommendations() {
   const movieDataLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.tmdbData.loading
   );
+  const userListDataLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.movieListData.listDataLoading
+  );
   const isLoggedIn = useSelector<GlobalState, boolean>(
     (state) => state.loginData.isLoggedIn
   );
@@ -129,9 +132,10 @@ function Recommendations() {
   }, [dispatch, username, isLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn) refreshRecommendations();
+    if (isLoggedIn && userListDataLoading === LoadingState.DONE)
+      refreshRecommendations();
     // eslint-disable-next-line
-  }, [isLoggedIn, userMyMoviesList]);
+  }, [isLoggedIn, userListDataLoading]);
 
   // Note: This is NOT what is defined as refresh in the use case document.
   // Currently this code is written to NOT get a new set of recommendations

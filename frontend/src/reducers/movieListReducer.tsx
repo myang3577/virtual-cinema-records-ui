@@ -7,12 +7,14 @@ import {
 
 export interface MovieListState {
   loading: LoadingState;
+  listDataLoading: LoadingState;
   movieIDList: MovieListElement[];
   movieDataList: [];
 }
 
 const initialState: MovieListState = {
   loading: LoadingState.IDLE,
+  listDataLoading: LoadingState.IDLE,
   movieIDList: [],
   movieDataList: [],
 };
@@ -42,6 +44,11 @@ export const movieListReducer = (
           ...state.movieDataList,
           action.payload.movieData,
         ] as any,
+      };
+    case MovieListActionType.ADD_ALL_MOVIE_LIST_DATA_END:
+      return {
+        ...state,
+        listDataLoading: LoadingState.DONE,
       };
     case MovieListActionType.CLEAR_MOVIE_LIST_DATA:
       return initialState;

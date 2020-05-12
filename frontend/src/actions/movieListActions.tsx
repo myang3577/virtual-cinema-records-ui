@@ -7,6 +7,7 @@ export enum MovieListActionType {
   LIST_BEGIN = "LIST_BEGIN",
   LIST_END = "LIST_END",
   ADD_MOVIE_DATA = "ADD_MOVIE_DATA",
+  ADD_ALL_MOVIE_LIST_DATA_END = "ADD_ALL_MOVIE_LIST_DATA_END",
   CLEAR_MOVIE_LIST_DATA = "CLEAR_MOVIE_LIST_DATA",
 }
 
@@ -62,6 +63,12 @@ const addMovieDataAction = (payload: any): MovieListAction => {
   };
 };
 
+export const addAllMovieListDataEnd = (): Action => {
+  return {
+    type: MovieListActionType.ADD_ALL_MOVIE_LIST_DATA_END,
+  };
+};
+
 export const clearMovieListData = (): Action => {
   return {
     type: MovieListActionType.CLEAR_MOVIE_LIST_DATA,
@@ -86,6 +93,7 @@ export const listMovies = (email: string) => {
           fetchAndAddMovieData(movie.tmdb_id, dispatch);
         });
       })
+      .then(() => dispatch(addAllMovieListDataEnd()))
       .catch((error) => console.log("An error occurred.", error));
   };
 };
