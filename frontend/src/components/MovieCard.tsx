@@ -14,7 +14,6 @@ import { PageType } from "../Constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleDetailDrawer,
-  openAccountModal,
   openSnackBar,
   SnackBarActionType,
 } from "../actions/uiActions";

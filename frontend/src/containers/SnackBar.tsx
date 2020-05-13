@@ -3,18 +3,16 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
 import {
-  closeSnackBar,
   SnackBarActionType,
   setAccountModalContent,
   AccountModalContent,
   openAccountModal,
 } from "../actions/uiActions";
-import { IconButton, Slide, Tooltip } from "@material-ui/core";
+import { IconButton, Slide } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { Person, Theaters } from "@material-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import { routes } from "./pages/App";
-import NavBar from "./NavBar";
 import RatingButtons from "./RatingButtons";
 
 export interface SnackbarMessage {
@@ -58,7 +56,13 @@ function SnackBar() {
     }
 
     setOpen(snackBarOpen);
-  }, [dispatch, snackBarString, snackBarOpen, snackBarAction]);
+  }, [
+    dispatch,
+    snackBarString,
+    snackBarOpen,
+    snackBarAction,
+    snackBarExtraPayload,
+  ]);
 
   const addMessage = (
     message: string,

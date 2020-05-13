@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../../reducers/rootReducer";
-import MovieGrid from "../../components/MovieGrid";
-import { Typography, IconButton, Slide, Fade } from "@material-ui/core";
+import { Typography, IconButton, Slide, Link } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
 import SimpleListMenu from "../../components/DropdownMenu";
-import { GenreItem, genreMap } from "./Constants";
+import { genreMap } from "./Constants";
 import {
   getMovieRecommendation,
   getActorRecommendation,
   getGenreRecommendation,
-  MovieResultElement,
   getGeneralRecommendation,
   getSpecificRecommendation,
 } from "../../actions/recommendationActions";
 import { PageType } from "../../Constants";
 import { RecommendationListObject } from "../../reducers/recommendationReducer";
-import { Movie } from "@material-ui/icons";
+import { openAccountModal } from "../../actions/uiActions";
+import RecommendationSection from "../../components/RecommendationSection";
 
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
-
-// interface MovieGridProps {
-//   displayMovieList: [];
-//   userMyMoviesList: [];
-//   loading: LoadingState;
-//   page: PageType;
-// }
-
-// const NUM_ELEMENTS_PER_ROW = 4;
 
 function Recommendations() {
   const dispatch = useDispatch();
@@ -122,7 +112,6 @@ function Recommendations() {
     } else {
       // For anything that needs to be rendered if user is not logged in
     }
-    // console.log(genreToDisplay);
     if (
       generalRecommendationList["Now Playing"].length === 0 ||
       generalRecommendationList.Popular.length === 0 ||
@@ -156,17 +145,14 @@ function Recommendations() {
       return Object.keys(recommendationResult).map(
         (keyName: any, keyIndex: number) => {
           return (
-            <Fade in={true} timeout={1000}>
-              <div key={keyIndex}>
-                <h2>Because you liked {keyName}</h2>
-                <MovieGrid
-                  displayMovieList={recommendationResult[keyName]}
-                  loading={movieDataLoading}
-                  userMyMoviesList={userMyMoviesList}
-                  page={PageType.HOME}
-                />
-              </div>
-            </Fade>
+            <RecommendationSection
+              header={"Because you liked " + keyName}
+              displayMovieList={recommendationResult[keyName]}
+              loading={movieDataLoading}
+              userMyMoviesList={userMyMoviesList}
+              page={PageType.RECOMMENDATIONS}
+              key={keyIndex}
+            />
           );
         }
       );
@@ -179,26 +165,18 @@ function Recommendations() {
   const renderGeneralRecommendation = (recommendationResult: any): any[] => {
     if (movieDataLoading !== LoadingState.LOADING && recommendationResult) {
       return Object.keys(recommendationResult).map(
-        (keyName: string, keyIndex: number) => {
-          if (
-            recommendationResult[keyName] !== 0 &&
-            genreToDisplay[keyName] !== false
-          ) {
-            return (
-              <Fade in={true} timeout={1000}>
-                <div key={keyIndex}>
-                  <h1>{keyName}</h1>
-                  <MovieGrid
-                    displayMovieList={recommendationResult[keyName]}
-                    loading={movieDataLoading}
-                    userMyMoviesList={userMyMoviesList}
-                    page={PageType.HOME}
-                  />
-                </div>
-              </Fade>
-            );
-          }
-        }
+        (keyName: string, keyIndex: number) =>
+          recommendationResult[keyName] !== 0 &&
+          genreToDisplay[keyName] !== false && (
+            <RecommendationSection
+              header={keyName}
+              displayMovieList={recommendationResult[keyName]}
+              loading={movieDataLoading}
+              userMyMoviesList={userMyMoviesList}
+              page={PageType.RECOMMENDATIONS}
+              key={keyIndex}
+            />
+          )
       );
     } else {
       return [];
@@ -240,15 +218,26 @@ function Recommendations() {
             genreToDisplay={genreToDisplay}
           />
         </Typography>
-        {/* <SearchBar /> */}
         {isLoggedIn &&
           isEmpty(movieRecommendationResult) &&
           isEmpty(actorRecommendationResult) &&
           isEmpty(genreRecommendationResult) && (
-            <Typography variant="h5" gutterBottom>
-              Rate more movies to get recommendations.
+            <Typography variant="h6" gutterBottom>
+              Rate more movies to get personalized recommendations.
             </Typography>
           )}
+        {!isLoggedIn && (
+          <Typography variant="h6" gutterBottom>
+            <Link
+              component="button"
+              variant="h6"
+              onClick={() => dispatch(openAccountModal())}
+            >
+              Log in
+            </Link>{" "}
+            to get personalized recommendations.
+          </Typography>
+        )}
         {renderMovieRecommendation(movieRecommendationResult)}
         {renderMovieRecommendation(actorRecommendationResult)}
         {renderMovieRecommendation(genreRecommendationResult)}

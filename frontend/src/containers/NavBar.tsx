@@ -15,7 +15,7 @@ import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import PersonIcon from "@material-ui/icons/Person";
 import "../styles/App.css";
-import { toggleAccountDrawer, SnackBarActionType } from "../actions/uiActions";
+import { toggleAccountDrawer } from "../actions/uiActions";
 import { routes } from "./pages/App";
 import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";

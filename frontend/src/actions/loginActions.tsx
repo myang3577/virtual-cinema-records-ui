@@ -1,11 +1,7 @@
 import { Dispatch } from "redux";
 import { clearMovieListData } from "./movieListActions";
 import { clearRecommendationData } from "./recommendationActions";
-import {
-  closeAccountModal,
-  openSnackBar,
-  SnackBarActionType,
-} from "./uiActions";
+import { closeAccountModal, openSnackBar } from "./uiActions";
 
 export enum LoginType {
   LOGIN_BEGIN = "LOGIN_BEGIN",
