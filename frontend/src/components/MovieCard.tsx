@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
-import { PageType } from "../Constants";
+import { PageType } from "../constants/General";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleDetailDrawer,

@@ -6,7 +6,7 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
 import SimpleListMenu from "../../components/DropdownMenu";
-import { genreMap } from "./Constants";
+import { genreMap } from "../../constants/Rceommendation";
 import {
   getMovieRecommendation,
   getActorRecommendation,
@@ -14,7 +14,7 @@ import {
   getGeneralRecommendation,
   getSpecificRecommendation,
 } from "../../actions/recommendationActions";
-import { PageType } from "../../Constants";
+import { PageType } from "../../constants/General";
 import { RecommendationListObject } from "../../reducers/recommendationReducer";
 import { openAccountModal } from "../../actions/uiActions";
 import RecommendationSection from "../../components/RecommendationSection";

@@ -12,7 +12,7 @@ import {
   openSnackBar,
   SnackBarActionType,
 } from "../../actions/uiActions";
-import { validEmail } from "../../Constants";
+import { validEmail } from "../../constants/General";
 
 function LoginForm() {
   const [localUsername, setLocalUsername] = useState("");

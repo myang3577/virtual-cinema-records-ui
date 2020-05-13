@@ -5,7 +5,7 @@ import { GlobalState } from "../../reducers/rootReducer";
 import { UsernameField } from "../../components/Username";
 import { LoadingButton } from "../../components/LoadingButton";
 import { openSnackBar } from "../../actions/uiActions";
-import { validEmail } from "../../Constants";
+import { validEmail } from "../../constants/General";
 import { Typography } from "@material-ui/core";
 
 function ForgotPassword() {

@@ -13,7 +13,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
-import { PageType } from "../../Constants";
+import { PageType } from "../../constants/General";
 import { getPopularMovies, searchMovies } from "../../actions/tmdbActions";
 
 export const ENTER_KEYCODE = 13;

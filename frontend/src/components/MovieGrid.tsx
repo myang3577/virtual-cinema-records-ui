@@ -9,7 +9,7 @@ import {
 import { Skeleton } from "@material-ui/lab";
 import MovieCard from "./MovieCard";
 import { LoadingState } from "../reducers/tmdbReducer";
-import { PageType } from "../Constants";
+import { PageType } from "../constants/General";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import { MovieListElement } from "../actions/movieListActions";
 

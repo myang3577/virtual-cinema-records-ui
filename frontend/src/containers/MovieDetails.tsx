@@ -9,7 +9,6 @@ import {
   Grid,
   createStyles,
   Theme,
-  Divider,
   List,
   ListItem,
   ListItemText,

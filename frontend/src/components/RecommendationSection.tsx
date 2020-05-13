@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Fade, Collapse, IconButton, Typography } from "@material-ui/core";
 import { LoadingState } from "../reducers/tmdbReducer";
-import { PageType } from "../Constants";
+import { PageType } from "../constants/General";
 import MovieGrid from "./MovieGrid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
