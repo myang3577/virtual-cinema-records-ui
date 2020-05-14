@@ -31,12 +31,7 @@ export default function SimpleListMenu(props: MenuProps) {
   }, [props.genreToDisplay]);
 
   return (
-    <ClickAwayListener
-      onClickAway={() => {
-        console.log("clicked away");
-        setGenreSelectOpen(false);
-      }}
-    >
+    <ClickAwayListener onClickAway={() => setGenreSelectOpen(false)}>
       <Paper>
         <List component="nav">
           <ListItem
@@ -65,23 +60,6 @@ export default function SimpleListMenu(props: MenuProps) {
             genreToDisplay={props.genreToDisplay}
           />
         </Popper>
-        {/* <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          disableScrollLock
-        >
-          <MenuItem
-            disableRipple
-            disableTouchRipple
-            style={{ backgroundColor: "transparent" }}
-          >
-            <CheckBoxLabels
-              handlerFunction={props.handlerFunction}
-              genreToDisplay={props.genreToDisplay}
-            />
-          </MenuItem>
-        </Menu> */}
       </Paper>
     </ClickAwayListener>
   );

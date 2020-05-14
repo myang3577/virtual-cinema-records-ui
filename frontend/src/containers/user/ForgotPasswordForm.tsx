@@ -40,7 +40,7 @@ function ForgotPassword() {
   return (
     <div className="user-form">
       <Typography variant="h6">
-        Enter your username to send an email to recover your password
+        Enter your username to receive an email with your password
       </Typography>
       <UsernameField
         error={localUsername !== "" && !validEmail(localUsername)}
@@ -50,7 +50,7 @@ function ForgotPassword() {
       />
       <div className="divider"></div>
       <LoadingButton onClick={handleSubmit} loading={false}>
-        Send Email
+        Receive Password
       </LoadingButton>
     </div>
   );

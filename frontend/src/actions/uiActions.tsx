@@ -119,7 +119,7 @@ export const openSnackBar = (
   str: string,
   action?: SnackBarActionType,
   movie?: any,
-  userRating?: number
+  userRating?: number | null
 ): UISnackBarAction => {
   if (action) {
     if (movie && userRating) {

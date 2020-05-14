@@ -150,6 +150,7 @@ function SnackBar() {
                 movie={messageInfo.extraPayload.movie}
                 userRating={messageInfo.extraPayload.userRating}
                 displayWords={false}
+                disabled
               />
             );
       }

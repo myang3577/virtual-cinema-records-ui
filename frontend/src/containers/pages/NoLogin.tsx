@@ -1,7 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Typography, Link } from "@material-ui/core";
-import { openAccountModal } from "../../actions/uiActions";
+import {
+  openAccountModal,
+  setAccountModalContent,
+  AccountModalContent,
+} from "../../actions/uiActions";
 
 function NoLogin() {
   const dispatch = useDispatch();
@@ -11,7 +15,10 @@ function NoLogin() {
       <Link
         component="button"
         variant="h4"
-        onClick={() => dispatch(openAccountModal())}
+        onClick={() => {
+          dispatch(setAccountModalContent(AccountModalContent.LOGIN));
+          dispatch(openAccountModal());
+        }}
       >
         Log in
       </Link>{" "}

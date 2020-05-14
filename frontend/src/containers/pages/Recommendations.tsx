@@ -16,7 +16,11 @@ import {
 } from "../../actions/recommendationActions";
 import { PageType } from "../../constants/General";
 import { RecommendationListObject } from "../../reducers/recommendationReducer";
-import { openAccountModal } from "../../actions/uiActions";
+import {
+  openAccountModal,
+  setAccountModalContent,
+  AccountModalContent,
+} from "../../actions/uiActions";
 import RecommendationSection from "../../components/RecommendationSection";
 
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
@@ -231,7 +235,10 @@ function Recommendations() {
             <Link
               component="button"
               variant="h6"
-              onClick={() => dispatch(openAccountModal())}
+              onClick={() => {
+                dispatch(setAccountModalContent(AccountModalContent.LOGIN));
+                dispatch(openAccountModal());
+              }}
             >
               Log in
             </Link>{" "}

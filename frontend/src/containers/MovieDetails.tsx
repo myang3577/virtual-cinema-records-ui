@@ -9,7 +9,6 @@ import {
   Grid,
   createStyles,
   Theme,
-  List,
   ListItem,
   ListItemText,
   ListItemAvatar,
@@ -20,16 +19,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
 import {
   toggleDetailDrawer,
-  openAccountModal,
   removeCurrentMovie,
   addCurrentMovie,
 } from "../actions/uiActions";
 import CloseIcon from "@material-ui/icons/Close";
-import { Add, Delete } from "@material-ui/icons";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Prices from "./Prices";
 import { deleteMovie, putMovie } from "../actions/movieListActions";
 import RatingButtons from "../containers/RatingButtons";
+import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,21 +95,15 @@ function MovieDetails() {
     (state) => state.tmdbData.movieReleaseDate
   );
 
-  const displayCast = () => {
-    return (
-      movieCast.cast &&
-      movieCast.cast.slice(0, 10).map((member: any) => (
-        <ListItem disableGutters={true}>
-          <ListItemText primary={member.name + " (" + member.character + ")"} />
-          <ListItemAvatar>
-            <Avatar alt={member.name} src={baseUrl + member.profile_path} />
-          </ListItemAvatar>
-        </ListItem>
-      ))
-    );
-  };
-
-  console.log(movieCast.cast);
+  const displayCast = () =>
+    movieCast.cast.slice(0, 10).map((member: any, i: number) => (
+      <ListItem disableGutters={true} key={i}>
+        <ListItemText primary={member.name + " (" + member.character + ")"} />
+        <ListItemAvatar>
+          <Avatar alt={member.name} src={baseUrl + member.profile_path} />
+        </ListItemAvatar>
+      </ListItem>
+    ));
 
   useEffect(() => {
     dispatch(toggleDetailDrawer(dialogOpen, movieInUserList, currMovie));
@@ -121,17 +113,17 @@ function MovieDetails() {
     dispatch(toggleDetailDrawer(false, false));
   };
 
+  useEffect(() => {
+    console.log(movieInUserList);
+  }, [movieInUserList]);
+
   const iconButtonClick = () => {
     if (movieInUserList) {
       dispatch(deleteMovie(username, currMovie.id));
       dispatch(removeCurrentMovie());
     } else {
-      if (isLoggedIn) {
-        dispatch(putMovie(username, currMovie.id));
-      } else {
-        dispatch(openAccountModal());
-        dispatch(addCurrentMovie());
-      }
+      dispatch(putMovie(username, currMovie.id));
+      dispatch(addCurrentMovie());
     }
   };
 
@@ -154,9 +146,11 @@ function MovieDetails() {
         >
           <CloseIcon />
         </IconButton>
-        <IconButton onClick={iconButtonClick}>
-          {movieInUserList ? <Delete /> : <Add />}
-        </IconButton>
+        <AddRemoveMoviesIconButton
+          inUserList={movieInUserList}
+          isLoggedIn={isLoggedIn}
+          onClick={iconButtonClick}
+        />
       </Toolbar>
       <Grid container spacing={3} className={classes.root}>
         {/* movie poster */}
@@ -187,13 +181,20 @@ function MovieDetails() {
           <Grid item xs={12}>
             <Grid className={classes.paper}></Grid>
             {currMovie.production_companies &&
-              currMovie.production_companies.map((e: any) => (
-                <img
-                  src={baseUrl + e.logo_path}
-                  style={{ maxWidth: "10%" }}
-                  alt="company logos"
-                />
-              ))}
+              currMovie.production_companies.map((e: any, i: number) => {
+                if (e.logo_path) {
+                  return (
+                    <img
+                      src={baseUrl + e.logo_path}
+                      style={{ maxWidth: "10%" }}
+                      alt="company logos"
+                      key={i}
+                    />
+                  );
+                } else {
+                  return <div key={i}>{e.name}</div>;
+                }
+              })}
             <br />
           </Grid>
           <RatingButtons
@@ -217,17 +218,19 @@ function MovieDetails() {
             {" "}
             {movieCast.cast && movieCast.cast.length > 0 && "The Cast"}{" "}
           </Typography>
-          <GridList
-            cols={2}
-            //style={{ width: "50%" }}
-            //dense={true}
-            //disablePadding={true}
-            // above styling was used for List, not GridList
-            cellHeight={45}
-            spacing={1}
-          >
-            {movieCast.cast && displayCast()}
-          </GridList>
+          {movieCast.cast && (
+            <GridList
+              cols={2}
+              //style={{ width: "50%" }}
+              //dense={true}
+              //disablePadding={true}
+              // above styling was used for List, not GridList
+              cellHeight={45}
+              spacing={1}
+            >
+              {displayCast()}
+            </GridList>
+          )}
         </Grid>
         {/* movie prices */}
         <Grid className={classes.prices} item xs={3}>

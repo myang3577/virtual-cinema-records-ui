@@ -10,6 +10,7 @@ export interface RatingButtonsProps {
   movie: any;
   userRating: number;
   displayWords: boolean;
+  disabled?: boolean;
 }
 
 function RatingButtons(props: RatingButtonsProps) {
@@ -19,17 +20,15 @@ function RatingButtons(props: RatingButtonsProps) {
     (state) => state.loginData.username
   );
 
-  const [rating, setRating] = useState(props.userRating ? props.userRating : 0);
+  const [rating, setRating] = useState<number | null>(
+    props.userRating ? props.userRating : null
+  );
   const [displayRating, setDisplayRating] = useState(0);
 
-  const onRatingChange = (e: React.ChangeEvent<{}>, value: number) => {
-    if (value === null) {
-      dispatch(deleteRating(username, props.movie.id));
-    } else {
-      dispatch(putRating(username, props.movie.id, value));
-    }
+  const onRatingChange = (e: React.ChangeEvent<{}>, value: number | null) => {
     setRating(value);
     if (value === null) {
+      dispatch(deleteRating(username, props.movie.id));
       dispatch(
         openSnackBar(
           props.movie.title + " rating removed",
@@ -39,6 +38,7 @@ function RatingButtons(props: RatingButtonsProps) {
         )
       );
     } else {
+      dispatch(putRating(username, props.movie.id, value));
       dispatch(
         openSnackBar(
           props.movie.title + " rating updated to " + value + " stars",
@@ -50,18 +50,33 @@ function RatingButtons(props: RatingButtonsProps) {
     }
   };
 
+  const ratingHeader = () => {
+    if (rating !== null && displayRating > 0) {
+      if (rating === displayRating) {
+        return "Remove rating.";
+      } else {
+        return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+      }
+    } else if (rating !== null || displayRating > 0) {
+      return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+    } else {
+      return "Click the stars to rate this movie.";
+    }
+  };
+
   return (
     <div>
       <Typography variant="body1" hidden={!props.displayWords}>
-        Your rating: {displayRating > 0 ? displayRating : rating}
+        {ratingHeader()}
       </Typography>
       <Rating
         name={props.movie.id + "-rating"}
         precision={0.5}
         max={5}
-        onChange={(e, value) => onRatingChange(e, value!)}
+        onChange={(e, value) => onRatingChange(e, value)}
         onChangeActive={(e, value) => setDisplayRating(value!)}
         value={rating}
+        disabled={props.disabled === undefined ? false : props.disabled}
       />
     </div>
   );

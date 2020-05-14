@@ -4,12 +4,9 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  IconButton,
   CardActionArea,
   Typography,
-  Tooltip,
 } from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
 import { PageType } from "../constants/General";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,9 +16,10 @@ import {
 } from "../actions/uiActions";
 import { GlobalState } from "../reducers/rootReducer";
 import { putMovie, deleteMovie } from "../actions/movieListActions";
-import RatingButtons from "../containers/RatingButtons";
+import RatingButtons from "./RatingButtons";
 import { getMovieCast } from "../actions/tmdbActions";
 import { getReleaseDate } from "../actions/tmdbActions";
+import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 
 export interface MovieCardProps {
   movie: any;
@@ -58,24 +56,15 @@ function MovieCard(props: MovieCardProps) {
         )
       );
     } else {
-      if (isLoggedIn) {
-        dispatch(putMovie(username, props.movie.id));
-        dispatch(
-          openSnackBar(
-            props.movie.title + " added to MyMovies",
-            SnackBarActionType.RATING,
-            props.movie,
-            props.userRating
-          )
-        );
-      } else {
-        dispatch(
-          openSnackBar(
-            "You must log in to add " + props.movie.title + " to MyMovies",
-            SnackBarActionType.MYMOVIES
-          )
-        );
-      }
+      dispatch(putMovie(username, props.movie.id));
+      dispatch(
+        openSnackBar(
+          props.movie.title + " added to MyMovies",
+          SnackBarActionType.RATING,
+          props.movie,
+          props.userRating
+        )
+      );
     }
   };
 
@@ -104,26 +93,11 @@ function MovieCard(props: MovieCardProps) {
             display: "inline",
           }}
           action={
-            <Tooltip
-              title={
-                props.inUserList
-                  ? "Remove from MyMovies"
-                  : isLoggedIn
-                  ? "Add to MyMovies"
-                  : "Login to add to MyMovies"
-              }
-              placement="top"
-            >
-              <span>
-                <IconButton
-                  size="medium"
-                  onClick={iconButtonClick}
-                  disabled={!isLoggedIn}
-                >
-                  {props.inUserList ? <Delete /> : <Add />}
-                </IconButton>
-              </span>
-            </Tooltip>
+            <AddRemoveMoviesIconButton
+              inUserList={props.inUserList}
+              isLoggedIn={isLoggedIn}
+              onClick={iconButtonClick}
+            />
           }
         />
         {props.page === PageType.MY_MOVIES && (

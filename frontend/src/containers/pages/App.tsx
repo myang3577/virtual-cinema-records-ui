@@ -6,6 +6,7 @@ import About from "./About";
 import Recommendations from "./Recommendations";
 import MyMovies from "./MyMovies";
 import Navbar from "../NavBar";
+import SnackBar from "../SnackBar";
 
 export const routes = {
   homeLink: "/",
@@ -21,6 +22,7 @@ function App() {
         {/* Remove margins */}
         <CssBaseline />
         <Navbar />
+        <SnackBar />
 
         <div className="page-body">
           <Switch>

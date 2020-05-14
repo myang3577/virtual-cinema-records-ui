@@ -3,7 +3,7 @@
 .user-form {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  width: 375px;
   text-align: center;
 }
 

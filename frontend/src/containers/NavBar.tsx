@@ -22,7 +22,6 @@ import VCRIconOnly from "../images/VCRIconOnly.png";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
 import MovieDetails from "./MovieDetails";
-import SnackBar from "./SnackBar";
 import { withRouter } from "react-router-dom";
 
 const HOME_TAB_VAL = 0;
@@ -188,7 +187,6 @@ function NavBar(props: any) {
           <AccountDrawer />
           <AccountModal />
           <MovieDetails />
-          <SnackBar />
         </Tabs>
       </Collapse>
     </Paper>
