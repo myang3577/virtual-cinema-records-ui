@@ -8,7 +8,7 @@
   "jsxSingleQuote": false,
   "jsxBracketSameLine": false,
   "insertPragma": false,
-  "endOfLine": "lf",
+  "endOfLine": "crlf",
   "semi": true,
   "singleQuote": false,
   "resolveGlobalModules": false,
