@@ -13,11 +13,11 @@
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
-    "@material-ui/lab": "^4.0.0-alpha.52",
+    "@material-ui/lab": "^4.0.0-alpha.53",
     "@types/react-redux": "^7.1.8",
     "@types/react-router": "^5.1.7",
     "concurrently": "^5.2.0",
     "react-redux": "^7.2.0",
-    "react-router": "^5.1.2"
+    "react-router": "^5.2.0"
   }
 }
