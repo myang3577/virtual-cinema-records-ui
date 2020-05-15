@@ -22,6 +22,7 @@ import {
   AccountModalContent,
 } from "../../actions/uiActions";
 import RecommendationSection from "../../components/RecommendationSection";
+import { MovieListElement } from "../../actions/userInfoActions";
 
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
 
@@ -72,6 +73,10 @@ function Recommendations() {
   );
   const username = useSelector<GlobalState, string>(
     (state) => state.loginData.username
+  );
+
+  const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
+    (state) => state.movieListData.movieIDList
   );
 
   // Flags used to indicate which movies the user wants to view. True to view,
@@ -154,6 +159,7 @@ function Recommendations() {
               displayMovieList={recommendationResult[keyName]}
               loading={movieDataLoading}
               userMyMoviesList={userMyMoviesList}
+              userMovieIDList={userMovieIDList}
               page={PageType.RECOMMENDATIONS}
               key={keyIndex}
             />
@@ -177,6 +183,7 @@ function Recommendations() {
               displayMovieList={recommendationResult[keyName]}
               loading={movieDataLoading}
               userMyMoviesList={userMyMoviesList}
+              userMovieIDList={userMovieIDList}
               page={PageType.RECOMMENDATIONS}
               key={keyIndex}
             />

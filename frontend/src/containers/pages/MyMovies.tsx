@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieGrid from "../../components/MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { listMovies, MovieListElement } from "../../actions/movieListActions";
+import { listMovies } from "../../actions/movieListActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import {
   Typography,
@@ -17,6 +17,7 @@ import { LoadingState } from "../../reducers/tmdbReducer";
 import { PageType } from "../../constants/General";
 import NoLogin from "./NoLogin";
 import { ENTER_KEYCODE } from "./Home";
+import { MovieListElement } from "../../actions/userInfoActions";
 
 function MyMovies() {
   const dispatch = useDispatch();

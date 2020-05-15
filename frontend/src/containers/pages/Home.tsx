@@ -15,6 +15,7 @@ import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
 import { PageType } from "../../constants/General";
 import { getPopularMovies, searchMovies } from "../../actions/tmdbActions";
+import { MovieListElement } from "../../actions/userInfoActions";
 
 export const ENTER_KEYCODE = 13;
 
@@ -47,9 +48,13 @@ function Home() {
     (state) => state.loginData.username
   );
 
-  const loading: LoadingState = useSelector<GlobalState>(
+  const loading: LoadingState = useSelector<GlobalState, LoadingState>(
     (state) => state.tmdbData.loading
-  ) as LoadingState;
+  );
+
+  const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
+    (state) => state.movieListData.movieIDList
+  );
 
   useEffect(() => {
     if (isLoggedIn && username !== "") dispatch(listMovies(username));
@@ -118,6 +123,7 @@ function Home() {
           }
           loading={movieDataLoading}
           userMyMoviesList={userMyMoviesList}
+          userMovieIDList={userMovieIDList}
           page={PageType.HOME}
         />
       </div>

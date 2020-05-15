@@ -87,11 +87,11 @@ function MovieDetails() {
     (state) => state.uiData.currentMovie.inUserList
   );
 
-  const movieCast: any = useSelector<GlobalState>(
+  const movieCast = useSelector<GlobalState, any>(
     (state) => state.tmdbData.movieCast
   );
 
-  const movieReleaseDate: any = useSelector<GlobalState>(
+  const movieReleaseDate = useSelector<GlobalState, any>(
     (state) => state.tmdbData.movieReleaseDate
   );
 
@@ -113,10 +113,6 @@ function MovieDetails() {
     dispatch(toggleDetailDrawer(false, false));
   };
 
-  useEffect(() => {
-    console.log(movieInUserList);
-  }, [movieInUserList]);
-
   const iconButtonClick = () => {
     if (movieInUserList) {
       dispatch(deleteMovie(username, currMovie.id));
@@ -126,7 +122,6 @@ function MovieDetails() {
       dispatch(addCurrentMovie());
     }
   };
-
   return (
     <Dialog
       fullScreen
@@ -197,11 +192,13 @@ function MovieDetails() {
               })}
             <br />
           </Grid>
-          <RatingButtons
-            movie={currMovie}
-            userRating={currMovie.userRating!}
-            displayWords={true}
-          />
+          {isLoggedIn && (
+            <RatingButtons
+              movie={currMovie}
+              userRating={currMovie.userRating!}
+              displayWords={true}
+            />
+          )}
           <br />
           <Typography variant="body1">
             {currMovie && currMovie.overview}

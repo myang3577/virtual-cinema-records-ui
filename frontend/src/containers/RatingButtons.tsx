@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Typography } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import { Rating, Skeleton } from "@material-ui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
 import { putRating, deleteRating } from "../actions/movieListActions";
 import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 export interface RatingButtonsProps {
   movie: any;
@@ -20,12 +21,18 @@ function RatingButtons(props: RatingButtonsProps) {
     (state) => state.loginData.username
   );
 
+  const ratingLoadingStatus = useSelector<GlobalState, LoadingState>(
+    (state) => state.movieListData.ratingLoadingStatus[props.movie.id]
+  );
+
   const [rating, setRating] = useState<number | null>(
     props.userRating ? props.userRating : null
   );
+
   const [displayRating, setDisplayRating] = useState(0);
 
   const onRatingChange = (e: React.ChangeEvent<{}>, value: number | null) => {
+    setDisplayRating(-1);
     setRating(value);
     if (value === null) {
       dispatch(deleteRating(username, props.movie.id));
@@ -51,34 +58,43 @@ function RatingButtons(props: RatingButtonsProps) {
   };
 
   const ratingHeader = () => {
-    if (rating !== null && displayRating > 0) {
-      if (rating === displayRating) {
-        return "Remove rating.";
-      } else {
+    if (rating === null) {
+      if (displayRating > 0) {
         return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+      } else {
+        return "Click the stars to rate this movie.";
       }
-    } else if (rating !== null || displayRating > 0) {
-      return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+    } else if (rating === displayRating) {
+      return "Remove rating.";
     } else {
-      return "Click the stars to rate this movie.";
+      return "Your rating: " + (displayRating > 0 ? displayRating : rating);
     }
   };
 
   return (
-    <div>
-      <Typography variant="body1" hidden={!props.displayWords}>
-        {ratingHeader()}
-      </Typography>
-      <Rating
-        name={props.movie.id + "-rating"}
-        precision={0.5}
-        max={5}
-        onChange={(e, value) => onRatingChange(e, value)}
-        onChangeActive={(e, value) => setDisplayRating(value!)}
-        value={rating}
-        disabled={props.disabled === undefined ? false : props.disabled}
-      />
-    </div>
+    <>
+      {ratingLoadingStatus !== LoadingState.LOADING ? (
+        <>
+          <Typography variant="body1" hidden={!props.displayWords}>
+            {ratingHeader()}
+          </Typography>
+          <Rating
+            name={props.movie.id + "-rating"}
+            precision={0.5}
+            max={5}
+            onChange={(e, value) => onRatingChange(e, value)}
+            onChangeActive={(e, value) => setDisplayRating(value!)}
+            value={rating}
+            disabled={props.disabled === undefined ? false : props.disabled}
+          />
+        </>
+      ) : (
+        <>
+          <Skeleton variant="text" width={200} height={25} />
+          <Skeleton variant="text" width={160} height={28} />
+        </>
+      )}
+    </>
   );
 }
 

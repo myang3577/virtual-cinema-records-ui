@@ -6,12 +6,14 @@ import MovieGrid from "./MovieGrid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { MovieListElement } from "../actions/userInfoActions";
 
 export interface RecommendationSectionProps {
   header: string;
   displayMovieList: [];
   loading: LoadingState;
   userMyMoviesList: [];
+  userMovieIDList: MovieListElement[];
   page: PageType;
 }
 
@@ -60,6 +62,7 @@ function RecommendationSection(props: RecommendationSectionProps) {
             displayMovieList={props.displayMovieList}
             loading={props.loading}
             userMyMoviesList={props.userMyMoviesList}
+            userMovieIDList={props.userMovieIDList}
             page={PageType.HOME}
           />
         </Collapse>

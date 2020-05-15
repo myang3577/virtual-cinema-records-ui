@@ -2,14 +2,18 @@ import { LoadingState } from "./tmdbReducer";
 import {
   MovieListActionType,
   MovieListAction,
-  MovieListElement,
+  RatingUpdateAction,
 } from "../actions/movieListActions";
+import { MovieListElement } from "../actions/userInfoActions";
 
 export interface MovieListState {
   loading: LoadingState;
   listDataLoading: LoadingState;
   movieIDList: MovieListElement[];
   movieDataList: [];
+  ratingLoadingStatus: {
+    [key: string]: LoadingState;
+  };
 }
 
 const initialState: MovieListState = {
@@ -17,13 +21,31 @@ const initialState: MovieListState = {
   listDataLoading: LoadingState.IDLE,
   movieIDList: [],
   movieDataList: [],
+  ratingLoadingStatus: {},
 };
 
 export const movieListReducer = (
   state = initialState,
-  action: MovieListAction
+  action: MovieListAction | RatingUpdateAction
 ): MovieListState => {
   switch (action.type) {
+    case MovieListActionType.PUT_RATING_BEGIN:
+      return {
+        ...state,
+        ratingLoadingStatus: {
+          ...state.ratingLoadingStatus,
+          [(action as RatingUpdateAction).payload.tmdb_id]:
+            LoadingState.LOADING,
+        },
+      };
+    case MovieListActionType.PUT_RATING_END:
+      return {
+        ...state,
+        ratingLoadingStatus: {
+          ...state.ratingLoadingStatus,
+          [(action as RatingUpdateAction).payload.tmdb_id]: LoadingState.DONE,
+        },
+      };
     case MovieListActionType.LIST_BEGIN:
       return {
         ...state,
@@ -35,14 +57,14 @@ export const movieListReducer = (
       return {
         ...state,
         loading: LoadingState.DONE,
-        movieIDList: action.payload.movieList!, // this tells typescript that it exists and is not undefined
+        movieIDList: (action as MovieListAction).payload.movieList!,
       };
     case MovieListActionType.ADD_MOVIE_DATA:
       return {
         ...state,
         movieDataList: [
           ...state.movieDataList,
-          action.payload.movieData,
+          (action as MovieListAction).payload.movieData,
         ] as any,
       };
     case MovieListActionType.ADD_ALL_MOVIE_LIST_DATA_END:

@@ -1,19 +1,17 @@
 import { Dispatch, Action } from "redux";
 import { apiKey } from "./tmdbActions";
+import { MovieListElement } from "./userInfoActions";
 
 export enum MovieListActionType {
-  PUT_BEGIN = "PUT_BEGIN",
-  PUT_END = "PUT_END",
+  PUT_RATING_BEGIN = "PUT_RATING_BEGIN",
+  PUT_RATING_END = "PUT_RATING_END",
   LIST_BEGIN = "LIST_BEGIN",
   LIST_END = "LIST_END",
   ADD_MOVIE_DATA = "ADD_MOVIE_DATA",
   ADD_ALL_MOVIE_LIST_DATA_END = "ADD_ALL_MOVIE_LIST_DATA_END",
   CLEAR_MOVIE_LIST_DATA = "CLEAR_MOVIE_LIST_DATA",
-}
-
-export interface MovieListElement {
-  tmdb_id: number;
-  rating: number;
+  RATING_UPDATE_BEGIN = "RATING_UPDATE_BEGIN",
+  RATING_UPDATE_END = "RATING_UPDATE_END",
 }
 
 export interface MovieListAction {
@@ -24,17 +22,24 @@ export interface MovieListAction {
   };
 }
 
-export const putRatingBegin = (): MovieListAction => {
+export interface RatingUpdateAction {
+  type: MovieListActionType;
+  payload: {
+    tmdb_id: number;
+  };
+}
+
+const putRatingBegin = (tmdb_id: number): RatingUpdateAction => {
   return {
-    type: MovieListActionType.PUT_BEGIN,
-    payload: {},
+    type: MovieListActionType.PUT_RATING_BEGIN,
+    payload: { tmdb_id },
   };
 };
 
-export const putRatingEnd = (): MovieListAction => {
+const putRatingEnd = (tmdb_id: number): RatingUpdateAction => {
   return {
-    type: MovieListActionType.PUT_END,
-    payload: {},
+    type: MovieListActionType.PUT_RATING_END,
+    payload: { tmdb_id },
   };
 };
 
@@ -119,8 +124,6 @@ const fetchAndAddMovieData = (tmdb_id: number, dispatch: Dispatch) => {
 
 export const putMovie = (email: string, tmdb_id: number) => {
   return (dispatch: Dispatch<any>) => {
-    dispatch(putRatingBegin());
-
     const ratingRequestBody = {
       tmdb_id,
     };
@@ -132,7 +135,6 @@ export const putMovie = (email: string, tmdb_id: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd()))
       .then(() => dispatch(listMovies(email)))
       .catch((error) => console.log("An error occurred.", error));
   };
@@ -152,7 +154,6 @@ export const deleteMovie = (email: string, tmdb_id: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd()))
       .then(() => dispatch(listMovies(email)))
       .catch((error) => console.log("An error occurred.", error));
   };
@@ -160,7 +161,7 @@ export const deleteMovie = (email: string, tmdb_id: number) => {
 
 export const putRating = (email: string, tmdb_id: number, rating: number) => {
   return (dispatch: Dispatch) => {
-    dispatch(putRatingBegin());
+    dispatch(putRatingBegin(tmdb_id));
 
     const ratingRequestBody = {
       tmdb_id,
@@ -174,14 +175,15 @@ export const putRating = (email: string, tmdb_id: number, rating: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd()))
+      .then(() => dispatch(putRatingEnd(tmdb_id)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };
 
 export const deleteRating = (email: string, tmdb_id: number) => {
   return (dispatch: Dispatch) => {
-    // Begin/end actions can be added based on UI need
+    dispatch(putRatingBegin(tmdb_id));
+
     const ratingRequestBody = {
       tmdb_id,
     };
@@ -193,7 +195,7 @@ export const deleteRating = (email: string, tmdb_id: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd()))
+      .then(() => dispatch(putRatingEnd(tmdb_id)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };

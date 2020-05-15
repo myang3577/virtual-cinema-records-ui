@@ -11,12 +11,12 @@ import MovieCard from "../containers/MovieCard";
 import { LoadingState } from "../reducers/tmdbReducer";
 import { PageType } from "../constants/General";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
-import { MovieListElement } from "../actions/movieListActions";
+import { MovieListElement } from "../actions/userInfoActions";
 
 interface MovieGridProps {
   displayMovieList: [];
   userMyMoviesList: [];
-  userMovieIDList?: MovieListElement[];
+  userMovieIDList: MovieListElement[];
   loading: LoadingState;
   page: PageType;
 }
@@ -59,8 +59,8 @@ function MovieGrid(props: MovieGridProps) {
     props.userMyMoviesList.some((e: any) => movie.id === e.id);
 
   const getUserRating = (tmdb_id: number) => {
-    if (props.page === PageType.MY_MOVIES)
-      return props.userMovieIDList!.find((e) => e.tmdb_id === tmdb_id)!.rating;
+    if (props.userMovieIDList.find((e) => e.tmdb_id === tmdb_id))
+      return props.userMovieIDList.find((e) => e.tmdb_id === tmdb_id)!.rating;
     return 0;
   };
 
