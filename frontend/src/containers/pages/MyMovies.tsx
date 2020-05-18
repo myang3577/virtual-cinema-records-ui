@@ -49,10 +49,14 @@ function MyMovies() {
   }, [movieDataList]);
 
   useEffect(() => {
+    console.log(movieFilter);
+  }, [movieFilter]);
+
+  useEffect(() => {
     if (movieFilter.trim() !== "") {
-      setFilterMovieList((filterMovieList: any) =>
-        filterMovieList.filter((e: any) =>
-          e.original_title.toLowerCase().includes(movieFilter)
+      setFilterMovieList(
+        movieDataList.filter((e: any) =>
+          e.original_title.toLowerCase().includes(movieFilter.toLowerCase())
         )
       );
     } else {
@@ -63,8 +67,8 @@ function MyMovies() {
   const handleSubmit = () => {
     if (movieFilter.trim() !== "") {
       setFilterMovieList(
-        filterMovieList.filter((e: any) =>
-          e.original_title.toLowerCase().includes(movieFilter)
+        movieDataList.filter((e: any) =>
+          e.original_title.toLowerCase().includes(movieFilter.toLowerCase())
         )
       );
     } else {
@@ -105,7 +109,7 @@ function MyMovies() {
                 ),
               }}
               onChange={(e) => {
-                setMovieFilter(e.target.value.toLowerCase());
+                setMovieFilter(e.target.value);
               }}
               onKeyDown={(e: any) => {
                 if (e.keyCode === ENTER_KEYCODE) {

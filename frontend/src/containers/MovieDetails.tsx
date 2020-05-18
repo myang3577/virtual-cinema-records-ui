@@ -101,10 +101,10 @@ function MovieDetails() {
   const displayCast = () =>
     movieCast.cast.slice(0, 10).map((member: any, i: number) => (
       <ListItem disableGutters={true} key={i}>
-        <ListItemText primary={member.name + " (" + member.character + ")"} />
         <ListItemAvatar>
           <Avatar alt={member.name} src={baseUrl + member.profile_path} />
         </ListItemAvatar>
+        <ListItemText primary={member.name + " (" + member.character + ")"} />
       </ListItem>
     ));
 
@@ -116,7 +116,7 @@ function MovieDetails() {
     dispatch(toggleDetailDrawer(false, false));
   };
 
-  const iconButtonClick = () => {
+  const addRemoveMoviesIconButtonClick = () => {
     if (movieInUserList) {
       dispatch(deleteMovie(username, currMovie.id));
       dispatch(removeCurrentMovie());
@@ -125,6 +125,7 @@ function MovieDetails() {
       dispatch(addCurrentMovie());
     }
   };
+
   return (
     <Dialog
       fullScreen
@@ -158,7 +159,7 @@ function MovieDetails() {
           <AddRemoveMoviesIconButton
             inUserList={movieInUserList}
             isLoggedIn={isLoggedIn}
-            onClick={iconButtonClick}
+            onClick={addRemoveMoviesIconButtonClick}
           />
         </Toolbar>
       </Paper>
@@ -232,15 +233,7 @@ function MovieDetails() {
             {movieCast.cast && movieCast.cast.length > 0 && "The Cast"}{" "}
           </Typography>
           {movieCast.cast && (
-            <GridList
-              cols={2}
-              //style={{ width: "50%" }}
-              //dense={true}
-              //disablePadding={true}
-              // above styling was used for List, not GridList
-              cellHeight={45}
-              spacing={1}
-            >
+            <GridList cols={2} cellHeight={45} spacing={1}>
               {displayCast()}
             </GridList>
           )}

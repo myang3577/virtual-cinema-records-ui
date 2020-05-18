@@ -25,7 +25,7 @@ export interface MovieCardProps {
   movie: any;
   inUserList: boolean;
   page: PageType;
-  userRating?: number;
+  userRating: number;
 }
 
 function MovieCard(props: MovieCardProps) {
