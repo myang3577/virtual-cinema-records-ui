@@ -20,9 +20,8 @@ function Prices() {
       cols={1}
       spacing={0}
     >
-      {}
       {streamingSites().map((s: any, i: number) => (
-        <GridListTile cols={1} rows={1}>
+        <GridListTile cols={1} rows={1} key={i}>
           <PriceCard
             streamingTitle={s.siteTitle}
             streamingPrice={s.sitePrice}

@@ -21,7 +21,6 @@ import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
-import MovieDetails from "./MovieDetails";
 import { withRouter } from "react-router-dom";
 
 const HOME_TAB_VAL = 0;
@@ -57,7 +56,7 @@ function NavBar(props: any) {
     dispatch(toggleAccountDrawer(open));
   };
 
-  const [displayFullBar, setDisplayFullBar] = useState<boolean>(false);
+  const [displayFullBar, setDisplayFullBar] = useState<boolean>(true);
   const [width, setWidth] = useState(window.innerWidth);
   const [scrollDistance, setScrollDistance] = useState(0);
   const widthBreakpoint = 800;
@@ -186,7 +185,6 @@ function NavBar(props: any) {
           />
           <AccountDrawer />
           <AccountModal />
-          <MovieDetails />
         </Tabs>
       </Collapse>
     </Paper>

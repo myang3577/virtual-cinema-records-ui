@@ -12,7 +12,7 @@ export interface RecommendationSectionProps {
   header: string;
   displayMovieList: [];
   loading: LoadingState;
-  userMyMoviesList: [];
+  userMyMoviesList: any[];
   userMovieIDList: MovieListElement[];
   page: PageType;
 }

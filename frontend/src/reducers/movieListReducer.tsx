@@ -3,6 +3,7 @@ import {
   MovieListActionType,
   MovieListAction,
   RatingUpdateAction,
+  SetMovieDataListAction,
 } from "../actions/movieListActions";
 import { MovieListElement } from "../actions/userInfoActions";
 
@@ -10,7 +11,7 @@ export interface MovieListState {
   loading: LoadingState;
   listDataLoading: LoadingState;
   movieIDList: MovieListElement[];
-  movieDataList: [];
+  movieDataList: any[];
   ratingLoadingStatus: {
     [key: string]: LoadingState;
   };
@@ -26,10 +27,38 @@ const initialState: MovieListState = {
 
 export const movieListReducer = (
   state = initialState,
-  action: MovieListAction | RatingUpdateAction
+  action: MovieListAction | SetMovieDataListAction | RatingUpdateAction
 ): MovieListState => {
   switch (action.type) {
-    case MovieListActionType.PUT_RATING_BEGIN:
+    case MovieListActionType.PUT_RATING_BEGIN: {
+      let newMovieIDList = state.movieIDList;
+      let movieIndex = state.movieIDList.findIndex(
+        (e) => e.tmdb_id === (action as RatingUpdateAction).payload.tmdb_id
+      );
+
+      if (movieIndex >= 0)
+        newMovieIDList[
+          movieIndex
+        ].rating = (action as RatingUpdateAction).payload.rating!;
+
+      return {
+        ...state,
+        ratingLoadingStatus: {
+          ...state.ratingLoadingStatus,
+          [(action as RatingUpdateAction).payload.tmdb_id]:
+            LoadingState.LOADING,
+        },
+        movieIDList: newMovieIDList,
+      };
+    }
+    case MovieListActionType.DELETE_RATING_BEGIN: {
+      let newMovieIDList = state.movieIDList;
+      let movieIndex = state.movieIDList.findIndex(
+        (e) => e.tmdb_id === (action as RatingUpdateAction).payload.tmdb_id
+      );
+
+      if (movieIndex >= 0) newMovieIDList[movieIndex].rating = 0;
+
       return {
         ...state,
         ratingLoadingStatus: {
@@ -38,7 +67,8 @@ export const movieListReducer = (
             LoadingState.LOADING,
         },
       };
-    case MovieListActionType.PUT_RATING_END:
+    }
+    case MovieListActionType.UPDATE_RATING_END:
       return {
         ...state,
         ratingLoadingStatus: {
@@ -59,18 +89,11 @@ export const movieListReducer = (
         loading: LoadingState.DONE,
         movieIDList: (action as MovieListAction).payload.movieList!,
       };
-    case MovieListActionType.ADD_MOVIE_DATA:
-      return {
-        ...state,
-        movieDataList: [
-          ...state.movieDataList,
-          (action as MovieListAction).payload.movieData,
-        ] as any,
-      };
-    case MovieListActionType.ADD_ALL_MOVIE_LIST_DATA_END:
+    case MovieListActionType.SET_MOVIE_LIST_DATA_END:
       return {
         ...state,
         listDataLoading: LoadingState.DONE,
+        movieDataList: (action as SetMovieDataListAction).payload.movieDataList,
       };
     case MovieListActionType.CLEAR_MOVIE_LIST_DATA:
       return initialState;

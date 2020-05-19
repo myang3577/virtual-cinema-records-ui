@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -9,23 +9,18 @@ import {
 } from "@material-ui/core";
 import { PageType } from "../constants/General";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleDetailDrawer,
-  openSnackBar,
-  SnackBarActionType,
-} from "../actions/uiActions";
+import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
 import { GlobalState } from "../reducers/rootReducer";
 import { putMovie, deleteMovie } from "../actions/movieListActions";
 import RatingButtons from "./RatingButtons";
-import { getMovieCast } from "../actions/tmdbActions";
-import { getReleaseDate } from "../actions/tmdbActions";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
+import MovieDetails from "./MovieDetails";
+import { getMovieCast, getReleaseDate } from "../actions/tmdbActions";
 
 export interface MovieCardProps {
   movie: any;
   inUserList: boolean;
   page: PageType;
-  userRating: number;
 }
 
 function MovieCard(props: MovieCardProps) {
@@ -41,10 +36,19 @@ function MovieCard(props: MovieCardProps) {
     (state) => state.loginData.username
   );
 
-  const cardTitle = () => {
-    var title = props.movie.title;
-    return <Typography>{title}</Typography>;
-  };
+  const userRating = useSelector<GlobalState, number>((state) => {
+    const userMovieIDList = state.movieListData.movieIDList;
+    const userMovieIDElement = userMovieIDList.find(
+      (e) => e.tmdb_id === props.movie.id
+    );
+    if (userMovieIDElement) {
+      const userRating = userMovieIDElement.rating;
+      return userRating ? userRating : 0;
+    }
+    return 0;
+  });
+
+  const [movieDetailsOpen, setMovieDetailsOpen] = useState<boolean>(false);
 
   const iconButtonClick = () => {
     if (props.inUserList) {
@@ -62,7 +66,7 @@ function MovieCard(props: MovieCardProps) {
           props.movie.title + " added to MyMovies",
           SnackBarActionType.RATING,
           props.movie,
-          props.userRating
+          userRating
         )
       );
     }
@@ -71,7 +75,7 @@ function MovieCard(props: MovieCardProps) {
   const dispatch = useDispatch();
 
   const openMovieDetailDrawer = () => {
-    dispatch(toggleDetailDrawer(true, props.inUserList, props.movie));
+    setMovieDetailsOpen(true);
     dispatch(getMovieCast(props.movie.id));
     dispatch(getReleaseDate(props.movie.id));
   };
@@ -84,7 +88,7 @@ function MovieCard(props: MovieCardProps) {
             variant: "subtitle1",
             display: "inline",
           }}
-          title={cardTitle()}
+          title={<Typography>{props.movie.title}</Typography>}
           subheader={
             props.movie.release_data ? props.movie.release_date.slice(0, 4) : ""
           }
@@ -104,7 +108,7 @@ function MovieCard(props: MovieCardProps) {
           <CardContent>
             <RatingButtons
               movie={props.movie}
-              userRating={props.userRating!}
+              userRating={userRating}
               displayWords={true}
             />
           </CardContent>
@@ -120,6 +124,13 @@ function MovieCard(props: MovieCardProps) {
           />
         </CardActionArea>
       </Card>
+      <MovieDetails
+        movie={props.movie}
+        movieDetailsOpen={movieDetailsOpen}
+        inUserList={props.inUserList}
+        userRating={userRating}
+        onClose={() => setMovieDetailsOpen(false)}
+      />
     </div>
   );
 }

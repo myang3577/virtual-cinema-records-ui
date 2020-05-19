@@ -27,7 +27,7 @@ function MyMovies() {
   const isLoggedIn = useSelector<GlobalState, boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const movieDataList = useSelector<GlobalState, []>(
+  const movieDataList = useSelector<GlobalState, any[]>(
     (state) => state.movieListData.movieDataList
   );
   const movieIDList = useSelector<GlobalState, MovieListElement[]>(
@@ -47,10 +47,6 @@ function MyMovies() {
   useEffect(() => {
     setFilterMovieList(movieDataList);
   }, [movieDataList]);
-
-  useEffect(() => {
-    console.log(movieFilter);
-  }, [movieFilter]);
 
   useEffect(() => {
     if (movieFilter.trim() !== "") {

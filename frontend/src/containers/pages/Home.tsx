@@ -35,7 +35,7 @@ function Home() {
 
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
-  const userMyMoviesList = useSelector<GlobalState, []>(
+  const userMyMoviesList = useSelector<GlobalState, any[]>(
     (state) => state.movieListData.movieDataList
   );
   const movieDataLoading = useSelector<GlobalState, LoadingState>(

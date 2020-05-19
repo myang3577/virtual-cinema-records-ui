@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +30,7 @@ function RatingButtons(props: RatingButtonsProps) {
   );
 
   const [displayRating, setDisplayRating] = useState(0);
+  const [ratingHeader, setRatingHeader] = useState("");
 
   const onRatingChange = (e: React.ChangeEvent<{}>, value: number | null) => {
     setDisplayRating(-1);
@@ -57,26 +58,35 @@ function RatingButtons(props: RatingButtonsProps) {
     }
   };
 
-  const ratingHeader = () => {
-    if (rating === null) {
-      if (displayRating > 0) {
-        return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+  useEffect(() => {
+    setDisplayRating(-1);
+    setRating(props.userRating);
+  }, [props.userRating]);
+
+  useEffect(() => {
+    const getRatingHeader = () => {
+      if (rating === 0) {
+        if (displayRating > 0) {
+          return "Your rating: " + (displayRating > 0 ? displayRating : rating);
+        } else {
+          return "Click the stars to rate this movie.";
+        }
+      } else if (rating === displayRating) {
+        return "Remove rating.";
       } else {
-        return "Click the stars to rate this movie.";
+        return "Your rating: " + (displayRating > 0 ? displayRating : rating);
       }
-    } else if (rating === displayRating) {
-      return "Remove rating.";
-    } else {
-      return "Your rating: " + (displayRating > 0 ? displayRating : rating);
-    }
-  };
+    };
+
+    setRatingHeader(getRatingHeader());
+  }, [rating, displayRating]);
 
   return (
     <>
       {ratingLoadingStatus !== LoadingState.LOADING ? (
         <>
           <Typography variant="body1" hidden={!props.displayWords}>
-            {ratingHeader()}
+            {ratingHeader}
           </Typography>
           <Rating
             name={props.movie.id + "-rating"}

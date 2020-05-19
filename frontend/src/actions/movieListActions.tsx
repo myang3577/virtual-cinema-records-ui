@@ -4,11 +4,11 @@ import { MovieListElement } from "./userInfoActions";
 
 export enum MovieListActionType {
   PUT_RATING_BEGIN = "PUT_RATING_BEGIN",
-  PUT_RATING_END = "PUT_RATING_END",
+  DELETE_RATING_BEGIN = "DELETE_RATING_BEGIN",
+  UPDATE_RATING_END = "UPDATE_RATING_END",
   LIST_BEGIN = "LIST_BEGIN",
   LIST_END = "LIST_END",
-  ADD_MOVIE_DATA = "ADD_MOVIE_DATA",
-  ADD_ALL_MOVIE_LIST_DATA_END = "ADD_ALL_MOVIE_LIST_DATA_END",
+  SET_MOVIE_LIST_DATA_END = "ADD_ALL_MOVIE_LIST_DATA_END",
   CLEAR_MOVIE_LIST_DATA = "CLEAR_MOVIE_LIST_DATA",
   RATING_UPDATE_BEGIN = "RATING_UPDATE_BEGIN",
   RATING_UPDATE_END = "RATING_UPDATE_END",
@@ -22,23 +22,46 @@ export interface MovieListAction {
   };
 }
 
+export interface SetMovieDataListAction {
+  type: MovieListActionType;
+  payload: {
+    movieDataList: any[];
+  };
+}
+
 export interface RatingUpdateAction {
   type: MovieListActionType;
   payload: {
     tmdb_id: number;
+    rating?: number;
   };
 }
 
-const putRatingBegin = (tmdb_id: number): RatingUpdateAction => {
+const putRatingBegin = (
+  tmdb_id: number,
+  rating: number
+): RatingUpdateAction => {
   return {
     type: MovieListActionType.PUT_RATING_BEGIN,
-    payload: { tmdb_id },
+    payload: {
+      tmdb_id,
+      rating,
+    },
   };
 };
 
-const putRatingEnd = (tmdb_id: number): RatingUpdateAction => {
+const deleteRatingBegin = (tmdb_id: number): RatingUpdateAction => {
   return {
-    type: MovieListActionType.PUT_RATING_END,
+    type: MovieListActionType.PUT_RATING_BEGIN,
+    payload: {
+      tmdb_id,
+    },
+  };
+};
+
+const updateRatingEnd = (tmdb_id: number): RatingUpdateAction => {
+  return {
+    type: MovieListActionType.UPDATE_RATING_END,
     payload: { tmdb_id },
   };
 };
@@ -59,22 +82,16 @@ export const listMoviesEnd = (payload: any): MovieListAction => {
   };
 };
 
-const addMovieDataAction = (payload: any): MovieListAction => {
+export const setMovieDataListEnd = (
+  movieDataList: any[]
+): SetMovieDataListAction => {
   return {
-    type: MovieListActionType.ADD_MOVIE_DATA,
-    payload: {
-      movieData: payload,
-    },
+    type: MovieListActionType.SET_MOVIE_LIST_DATA_END,
+    payload: { movieDataList },
   };
 };
 
-export const addAllMovieListDataEnd = (): Action => {
-  return {
-    type: MovieListActionType.ADD_ALL_MOVIE_LIST_DATA_END,
-  };
-};
-
-export const clearMovieListData = (): Action => {
+export const clearMovieDataList = (): Action => {
   return {
     type: MovieListActionType.CLEAR_MOVIE_LIST_DATA,
   };
@@ -95,28 +112,19 @@ export const listMovies = (email: string) => {
       .then((json: MovieListElement[]) => {
         dispatch(listMoviesEnd(json));
 
-        // Wait for all movie additions to complete before sending finished
-        // signal
-        return new Promise((resolve, reject) => {
-          let counter = json.length;
-          json.forEach((movie) => {
-            fetchAndAddMovieData(movie.tmdb_id, dispatch).then(() => {
-              counter--;
-              if (counter === 0) {
-                resolve();
-              }
-            });
-          });
+        const promises = json.map((e) => {
+          return fetchMovieData(e.tmdb_id);
         });
-      })
-      .then(() => {
-        dispatch(addAllMovieListDataEnd());
+
+        Promise.all(promises).then((movieData) =>
+          dispatch(setMovieDataListEnd(movieData))
+        );
       })
       .catch((error) => console.log("An error occurred.", error));
   };
 };
 
-const fetchAndAddMovieData = (tmdb_id: number, dispatch: Dispatch) => {
+const fetchMovieData = (tmdb_id: number) => {
   return fetch(
     "https://api.themoviedb.org/3/movie/" +
       tmdb_id +
@@ -130,10 +138,6 @@ const fetchAndAddMovieData = (tmdb_id: number, dispatch: Dispatch) => {
       } else {
         throw Error("Error occurred, status: " + response.status);
       }
-    })
-    .then((json) => {
-      dispatch(addMovieDataAction(json));
-      return;
     })
     .catch((error) => console.log("An error occurred.", error));
 };
@@ -177,7 +181,7 @@ export const deleteMovie = (email: string, tmdb_id: number) => {
 
 export const putRating = (email: string, tmdb_id: number, rating: number) => {
   return (dispatch: Dispatch) => {
-    dispatch(putRatingBegin(tmdb_id));
+    dispatch(putRatingBegin(tmdb_id, rating));
 
     const ratingRequestBody = {
       tmdb_id,
@@ -191,14 +195,14 @@ export const putRating = (email: string, tmdb_id: number, rating: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd(tmdb_id)))
+      .then(() => dispatch(updateRatingEnd(tmdb_id)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };
 
 export const deleteRating = (email: string, tmdb_id: number) => {
   return (dispatch: Dispatch) => {
-    dispatch(putRatingBegin(tmdb_id));
+    dispatch(deleteRatingBegin(tmdb_id));
 
     const ratingRequestBody = {
       tmdb_id,
@@ -211,7 +215,7 @@ export const deleteRating = (email: string, tmdb_id: number) => {
       },
       body: JSON.stringify(ratingRequestBody),
     })
-      .then(() => dispatch(putRatingEnd(tmdb_id)))
+      .then(() => dispatch(updateRatingEnd(tmdb_id)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };

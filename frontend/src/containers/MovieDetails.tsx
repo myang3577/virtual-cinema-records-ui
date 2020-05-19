@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   makeStyles,
   Dialog,
@@ -18,16 +18,12 @@ import {
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
-import {
-  toggleDetailDrawer,
-  removeCurrentMovie,
-  addCurrentMovie,
-} from "../actions/uiActions";
+import { removeCurrentMovie, addCurrentMovie } from "../actions/uiActions";
 import CloseIcon from "@material-ui/icons/Close";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Prices from "./Prices";
 import { deleteMovie, putMovie } from "../actions/movieListActions";
-import RatingButtons from "../containers/RatingButtons";
+import RatingButtons from "./RatingButtons";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,7 +57,15 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function MovieDetails() {
+interface MovieDetailsProps {
+  movie: any;
+  movieDetailsOpen: boolean;
+  inUserList: boolean;
+  userRating: number;
+  onClose: () => any;
+}
+
+function MovieDetails(props: MovieDetailsProps) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -76,18 +80,6 @@ function MovieDetails() {
 
   const baseUrl = useSelector<GlobalState, string>(
     (state) => state.uiData.tmdbBaseUrl
-  );
-
-  const dialogOpen = useSelector<GlobalState, boolean>(
-    (state) => state.uiData.detailDrawerOpen
-  );
-
-  const currMovie = useSelector<GlobalState, any>(
-    (state) => state.uiData.currentMovie.movie
-  );
-
-  const movieInUserList = useSelector<GlobalState, boolean>(
-    (state) => state.uiData.currentMovie.inUserList
   );
 
   const movieCast = useSelector<GlobalState, any>(
@@ -108,20 +100,12 @@ function MovieDetails() {
       </ListItem>
     ));
 
-  useEffect(() => {
-    dispatch(toggleDetailDrawer(dialogOpen, movieInUserList, currMovie));
-  }, [dispatch, dialogOpen, movieInUserList, currMovie]);
-
-  const handleClose = () => {
-    dispatch(toggleDetailDrawer(false, false));
-  };
-
   const addRemoveMoviesIconButtonClick = () => {
-    if (movieInUserList) {
-      dispatch(deleteMovie(username, currMovie.id));
+    if (props.inUserList) {
+      dispatch(deleteMovie(username, props.movie.id));
       dispatch(removeCurrentMovie());
     } else {
-      dispatch(putMovie(username, currMovie.id));
+      dispatch(putMovie(username, props.movie.id));
       dispatch(addCurrentMovie());
     }
   };
@@ -129,10 +113,8 @@ function MovieDetails() {
   return (
     <Dialog
       fullScreen
-      open={dialogOpen}
-      onClose={() => {
-        handleClose();
-      }}
+      open={props.movieDetailsOpen}
+      onClose={props.onClose}
       TransitionComponent={Transition}
       transitionDuration={500}
       className={classes.dialog}
@@ -148,16 +130,11 @@ function MovieDetails() {
         square
       >
         <Toolbar>
-          <IconButton
-            edge="start"
-            onClick={() => {
-              handleClose();
-            }}
-          >
+          <IconButton edge="start" onClick={props.onClose}>
             <CloseIcon />
           </IconButton>
           <AddRemoveMoviesIconButton
-            inUserList={movieInUserList}
+            inUserList={props.inUserList}
             isLoggedIn={isLoggedIn}
             onClick={addRemoveMoviesIconButtonClick}
           />
@@ -176,8 +153,8 @@ function MovieDetails() {
           <img
             style={{ maxWidth: "95%" }}
             src={
-              currMovie.poster_path
-                ? baseUrl + currMovie.poster_path
+              props.movie.poster_path
+                ? baseUrl + props.movie.poster_path
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
             }
             alt="movie poster"
@@ -187,13 +164,15 @@ function MovieDetails() {
         <Grid className={classes.paper} item xs={5} style={{ marginRight: 0 }}>
           <br />
           <Grid className={classes.descriptionHeader}>
-            <Typography variant="h3">{currMovie && currMovie.title}</Typography>
+            <Typography variant="h3">
+              {props.movie && props.movie.title}
+            </Typography>
           </Grid>
           <br />
           <Grid item xs={12}>
             <Grid className={classes.paper}></Grid>
-            {currMovie.production_companies &&
-              currMovie.production_companies.map((e: any, i: number) => {
+            {props.movie.production_companies &&
+              props.movie.production_companies.map((e: any, i: number) => {
                 if (e.logo_path) {
                   return (
                     <img
@@ -211,21 +190,21 @@ function MovieDetails() {
           </Grid>
           {isLoggedIn && (
             <RatingButtons
-              movie={currMovie}
-              userRating={currMovie.userRating!}
+              movie={props.movie}
+              userRating={props.userRating}
               displayWords={true}
             />
           )}
           <br />
           <Typography variant="body1">
-            {currMovie && currMovie.overview}
+            {props.movie && props.movie.overview}
           </Typography>
           <br />
           <Typography variant="body1">
             {" "}
             {movieReleaseDate.results &&
               movieReleaseDate.results.length > 0 &&
-              "Release Date: " + currMovie.release_date}
+              "Release Date: " + props.movie.release_date}
           </Typography>
           <br />
           <Typography variant="h6">

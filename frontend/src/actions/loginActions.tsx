@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { clearMovieListData } from "./movieListActions";
+import { clearMovieDataList } from "./movieListActions";
 import { clearRecommendationData } from "./recommendationActions";
 import { closeAccountModal, openSnackBar } from "./uiActions";
 
@@ -254,7 +254,7 @@ export const logout = () => {
   return (dispatch: Dispatch) => {
     dispatch(initiateLoading());
     dispatch(logoutEnd());
-    dispatch(clearMovieListData());
+    dispatch(clearMovieDataList());
     dispatch(clearRecommendationData());
   };
 };

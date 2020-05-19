@@ -15,7 +15,7 @@ import { MovieListElement } from "../actions/userInfoActions";
 
 interface MovieGridProps {
   displayMovieList: [];
-  userMyMoviesList: [];
+  userMyMoviesList: any[];
   userMovieIDList: MovieListElement[];
   loading: LoadingState;
   page: PageType;
@@ -58,12 +58,6 @@ function MovieGrid(props: MovieGridProps) {
   const movieInUserList = (movie: any): boolean =>
     props.userMyMoviesList.some((e: any) => movie.id === e.id);
 
-  const getUserRating = (tmdb_id: number) => {
-    if (props.userMovieIDList.find((e) => e.tmdb_id === tmdb_id))
-      return props.userMovieIDList.find((e) => e.tmdb_id === tmdb_id)!.rating;
-    return 0;
-  };
-
   return (
     <div className="movie-grid">
       <GridList cellHeight={140} cols={getGridListCols()} style={gridStyle}>
@@ -73,7 +67,6 @@ function MovieGrid(props: MovieGridProps) {
                 <MovieCard
                   movie={e}
                   inUserList={movieInUserList(e)}
-                  userRating={getUserRating(e.id)}
                   page={props.page}
                 />
               </GridListTile>
