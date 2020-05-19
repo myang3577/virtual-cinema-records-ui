@@ -36,7 +36,7 @@ function Home() {
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
   const userMyMoviesList = useSelector<GlobalState, any[]>(
-    (state) => state.movieListData.movieDataList
+    (state) => state.myMoviesData.movieDataList
   );
   const movieDataLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.tmdbData.loading
@@ -53,7 +53,7 @@ function Home() {
   );
 
   const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
-    (state) => state.movieListData.movieIDList
+    (state) => state.myMoviesData.movieIDList
   );
 
   useEffect(() => {

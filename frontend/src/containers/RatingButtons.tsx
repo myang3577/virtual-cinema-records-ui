@@ -22,7 +22,7 @@ function RatingButtons(props: RatingButtonsProps) {
   );
 
   const ratingLoadingStatus = useSelector<GlobalState, LoadingState>(
-    (state) => state.movieListData.ratingLoadingStatus[props.movie.id]
+    (state) => state.myMoviesData.ratingLoadingStatus[props.movie.id]
   );
 
   const [rating, setRating] = useState<number | null>(

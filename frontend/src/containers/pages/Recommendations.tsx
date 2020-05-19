@@ -59,14 +59,14 @@ function Recommendations() {
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
   const userMyMoviesList = useSelector<GlobalState, any[]>(
-    (state) => state.movieListData.movieDataList
+    (state) => state.myMoviesData.movieDataList
   );
 
   const movieDataLoading = useSelector<GlobalState, LoadingState>(
     (state) => state.tmdbData.loading
   );
   const userListDataLoading = useSelector<GlobalState, LoadingState>(
-    (state) => state.movieListData.listDataLoading
+    (state) => state.myMoviesData.listDataLoading
   );
   const isLoggedIn = useSelector<GlobalState, boolean>(
     (state) => state.loginData.isLoggedIn
@@ -76,7 +76,7 @@ function Recommendations() {
   );
 
   const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
-    (state) => state.movieListData.movieIDList
+    (state) => state.myMoviesData.movieIDList
   );
 
   // Flags used to indicate which movies the user wants to view. True to view,

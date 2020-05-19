@@ -28,13 +28,13 @@ function MyMovies() {
     (state) => state.loginData.isLoggedIn
   );
   const movieDataList = useSelector<GlobalState, any[]>(
-    (state) => state.movieListData.movieDataList
+    (state) => state.myMoviesData.movieDataList
   );
   const movieIDList = useSelector<GlobalState, MovieListElement[]>(
-    (state) => state.movieListData.movieIDList
+    (state) => state.myMoviesData.movieIDList
   );
   const movieListLoading = useSelector<GlobalState, LoadingState>(
-    (state) => state.movieListData.loading
+    (state) => state.myMoviesData.loading
   );
 
   const [movieFilter, setMovieFilter] = useState("");

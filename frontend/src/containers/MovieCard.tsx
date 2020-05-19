@@ -37,7 +37,7 @@ function MovieCard(props: MovieCardProps) {
   );
 
   const userRating = useSelector<GlobalState, number>((state) => {
-    const userMovieIDList = state.movieListData.movieIDList;
+    const userMovieIDList = state.myMoviesData.movieIDList;
     const userMovieIDElement = userMovieIDList.find(
       (e) => e.tmdb_id === props.movie.id
     );

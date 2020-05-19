@@ -12,7 +12,7 @@ import {
 export interface GlobalState {
   tmdbData: TMDBState;
   loginData: LoginState;
-  movieListData: MovieListState;
+  myMoviesData: MovieListState;
   userInfo: UserInfoState;
   uiData: UIState;
   recommendationData: RecommendationState;
@@ -25,7 +25,7 @@ export interface GlobalState {
 const rootReducer = combineReducers<GlobalState>({
   tmdbData: tmdbReducer,
   loginData: loginReducer,
-  movieListData: movieListReducer,
+  myMoviesData: movieListReducer,
   userInfo: userInfoReducer,
   uiData: uiReducer,
   recommendationData: recommendationReducer,
