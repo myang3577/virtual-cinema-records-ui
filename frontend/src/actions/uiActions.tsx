@@ -5,12 +5,8 @@ export enum UIActionType {
   OPEN_ACCOUNT_DRAWER = "OPEN_DRAWER",
   CLOSE_ACCOUNT_DRAWER = "CLOSE_DRAWER",
   SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
-  OPEN_DETAIL_DRAWER = "OPEN_DETAILS",
-  CLOSE_DETAIL_DRAWER = "CLOSE_DETAILS",
   OPEN_SNACKBAR = "OPEN_SNACKBAR",
   CLOSE_SNACKBAR = "CLOSE_SNACKBAR",
-  ADD_CURRENT_MOVIE = "ADD_CURRENT_MOVIE",
-  REMOVE_CURRENT_MOVIE = "REMOVE_CURRENT_MOVIE",
 }
 
 export interface UIAction {
@@ -21,14 +17,6 @@ export interface UISetModalContentAction {
   type: UIActionType;
   payload: {
     modalContent: AccountModalContent;
-  };
-}
-
-export interface UISetMovieAction {
-  type: UIActionType;
-  payload: {
-    movie: any;
-    inUserList: boolean;
   };
 }
 
@@ -92,29 +80,6 @@ export const toggleAccountDrawer = (open: boolean): UIAction => {
   };
 };
 
-export const toggleDetailDrawer = (
-  open: boolean,
-  inList: boolean,
-  currMovie?: any
-): UISetMovieAction => {
-  if (open && currMovie) {
-    return {
-      type: UIActionType.OPEN_DETAIL_DRAWER,
-      payload: {
-        movie: currMovie,
-        inUserList: inList,
-      },
-    };
-  }
-  return {
-    type: UIActionType.CLOSE_DETAIL_DRAWER,
-    payload: {
-      movie: null,
-      inUserList: false,
-    },
-  };
-};
-
 export const openSnackBar = (
   str: string,
   action?: SnackBarActionType,
@@ -163,17 +128,5 @@ export const openSnackBar = (
 export const closeSnackBar = (): UIAction => {
   return {
     type: UIActionType.CLOSE_SNACKBAR,
-  };
-};
-
-export const addCurrentMovie = (): UIAction => {
-  return {
-    type: UIActionType.ADD_CURRENT_MOVIE,
-  };
-};
-
-export const removeCurrentMovie = (): UIAction => {
-  return {
-    type: UIActionType.REMOVE_CURRENT_MOVIE,
   };
 };

@@ -1,4 +1,3 @@
-import { Dispatch, Action } from "redux";
 import { MovieResultElement } from "./recommendationActions";
 export enum BlacklistActionType {
   BLACKLIST_BEGIN = "BLACKLIST_BEGIN",

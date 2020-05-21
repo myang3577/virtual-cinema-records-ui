@@ -18,7 +18,6 @@ import {
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
-import { removeCurrentMovie, addCurrentMovie } from "../actions/uiActions";
 import CloseIcon from "@material-ui/icons/Close";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Prices from "./Prices";
@@ -103,10 +102,8 @@ function MovieDetails(props: MovieDetailsProps) {
   const addRemoveMoviesIconButtonClick = () => {
     if (props.inUserList) {
       dispatch(deleteMovie(username, props.movie.id));
-      dispatch(removeCurrentMovie());
     } else {
       dispatch(putMovie(username, props.movie.id));
-      dispatch(addCurrentMovie());
     }
   };
 
