@@ -91,17 +91,14 @@ function MovieDetails(props: MovieDetailsProps) {
   );
 
   const displayCast = () => {
-    return (
-      movieCast.cast &&
-      movieCast.cast.slice(0, 10).map((member: any) => (
-        <ListItem disableGutters={true}>
-          <ListItemText primary={member.name + " (" + member.character + ")"} />
-          <ListItemAvatar>
-            <Avatar alt={member.name} src={baseUrl + member.profile_path} />
-          </ListItemAvatar>
-        </ListItem>
-      ))
-    );
+    return movieCast.cast.slice(0, 10).map((member: any) => (
+      <ListItem disableGutters>
+        <ListItemAvatar>
+          <Avatar alt={member.name} src={baseUrl + member.profile_path} />
+        </ListItemAvatar>
+        <ListItemText primary={member.name + " (" + member.character + ")"} />
+      </ListItem>
+    ));
   };
 
   const addRemoveMoviesIconButtonClick = () => {
@@ -214,7 +211,7 @@ function MovieDetails(props: MovieDetailsProps) {
             {movieCast.cast && movieCast.cast.length > 0 && "The Cast"}{" "}
           </Typography>
           {movieCast.cast && (
-            <GridList cols={2} cellHeight={45} spacing={1}>
+            <GridList cols={1} cellHeight={45} spacing={1}>
               {displayCast()}
             </GridList>
           )}
