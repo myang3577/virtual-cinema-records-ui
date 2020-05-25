@@ -1,3 +1,3 @@
 # CAO
 
-View the app at https://cao-product.herokuapp.com/
+View the app at https://virtual-cinema-records.herokuapp.com/
