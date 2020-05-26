@@ -37,22 +37,13 @@ function BlacklistMovieIcon(props: BlacklistMovieProps) {
       }
       placement="top"
     >
-      <span>
-        <IconButton
-          size="small"
-          onClick={props.onClick}
-          disabled={!props.isLoggedIn}
-        >
-          {props.inBlacklist ? (
-            <BlockIcon className={classes.blacklist} style={{ color: "red" }} />
-          ) : (
-            <BlockIcon
-              className={classes.blacklist}
-              style={{ color: "grey" }}
-            />
-          )}
-        </IconButton>
-      </span>
+      <IconButton onClick={props.onClick} disabled={!props.isLoggedIn}>
+        {props.inBlacklist ? (
+          <BlockIcon className={classes.blacklist} style={{ color: "red" }} />
+        ) : (
+          <BlockIcon className={classes.blacklist} style={{ color: "grey" }} />
+        )}
+      </IconButton>
     </Tooltip>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import {
   Drawer,
   Divider,
@@ -16,6 +17,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import BlockIcon from "@material-ui/icons/Block";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../../reducers/rootReducer";
 import {
@@ -71,7 +73,7 @@ function AccountDrawer() {
     dispatch(toggleAccountDrawer(open));
   };
 
-  const openModal = (index: any, event: any) => {
+  const onDrawerOptionClick = (index: any, event: any) => {
     if (index === 0) {
       if (isLoggedIn) {
         dispatch(setAccountModalContent(AccountModalContent.CHANGE_PASSWORD));
@@ -88,18 +90,19 @@ function AccountDrawer() {
       }
     }
 
+    if (index === 0 || index === 1) dispatch(openAccountModal());
+
     dispatch(toggleAccountDrawer(false));
-    dispatch(openAccountModal());
   };
 
   var buttonTextOptions: string[][] = [
     ["Login", "Register"],
-    ["Change Password", "Logout"],
+    ["Change Password", "Logout", "Blacklist"],
   ];
 
   var buttonIconOptions: any[][] = [
     [<PersonIcon />, <PersonAddIcon />],
-    [<VpnKeyIcon />, <ExitToAppIcon />],
+    [<VpnKeyIcon />, <ExitToAppIcon />, <BlockIcon />],
   ];
 
   const setButtonOptions = (isLoggedIn: boolean) => {
@@ -152,20 +155,36 @@ function AccountDrawer() {
         </StyledMenuItem>
       </Menu>
       <List>
-        {setButtonOptions(isLoggedIn)[0].map((text, index) => (
-          <ListItem
-            button
-            key={text}
-            onClick={(e) => {
-              openModal(index, e);
-            }}
-          >
-            <ListItemIcon>
-              {setButtonOptions(isLoggedIn)[1][index]}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {setButtonOptions(isLoggedIn)[0].map((text, index) => {
+          if (index === 2)
+            return (
+              <ListItem
+                button
+                key={index}
+                onClick={() => dispatch(toggleAccountDrawer(false))}
+                component={Link}
+                to={"/blacklist"}
+              >
+                <ListItemIcon>
+                  {setButtonOptions(isLoggedIn)[1][index]}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            );
+          else
+            return (
+              <ListItem
+                button
+                key={index}
+                onClick={(e) => onDrawerOptionClick(index, e)}
+              >
+                <ListItemIcon>
+                  {setButtonOptions(isLoggedIn)[1][index]}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            );
+        })}
       </List>
       <Divider />
       <div id="account-drawer-pic">

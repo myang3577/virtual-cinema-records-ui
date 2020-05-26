@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardHeader, CardContent, Link } from "@material-ui/core";
+import { Card, CardHeader } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 export interface PriceCardProps {

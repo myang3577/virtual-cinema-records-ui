@@ -174,7 +174,7 @@ function Recommendations() {
       refreshGeneralRecommendation();
     }
 
-    //   // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [isLoggedIn, userListDataLoading, userBlackListDataLoading]);
 
   // Note: This is NOT what is defined as refresh in the use case document.
@@ -232,7 +232,6 @@ function Recommendations() {
     if (movieDataLoading !== LoadingState.LOADING && recommendationResult) {
       return Object.keys(recommendationResult).map(
         (keyName: string, keyIndex: number) => {
-          // console.log(recommendationResult);
           if (
             recommendationResult[keyName].length !== 0 &&
             genreToDisplay[keyName] !== false
