@@ -18,10 +18,8 @@ export enum LoadingState {
 export interface TMDBState {
   loading: LoadingState;
   movieSearchResult: {};
+  movieDetails: { [key: string]: any };
   popularMovies: {};
-  movieCast: {};
-  movieReleaseDate: {};
-  relatedMovies: {};
 }
 
 /**
@@ -45,10 +43,8 @@ export interface TMDBState {
 const initialState: TMDBState = {
   loading: LoadingState.IDLE,
   movieSearchResult: {},
+  movieDetails: {},
   popularMovies: {},
-  movieCast: {},
-  movieReleaseDate: {},
-  relatedMovies: {},
 };
 
 /**
@@ -95,20 +91,13 @@ export const tmdbReducer = (
         ...state,
         popularMovies: action.payload,
       };
-    case TMDBActionType.GET_MOVIE_CAST_END:
+    case TMDBActionType.GET_MOVIE_DETAILS_END:
       return {
         ...state,
-        movieCast: action.payload,
-      };
-    case TMDBActionType.GET_RELATED_MOVIES_END:
-      return {
-        ...state,
-        relatedMovies: action.payload,
-      };
-    case TMDBActionType.GET_MOVIE_RELEASE_DATE_END:
-      return {
-        ...state,
-        movieReleaseDate: action.payload,
+        movieDetails: {
+          ...state.movieDetails,
+          [action.payload.id]: action.payload,
+        },
       };
     default:
       return state;

@@ -69,7 +69,7 @@ function RatingButtons(props: RatingButtonsProps) {
         if (displayRating > 0) {
           return "Your rating: " + (displayRating > 0 ? displayRating : rating);
         } else {
-          return "Click the stars to rate this movie.";
+          return "Click to rate this movie.";
         }
       } else if (rating === displayRating) {
         return "Remove rating.";

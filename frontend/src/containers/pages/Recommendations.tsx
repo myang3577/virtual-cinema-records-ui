@@ -23,7 +23,6 @@ import {
 } from "../../actions/uiActions";
 import RecommendationSection from "../../components/RecommendationSection";
 import { MovieListElement } from "../../actions/userInfoActions";
-import { CodeSharp } from "@material-ui/icons";
 import { getBlacklist } from "../../actions/blacklistAction";
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
 

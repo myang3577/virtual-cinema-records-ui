@@ -20,13 +20,15 @@ function AddRemoveMoviesIconButton(props: AddRemoveMoviesIconButtonProps) {
       }
       placement="top"
     >
-      <IconButton
-        style={{ margin: 0 }}
-        onClick={props.onClick}
-        disabled={!props.isLoggedIn}
-      >
-        {props.inUserList ? <Delete /> : <Add />}
-      </IconButton>
+      <span>
+        <IconButton
+          style={{ margin: 0 }}
+          onClick={props.onClick}
+          disabled={!props.isLoggedIn}
+        >
+          {props.inUserList ? <Delete /> : <Add />}
+        </IconButton>
+      </span>
     </Tooltip>
   );
 }

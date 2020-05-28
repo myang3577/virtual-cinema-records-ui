@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   makeStyles,
   Dialog,
@@ -59,6 +59,7 @@ const Transition = React.forwardRef(function Transition(
 
 interface MovieDetailsProps {
   movie: any;
+  tmdb_id: number;
   movieDetailsOpen: boolean;
   inUserList: boolean;
   userRating: number;
@@ -82,30 +83,34 @@ function MovieDetails(props: MovieDetailsProps) {
     (state) => state.uiData.tmdbBaseUrl
   );
 
-  const movieCast = useSelector<GlobalState, any>(
-    (state) => state.tmdbData.movieCast
+  const movieDetails = useSelector<GlobalState, any>(
+    (state) => state.tmdbData.movieDetails[props.tmdb_id]
   );
 
-  const movieReleaseDate = useSelector<GlobalState, any>(
-    (state) => state.tmdbData.movieReleaseDate
-  );
+  useEffect(() => {
+    console.log(movieDetails);
+  }, [movieDetails]);
 
-  const displayCast = () => {
-    return movieCast.cast.slice(0, 10).map((member: any) => (
-      <ListItem disableGutters>
+  const displayCast = () =>
+    movieDetails.credits.cast.slice(0, 10).map((member: any, i: number) => (
+      <ListItem disableGutters key={i}>
         <ListItemAvatar>
-          <Avatar alt={member.name} src={baseUrl + member.profile_path} />
+          <Avatar
+            alt={member.name}
+            src={
+              member.profile_path ? baseUrl + member.profile_path : undefined
+            }
+          />
         </ListItemAvatar>
         <ListItemText primary={member.name + " (" + member.character + ")"} />
       </ListItem>
     ));
-  };
 
   const addRemoveMoviesIconButtonClick = () => {
     if (props.inUserList) {
-      dispatch(deleteMovie(username, props.movie.id));
+      dispatch(deleteMovie(username, movieDetails.id));
     } else {
-      dispatch(putMovie(username, props.movie.id));
+      dispatch(putMovie(username, movieDetails.id));
     }
   };
 
@@ -152,14 +157,16 @@ function MovieDetails(props: MovieDetailsProps) {
           <img
             style={{ maxWidth: "95%" }}
             src={
-              props.movie.poster_path
-                ? baseUrl + props.movie.poster_path
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png"
+              movieDetails &&
+              (movieDetails.poster_path
+                ? baseUrl + movieDetails.poster_path
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png")
             }
             alt="movie poster"
           />
-          {props.movie.production_companies &&
-            props.movie.production_companies.map((e: any, i: number) => {
+          {movieDetails &&
+            movieDetails.production_companies &&
+            movieDetails.production_companies.map((e: any, i: number) => {
               if (e.logo_path) {
                 return (
                   <img
@@ -179,15 +186,10 @@ function MovieDetails(props: MovieDetailsProps) {
           <br />
           <Grid className={classes.descriptionHeader}>
             <Typography variant="h3">
-              {props.movie && props.movie.title}
+              {movieDetails && movieDetails.title}
             </Typography>
           </Grid>
           <br />
-          <Grid item xs={12}>
-            <Grid className={classes.paper}></Grid>
-
-            <br />
-          </Grid>
           {isLoggedIn && (
             <RatingButtons
               movie={props.movie}
@@ -197,21 +199,17 @@ function MovieDetails(props: MovieDetailsProps) {
           )}
           <br />
           <Typography variant="body1">
-            {props.movie && props.movie.overview}
+            {movieDetails && movieDetails.overview}
           </Typography>
           <br />
           <Typography variant="body1">
-            {" "}
-            {movieReleaseDate.results &&
-              movieReleaseDate.results.length > 0 &&
-              "Release Date: " + props.movie.release_date}
+            {movieDetails && "Release Date: " + movieDetails.release_date}
           </Typography>
           <br />
           <Typography variant="h6">
-            {" "}
-            {movieCast.cast && movieCast.cast.length > 0 && "The Cast"}{" "}
+            {movieDetails && movieDetails.credits && "The Cast"}
           </Typography>
-          {movieCast.cast && (
+          {movieDetails && movieDetails.credits && (
             <GridList cols={1} cellHeight={45} spacing={1}>
               {displayCast()}
             </GridList>
@@ -226,7 +224,7 @@ function MovieDetails(props: MovieDetailsProps) {
           <Typography variant="h6" style={{ marginLeft: 5, marginTop: 10 }}>
             Related Movies
           </Typography>
-          <RelatedMovies />
+          <RelatedMovies tmdb_id={props.tmdb_id} />
         </Grid>
       </Grid>
     </Dialog>

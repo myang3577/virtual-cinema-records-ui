@@ -103,7 +103,7 @@ export const recommendationReducer = (
         state.generalRecommendationList,
       ];
       for (let i = 0; i < allRecommendations.length; i++) {
-        Object.keys(allRecommendations[i]).map((element: string) => {
+        Object.keys(allRecommendations[i]).forEach((element: string) => {
           if (allRecommendations[i][element].length !== 0) {
             newRecommendations[i][element] = allRecommendations[i][
               element

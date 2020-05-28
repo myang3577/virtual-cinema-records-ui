@@ -11,9 +11,7 @@ export enum TMDBActionType {
   SEARCH_MOVIES_BEGIN = "SEARCH_MOVIES_BEGIN",
   SEARCH_MOVIES_END = "SEARCH_MOVIES_END",
   GET_POPULAR_MOVIES_END = "GET_POPULAR_MOVIES_END",
-  GET_MOVIE_CAST_END = "GET_MOVIE_CAST",
-  GET_MOVIE_RELEASE_DATE_END = "GET_MOVIE_RELEASE_DATE_END",
-  GET_RELATED_MOVIES_END = "GET_RELATED_MOVIES_END",
+  GET_MOVIE_DETAILS_END = "GET_MOVIE_DETAILS_END",
 }
 
 /**
@@ -29,7 +27,7 @@ export enum TMDBActionType {
  */
 export interface TMDBAction {
   type: TMDBActionType;
-  payload: {};
+  payload: any;
 }
 
 /**
@@ -59,37 +57,23 @@ export const searchMoviesBegin = (): Action => {
  *
  * @param payload
  */
-export const searchMoviesEnd = (payload: {}): TMDBAction => {
+export const searchMoviesEnd = (payload: any): TMDBAction => {
   return {
     type: TMDBActionType.SEARCH_MOVIES_END,
     payload,
   };
 };
 
-export const getPopularMoviesEnd = (payload: {}): TMDBAction => {
+export const getPopularMoviesEnd = (payload: any): TMDBAction => {
   return {
     type: TMDBActionType.GET_POPULAR_MOVIES_END,
     payload,
   };
 };
 
-export const getMovieCastEnd = (payload: {}): TMDBAction => {
+export const getMovieDetailsEnd = (payload: any): TMDBAction => {
   return {
-    type: TMDBActionType.GET_MOVIE_CAST_END,
-    payload,
-  };
-};
-
-export const getRelatedMoviesEnd = (payload: {}): TMDBAction => {
-  return {
-    type: TMDBActionType.GET_RELATED_MOVIES_END,
-    payload,
-  };
-};
-
-export const getMovieReleaseDateEnd = (payload: {}): TMDBAction => {
-  return {
-    type: TMDBActionType.GET_MOVIE_RELEASE_DATE_END,
+    type: TMDBActionType.GET_MOVIE_DETAILS_END,
     payload,
   };
 };
@@ -140,45 +124,17 @@ export const getPopularMovies = () => {
   };
 };
 
-export const getMovieCast = (movieID: string) => {
+export const getMovieDetails = (tmdb_id: string) => {
   return (dispatch: Dispatch) => {
     return fetch(
       "https://api.themoviedb.org/3/movie/" +
-        movieID +
-        "/credits?api_key=" +
-        apiKey
-    )
-      .then((response) => response.json())
-      .then((json) => dispatch(getMovieCastEnd(json)))
-      .catch((error) => console.log("An error occurred.", error));
-  };
-};
-
-export const getRelatedMovies = (sourceMovieId: string) => {
-  return (dispatch: Dispatch) => {
-    return fetch(
-      "https://api.themoviedb.org/3/movie/" +
-        sourceMovieId +
-        "/similar?api_key=" +
+        tmdb_id +
+        "?api_key=" +
         apiKey +
-        "&language=en-US&page=1"
+        "&language=en-US&append_to_response=similar,credits"
     )
       .then((response) => response.json())
-      .then((json) => dispatch(getRelatedMoviesEnd(json)))
-      .catch((error) => console.log("An error occurred.", error));
-  };
-};
-
-export const getReleaseDate = (movieID: string) => {
-  return (dispatch: Dispatch) => {
-    return fetch(
-      "https://api.themoviedb.org/3/movie/" +
-        movieID +
-        "/release_dates?api_key=" +
-        apiKey
-    )
-      .then((response) => response.json())
-      .then((json) => dispatch(getMovieReleaseDateEnd(json)))
+      .then((json) => dispatch(getMovieDetailsEnd(json)))
       .catch((error) => console.log("An error occurred.", error));
   };
 };
