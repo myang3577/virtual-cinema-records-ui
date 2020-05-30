@@ -24,6 +24,7 @@ import {
 import RecommendationSection from "../../components/RecommendationSection";
 import { MovieListElement } from "../../actions/userInfoActions";
 import { getBlacklist } from "../../actions/blacklistAction";
+import RecommendationLoadingSection from "../../components/RecommendationLoadingSection";
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
 
 function Recommendations() {
@@ -55,6 +56,19 @@ function Recommendations() {
     GlobalState,
     RecommendationListObject
   >((state) => state.recommendationData.generalRecommendationList);
+
+  const generalRecommendationLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.recommendationData.generalRecommendationLoading
+  );
+  const movieRecommendationLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.recommendationData.movieRecommendationLoading
+  );
+  const actorRecommendationLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.recommendationData.actorRecommendationLoading
+  );
+  const genreRecommendationLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.recommendationData.genreRecommendationLoading
+  );
 
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
@@ -142,10 +156,6 @@ function Recommendations() {
         "Actor Recommendation": true,
         "Genre Recommendation": true,
       });
-
-      // Get the general recommendations again because some may be filtered out
-      // we have blacklist information
-      // dispatch(getGeneralRecommendation(userMyMoviesList, userBlackList));
     } else {
       // Clear the peresonal recommendation options
       let clearGenreObject = Object.assign({}, recommendationToDisplay);
@@ -170,7 +180,6 @@ function Recommendations() {
       userListDataLoading === LoadingState.DONE &&
       userBlackListDataLoading === LoadingState.DONE
     ) {
-      // refreshAll();
       refreshGeneralRecommendation();
     }
 
@@ -188,9 +197,12 @@ function Recommendations() {
   };
 
   const refreshAll = (): void => {
-    dispatch(getMovieRecommendation(username));
-    dispatch(getActorRecommendation(username));
-    dispatch(getGenreRecommendation(username));
+    if (isLoggedIn && username !== "") {
+      dispatch(getMovieRecommendation(username));
+      dispatch(getActorRecommendation(username));
+      dispatch(getGenreRecommendation(username));
+    }
+
     dispatch(getGeneralRecommendation(userMyMoviesList, userBlackList));
   };
 
@@ -270,8 +282,6 @@ function Recommendations() {
         );
         setGenreToDisplay({ ...genreToDisplay, [event.target.name]: true });
       }
-
-      // Then set the genre or recommendation to be displayed
     }
 
     // Otherwise set the flag to not display
@@ -328,25 +338,43 @@ function Recommendations() {
             to get personalized recommendations.
           </Typography>
         )}
-        {Object.keys(movieRecommendationResult).length !== 0
-          ? renderMovieRecommendation(
-              movieRecommendationResult,
-              "Movie Recommendation"
-            )
-          : []}
-        {Object.keys(actorRecommendationResult).length !== 0
-          ? renderMovieRecommendation(
-              actorRecommendationResult,
-              "Actor Recommendation"
-            )
-          : []}
-        {Object.keys(genreRecommendationResult).length !== 0
-          ? renderMovieRecommendation(
-              genreRecommendationResult,
-              "Genre Recommendation"
-            )
-          : []}
-        {renderGeneralRecommendation(generalRecommendationList)}
+        {movieRecommendationLoading === LoadingState.LOADING ? (
+          <RecommendationLoadingSection
+            loadingText={"Loading Movie Recommendations"}
+          />
+        ) : (
+          renderMovieRecommendation(
+            movieRecommendationResult,
+            "Movie Recommendation"
+          )
+        )}
+        {actorRecommendationLoading === LoadingState.LOADING ? (
+          <RecommendationLoadingSection
+            loadingText={"Loading Actor Recommendations"}
+          />
+        ) : (
+          renderMovieRecommendation(
+            actorRecommendationResult,
+            "Actor Recommendation"
+          )
+        )}
+        {genreRecommendationLoading === LoadingState.LOADING ? (
+          <RecommendationLoadingSection
+            loadingText={"Loading Genre Recommendations"}
+          />
+        ) : (
+          renderMovieRecommendation(
+            genreRecommendationResult,
+            "Genre Recommendation"
+          )
+        )}
+        {generalRecommendationLoading === LoadingState.LOADING ? (
+          <RecommendationLoadingSection
+            loadingText={"Loading General Recommendations"}
+          />
+        ) : (
+          renderGeneralRecommendation(generalRecommendationList)
+        )}
       </div>
     </Slide>
   );

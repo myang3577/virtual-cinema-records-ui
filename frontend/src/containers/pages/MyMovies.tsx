@@ -118,7 +118,12 @@ function MyMovies() {
             />
 
             {movieListLoading === LoadingState.LOADING ? (
-              <CircularProgress />
+              <div className="loading-container">
+                <Typography variant="h6" gutterBottom>
+                  Loading MyMovies
+                </Typography>
+                <CircularProgress className="center" />
+              </div>
             ) : movieDataList.length === 0 ? (
               <Typography variant="h5" gutterBottom>
                 Add movies to view them here.

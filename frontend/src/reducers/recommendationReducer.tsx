@@ -12,7 +12,10 @@ export interface RecommendationListObject {
 }
 
 export interface RecommendationState {
-  loading: LoadingState;
+  generalRecommendationLoading: LoadingState;
+  movieRecommendationLoading: LoadingState;
+  actorRecommendationLoading: LoadingState;
+  genreRecommendationLoading: LoadingState;
   movieRecommendationList: RecommendationListObject;
   actorRecommendationList: RecommendationListObject;
   genreRecommendationList: RecommendationListObject;
@@ -23,7 +26,10 @@ export interface RecommendationState {
 }
 
 const initialState: RecommendationState = {
-  loading: LoadingState.IDLE,
+  generalRecommendationLoading: LoadingState.IDLE,
+  movieRecommendationLoading: LoadingState.IDLE,
+  actorRecommendationLoading: LoadingState.IDLE,
+  genreRecommendationLoading: LoadingState.IDLE,
   movieRecommendationList: {},
   actorRecommendationList: {},
   genreRecommendationList: {},
@@ -68,15 +74,30 @@ export const recommendationReducer = (
     state.generalRecommendationList,
   ];
   switch (action.type) {
-    case RecommendationActionType.GET_RECOMMENDATION_BEGIN:
+    case RecommendationActionType.GET_GENERAL_RECOMMENDATION_BEGIN:
       return {
         ...state,
-        loading: LoadingState.LOADING,
+        generalRecommendationLoading: LoadingState.LOADING,
+      };
+    case RecommendationActionType.GET_MOVIE_RECOMMENDATION_BEGIN:
+      return {
+        ...state,
+        movieRecommendationLoading: LoadingState.LOADING,
+      };
+    case RecommendationActionType.GET_ACTOR_RECOMMENDATION_BEGIN:
+      return {
+        ...state,
+        actorRecommendationLoading: LoadingState.LOADING,
+      };
+    case RecommendationActionType.GET_GENRE_RECOMMENDATION_BEGIN:
+      return {
+        ...state,
+        genreRecommendationLoading: LoadingState.LOADING,
       };
     case RecommendationActionType.GET_MOVIE_RECOMMENDATION_END:
       return {
         ...state,
-        loading: LoadingState.DONE,
+        movieRecommendationLoading: LoadingState.DONE,
         // Exclamation mark this tells typescript that it exists and is not
         // undefined. Mandatory for attributes that are conditional. See
         // recommendationActions.tsx and look at RecommendationAction -> payload
@@ -89,7 +110,7 @@ export const recommendationReducer = (
     case RecommendationActionType.GET_ACTOR_RECOMMENDATION_END:
       return {
         ...state,
-        loading: LoadingState.DONE,
+        actorRecommendationLoading: LoadingState.DONE,
         actorRecommendationList: (action as RecommendationAction).payload
           .recommendationList!,
         actorRecommendationListCopy: (action as RecommendationAction).payload
@@ -98,7 +119,7 @@ export const recommendationReducer = (
     case RecommendationActionType.GET_GENRE_RECOMMENDATION_END:
       return {
         ...state,
-        loading: LoadingState.DONE,
+        genreRecommendationLoading: LoadingState.DONE,
         genreRecommendationList: (action as RecommendationAction).payload
           .recommendationList!,
         genreRecommendationListCopy: (action as RecommendationAction).payload
@@ -107,7 +128,7 @@ export const recommendationReducer = (
     case RecommendationActionType.GET_GENERAL_RECOMMENDATION_END:
       return {
         ...state,
-        loading: LoadingState.DONE,
+        generalRecommendationLoading: LoadingState.DONE,
         generalRecommendationList: {
           ...state.generalRecommendationList,
           [action.name!]: (action as GeneralRecommendationAction).payload
@@ -131,7 +152,6 @@ export const recommendationReducer = (
 
       return {
         ...state,
-        loading: LoadingState.DONE,
         movieRecommendationList: newRecommendations[0],
         actorRecommendationList: newRecommendations[1],
         genreRecommendationList: newRecommendations[2],
@@ -193,7 +213,6 @@ export const recommendationReducer = (
       }
       return {
         ...state,
-        loading: LoadingState.DONE,
         movieRecommendationList: newRecommendations[0],
         actorRecommendationList: newRecommendations[1],
         genreRecommendationList: newRecommendations[2],

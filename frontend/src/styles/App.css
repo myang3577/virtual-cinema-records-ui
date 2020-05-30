@@ -118,3 +118,13 @@
   bottom: 0;
   position: absolute;
 }
+
+.loading-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  margin: auto;
+}

@@ -9,7 +9,10 @@ import {
 import { apiKey } from "./tmdbActions";
 
 export enum RecommendationActionType {
-  GET_RECOMMENDATION_BEGIN = "GET_RECOMMENDATION_BEGIN",
+  GET_MOVIE_RECOMMENDATION_BEGIN = "GET_MOVIE_RECOMMENDATION_BEGIN",
+  GET_ACTOR_RECOMMENDATION_BEGIN = "GET_ACTOR_RECOMMENDATION_BEGIN",
+  GET_GENRE_RECOMMENDATION_BEGIN = "GET_GENRE_RECOMMENDATION_BEGIN",
+  GET_GENERAL_RECOMMENDATION_BEGIN = "GET_GENERAL_RECOMMENDATION_BEGIN",
   GET_MOVIE_RECOMMENDATION_END = "GET_MOVIE_RECOMMENDATION_END",
   GET_ACTOR_RECOMMENDATION_END = "GET_ACTOR_RECOMMENDATION_END",
   GET_GENRE_RECOMMENDATION_END = "GET_GENRE_RECOMMENDATION_END",
@@ -17,6 +20,13 @@ export enum RecommendationActionType {
   CLEAR_RECOMMENDATION_DATA = "CLEAR_RECOMMENDATION_DATA",
   HIDE_BLACKLIST = "HIDE_BLACKLIST",
   UNHIDE_BLACKLIST = "UNHIDE_BLACKLIST",
+}
+
+export enum RecommendationType {
+  GENERAL = "GENERAL",
+  MOVIE = "MOVIE",
+  ACTOR = "ACTOR",
+  GENRE = "GENRE",
 }
 
 // Represents all of the data that will be sent back by the recommmendation
@@ -76,10 +86,26 @@ export interface GeneralRecommendationAction {
   };
 }
 
-export const getRecommendationBegin = (): RecommendationAction => {
+export const getRecommendationBegin = (type: RecommendationType): Action => {
+  let actionType: RecommendationActionType;
+
+  switch (type) {
+    case RecommendationType.GENERAL:
+      actionType = RecommendationActionType.GET_GENERAL_RECOMMENDATION_BEGIN;
+      break;
+    case RecommendationType.MOVIE:
+      actionType = RecommendationActionType.GET_MOVIE_RECOMMENDATION_BEGIN;
+      break;
+    case RecommendationType.ACTOR:
+      actionType = RecommendationActionType.GET_ACTOR_RECOMMENDATION_BEGIN;
+      break;
+    case RecommendationType.GENRE:
+      actionType = RecommendationActionType.GET_GENRE_RECOMMENDATION_BEGIN;
+      break;
+  }
+
   return {
-    type: RecommendationActionType.GET_RECOMMENDATION_BEGIN,
-    payload: {},
+    type: actionType,
   };
 };
 
@@ -263,7 +289,7 @@ const fetchSpecificRecommmendation = async (
 // Entry point to get the user's personal recommendations for movies
 export const getMovieRecommendation = (email: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(getRecommendationBegin());
+    dispatch(getRecommendationBegin(RecommendationType.MOVIE));
     return fetchRecommendation(dispatch, email, "movie");
   };
 };
@@ -271,7 +297,7 @@ export const getMovieRecommendation = (email: string) => {
 // Entry point to get the user's personal recommendations for actors
 export const getActorRecommendation = (email: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(getRecommendationBegin());
+    dispatch(getRecommendationBegin(RecommendationType.ACTOR));
     return fetchRecommendation(dispatch, email, "actor");
   };
 };
@@ -279,7 +305,7 @@ export const getActorRecommendation = (email: string) => {
 // Entry point to get the user's personal recommendations for genres
 export const getGenreRecommendation = (email: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(getRecommendationBegin());
+    dispatch(getRecommendationBegin(RecommendationType.GENRE));
     return fetchRecommendation(dispatch, email, "genre");
   };
 };
@@ -290,7 +316,7 @@ export const getGeneralRecommendation = (
   userBlackList: MovieResultElement[]
 ) => {
   return (dispatch: Dispatch) => {
-    dispatch(getRecommendationBegin());
+    dispatch(getRecommendationBegin(RecommendationType.GENERAL));
     return fetchGeneralRecommendation(
       dispatch,
       userMyMoviesList,
@@ -307,7 +333,6 @@ export const getSpecificRecommendation = (
   userBlackList: MovieResultElement[]
 ) => {
   return (dispatch: Dispatch) => {
-    dispatch(getRecommendationBegin());
     let userIdArray = userMyMoviesList.map(
       (movie: MovieResultElement) => movie.id
     );
