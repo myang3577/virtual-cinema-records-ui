@@ -112,3 +112,9 @@
   display: flex;
   flex-direction: row;
 }
+
+.tmdb-attribution {
+  padding: 10px;
+  bottom: 0;
+  position: absolute;
+}
