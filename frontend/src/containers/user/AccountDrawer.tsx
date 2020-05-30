@@ -43,7 +43,11 @@ const useStyles = makeStyles({
   },
 });
 
-function AccountDrawer() {
+interface AccountDrawerProps {
+  onBlacklistClick: () => any;
+}
+
+function AccountDrawer(props: AccountDrawerProps) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -92,6 +96,11 @@ function AccountDrawer() {
 
     if (index === 0 || index === 1) dispatch(openAccountModal());
 
+    dispatch(toggleAccountDrawer(false));
+  };
+
+  const onBlacklistOptionClick = () => {
+    props.onBlacklistClick();
     dispatch(toggleAccountDrawer(false));
   };
 
@@ -161,7 +170,7 @@ function AccountDrawer() {
               <ListItem
                 button
                 key={index}
-                onClick={() => dispatch(toggleAccountDrawer(false))}
+                onClick={onBlacklistOptionClick}
                 component={Link}
                 to={"/blacklist"}
               >

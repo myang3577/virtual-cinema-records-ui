@@ -87,7 +87,7 @@ function NavBar(props: any) {
     );
   }, [scrollDistance, width]);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState<number | null>(0);
 
   const onTabChange = (event: any, newValue: any) => {
     if (newValue !== LOGIN_TAB_VAL)
@@ -243,7 +243,7 @@ function NavBar(props: any) {
             }
             onClick={toggleDrawer(true)}
           />
-          <AccountDrawer />
+          <AccountDrawer onBlacklistClick={() => setValue(null)} />
           <AccountModal />
         </Tabs>
       </Collapse>
