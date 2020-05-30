@@ -225,11 +225,10 @@ const fetchSpecificRecommmendation = async (
 
   while (resultArray.length < NUM_GENERAL_RECOMMENDATIONS) {
     try {
-      // console.log(apiEndpoint + currPage);
       await fetch(apiEndpoint + currPage)
         .then((response) => response.json())
+        // eslint-disable-next-line
         .then((json) => {
-          // console.log(json);
           json.results.forEach((movie: MovieResultElement) => {
             // If the movie is not in the user's movie list and the list is not full, then add it
             if (
@@ -237,7 +236,6 @@ const fetchSpecificRecommmendation = async (
               !userBlacklistIdArray.includes(movie.id) &&
               resultArray.length < NUM_GENERAL_RECOMMENDATIONS
             ) {
-              // console.log("Adding movie");
               resultArray.push(movie);
             }
           });

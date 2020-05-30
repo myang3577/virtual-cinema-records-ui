@@ -5,7 +5,6 @@ import {
   RecommendationAction,
   MovieResultElement,
   GeneralRecommendationAction,
-  getMovieRecommendation,
 } from "../actions/recommendationActions";
 
 export interface RecommendationListObject {

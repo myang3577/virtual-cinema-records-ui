@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   makeStyles,
   Dialog,
@@ -86,10 +86,6 @@ function MovieDetails(props: MovieDetailsProps) {
   const movieDetails = useSelector<GlobalState, any>(
     (state) => state.tmdbData.movieDetails[props.tmdb_id]
   );
-
-  useEffect(() => {
-    console.log(movieDetails);
-  }, [movieDetails]);
 
   const displayCast = () =>
     movieDetails.credits.cast.slice(0, 10).map((member: any, i: number) => (

@@ -202,25 +202,20 @@ function Recommendations() {
   ): any[] => {
     if (movieDataLoading !== LoadingState.LOADING && recommendationResult) {
       return Object.keys(recommendationResult).map(
-        (keyName: any, keyIndex: number) => {
-          if (
-            recommendationResult[keyName].length !== 0 &&
-            recommendationToDisplay[recommendationType] !== false
-          ) {
-            return (
-              <RecommendationSection
-                header={"Because you liked " + keyName}
-                displayMovieList={recommendationResult[keyName]}
-                loading={movieDataLoading}
-                userMyMoviesList={userMyMoviesList}
-                userBlackList={userBlackList}
-                userMovieIDList={userMovieIDList}
-                page={PageType.RECOMMENDATIONS}
-                key={keyIndex}
-              />
-            );
-          }
-        }
+        (keyName: any, keyIndex: number) =>
+          recommendationResult[keyName].length !== 0 &&
+          recommendationToDisplay[recommendationType] !== false && (
+            <RecommendationSection
+              header={"Because you liked " + keyName}
+              displayMovieList={recommendationResult[keyName]}
+              loading={movieDataLoading}
+              userMyMoviesList={userMyMoviesList}
+              userBlackList={userBlackList}
+              userMovieIDList={userMovieIDList}
+              page={PageType.RECOMMENDATIONS}
+              key={keyIndex}
+            />
+          )
       );
     } else {
       return [];
@@ -231,25 +226,20 @@ function Recommendations() {
   const renderGeneralRecommendation = (recommendationResult: any): any[] => {
     if (movieDataLoading !== LoadingState.LOADING && recommendationResult) {
       return Object.keys(recommendationResult).map(
-        (keyName: string, keyIndex: number) => {
-          if (
-            recommendationResult[keyName].length !== 0 &&
-            genreToDisplay[keyName] !== false
-          ) {
-            return (
-              <RecommendationSection
-                header={keyName}
-                displayMovieList={recommendationResult[keyName]}
-                loading={movieDataLoading}
-                userMyMoviesList={userMyMoviesList}
-                userBlackList={userBlackList}
-                userMovieIDList={userMovieIDList}
-                page={PageType.RECOMMENDATIONS}
-                key={keyIndex}
-              />
-            );
-          }
-        }
+        (keyName: string, keyIndex: number) =>
+          recommendationResult[keyName].length !== 0 &&
+          genreToDisplay[keyName] !== false && (
+            <RecommendationSection
+              header={keyName}
+              displayMovieList={recommendationResult[keyName]}
+              loading={movieDataLoading}
+              userMyMoviesList={userMyMoviesList}
+              userBlackList={userBlackList}
+              userMovieIDList={userMovieIDList}
+              page={PageType.RECOMMENDATIONS}
+              key={keyIndex}
+            />
+          )
       );
     } else {
       return [];
