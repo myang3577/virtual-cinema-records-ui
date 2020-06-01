@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Card,
   CardHeader,
@@ -19,12 +19,8 @@ import {
 import RatingButtons from "./RatingButtons";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
-import MovieDetails from "./MovieDetails";
 import { getMovieDetails } from "../actions/tmdbActions";
-import {
-  openMovieDetail,
-  setMovieDetail,
-} from "../actions/movieDetailsActions";
+import { openMovieDetail } from "../actions/movieDetailsActions";
 
 export interface MovieCardProps {
   movie: any;

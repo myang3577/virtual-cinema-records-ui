@@ -63,6 +63,7 @@ function RatingButtons(props: RatingButtonsProps) {
     setDisplayRating(-1);
     setRating(props.userRating);
     dispatch(setMovieRating(rating));
+    // eslint-disable-next-line
   }, [props.userRating]);
 
   useEffect(() => {

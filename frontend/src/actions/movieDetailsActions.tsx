@@ -1,5 +1,3 @@
-import { Dispatch } from "redux";
-
 export enum MovieDetailType {
   MOVIE_DETAIL_OPEN = "MOVIE_DETAIL_OPEN",
   MOVIE_DETAIL_CLOSED = "MOVIE_DETAIL_OPEN",

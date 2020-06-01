@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   makeStyles,
   Dialog,
@@ -33,7 +33,6 @@ import {
 } from "../actions/blacklistAction";
 import {
   closeMovieDetail,
-  setMovieDetail,
   setMovieButtons,
 } from "../actions/movieDetailsActions";
 
@@ -232,11 +231,13 @@ function MovieDetails() {
           <IconButton edge="start" onClick={onClose}>
             <CloseIcon />
           </IconButton>
-          <BlacklistMovieIcon
-            inBlacklist={inBlackList!}
-            isLoggedIn={isLoggedIn}
-            onClick={blacklistIconButtonClick}
-          />
+          {!inUserList && (
+            <BlacklistMovieIcon
+              inBlacklist={inBlackList!}
+              isLoggedIn={isLoggedIn}
+              onClick={blacklistIconButtonClick}
+            />
+          )}
           {!inBlackList && (
             <AddRemoveMoviesIconButton
               inUserList={inUserList}
