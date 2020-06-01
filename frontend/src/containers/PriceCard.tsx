@@ -1,6 +1,10 @@
 import React from "react";
-import { Card, CardHeader } from "@material-ui/core";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
 
 export interface PriceCardProps {
   streamingPrice: number;
@@ -8,37 +12,35 @@ export interface PriceCardProps {
 }
 
 function PriceCard(props: PriceCardProps) {
-  const clickSite = (event: any) => {
-    //open site
-  };
-
   return (
     <Card
       style={{
-        height: "auto",
-        width: "90%",
-        margin: "5px",
-        marginLeft: "5%",
-        marginRight: "5%",
-        backgroundImage: "url(" + props.streamingBG + ")",
-        backgroundSize: "cover",
-        backgroundPosition: "center top",
+        margin: "3px",
       }}
+      elevation={3}
     >
-      <CardHeader
-        titleTypographyProps={{
-          variant: "subtitle1",
-          style: {
-            marginTop: "-10%",
-            color: "white",
-            textShadow:
-              "0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1)",
-          },
-          paragraph: true,
+      <CardActionArea
+        style={{
+          backgroundImage: "url(" + props.streamingBG + ")",
+          backgroundSize: "cover",
+          // backgroundColor: "#2F2F2F",
         }}
-        title={"$" + props.streamingPrice}
-        style={{ height: "auto", margin: "5%" }}
-      />
+      >
+        <CardContent>
+          <Typography
+            style={{
+              display: "inline-block",
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              textShadow:
+                "0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1),0px 0px 8px rgba(0, 0, 0, 1)",
+              color: "white",
+            }}
+          >
+            {"$" + props.streamingPrice}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }

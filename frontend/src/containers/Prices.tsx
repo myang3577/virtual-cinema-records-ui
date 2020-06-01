@@ -5,7 +5,7 @@ import netflixlogo from "../images/netflixlogo.jpeg";
 import hululogo from "../images/hululogo.jpeg";
 import disneypluslogo from "../images/disneypluslogo.jpeg";
 import youtubelogo from "../images/youtubelogo.jpeg";
-import amazonlogo from "../images/amazonlogo.jpeg";
+import amazonlogo from "../images/amazonlogo.jpg";
 import applelogo from "../images/applelogo.jpeg";
 
 function Prices() {
@@ -17,6 +17,7 @@ function Prices() {
       </GridListTile>
     ));
   };
+
   const streamingSites = () => {
     return [
       { siteTitle: "Netflix", sitePrice: 9.99, siteBG: netflixlogo },
@@ -24,12 +25,12 @@ function Prices() {
       { siteTitle: "Disney+", sitePrice: 14.99, siteBG: disneypluslogo },
       { siteTitle: "YouTube", sitePrice: 14.99, siteBG: youtubelogo },
       { siteTitle: "Apple", sitePrice: 15.99, siteBG: applelogo },
-      { siteTitle: "Prime", sitePrice: 8.99, siteBG: amazonlogo },
+      { siteTitle: "Prime Video", sitePrice: 8.99, siteBG: amazonlogo },
     ];
   };
 
   return (
-    <GridList cellHeight={"auto"} cols={2} spacing={0}>
+    <GridList cellHeight={"auto"} cols={2}>
       {displayPrices()}
     </GridList>
   );
