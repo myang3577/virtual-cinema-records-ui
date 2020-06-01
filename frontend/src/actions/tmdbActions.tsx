@@ -11,6 +11,7 @@ export enum TMDBActionType {
   SEARCH_MOVIES_BEGIN = "SEARCH_MOVIES_BEGIN",
   SEARCH_MOVIES_END = "SEARCH_MOVIES_END",
   GET_POPULAR_MOVIES_END = "GET_POPULAR_MOVIES_END",
+  GET_MOVIE_DETAILS_BEGIN = "GET_MOVIE_DETAILS_BEGIN",
   GET_MOVIE_DETAILS_END = "GET_MOVIE_DETAILS_END",
 }
 
@@ -71,6 +72,12 @@ export const getPopularMoviesEnd = (payload: any): TMDBAction => {
   };
 };
 
+export const getMovieDetailsBegin = (): Action => {
+  return {
+    type: TMDBActionType.GET_MOVIE_DETAILS_BEGIN,
+  };
+};
+
 export const getMovieDetailsEnd = (payload: any): TMDBAction => {
   return {
     type: TMDBActionType.GET_MOVIE_DETAILS_END,
@@ -126,6 +133,7 @@ export const getPopularMovies = () => {
 
 export const getMovieDetails = (tmdb_id: string) => {
   return (dispatch: Dispatch) => {
+    dispatch(getMovieDetailsBegin());
     return fetch(
       "https://api.themoviedb.org/3/movie/" +
         tmdb_id +

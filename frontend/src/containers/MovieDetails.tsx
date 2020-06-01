@@ -15,6 +15,7 @@ import {
   Avatar,
   GridList,
   Paper,
+  CircularProgress,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GlobalState } from "../reducers/rootReducer";
@@ -35,6 +36,7 @@ import {
   closeMovieDetail,
   setMovieButtons,
 } from "../actions/movieDetailsActions";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -139,6 +141,10 @@ function MovieDetails() {
 
   const movieDetails = useSelector<GlobalState, any>(
     (state) => state.tmdbData.movieDetails[tmdb_id]
+  );
+
+  const movieDetailsLoading = useSelector<GlobalState, LoadingState>(
+    (state) => state.tmdbData.movieDetailsLoading
   );
 
   const displayCast = () =>
@@ -247,73 +253,96 @@ function MovieDetails() {
           )}
         </Toolbar>
       </Paper>
-      <Grid container spacing={0} className={classes.root}>
-        {/* movie poster */}
-        <Grid
-          className={classes.poster}
-          item
-          xs={4}
+      {movieDetailsLoading === LoadingState.LOADING ? (
+        <div
           style={{
-            marginLeft: "0%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
           }}
         >
-          <img
-            style={{ maxWidth: "95%" }}
-            src={
-              movieDetails &&
-              (movieDetails.poster_path
-                ? baseUrl + movieDetails.poster_path
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png")
-            }
-            alt="movie poster"
-          />
-        </Grid>
-        {/* movie description, rating, and title */}
-        <Grid className={classes.paper} item xs={5} style={{ marginRight: 0 }}>
-          <br />
-          <Grid className={classes.descriptionHeader}>
-            <Typography variant="h3">
-              {movieDetails && movieDetails.title}
-            </Typography>
-          </Grid>
-          <br />
-          {isLoggedIn && inUserList && !inBlackList && (
-            <RatingButtons
-              movie={movie}
-              userRating={userRating}
-              displayWords={true}
+          <Typography variant="h6" gutterBottom>
+            Loading movie details
+          </Typography>
+          <CircularProgress />
+        </div>
+      ) : (
+        <Grid container spacing={0} className={classes.root}>
+          {/* movie poster */}
+          <Grid
+            className={classes.poster}
+            item
+            xs={4}
+            style={{
+              marginLeft: "0%",
+            }}
+          >
+            <img
+              style={{ maxWidth: "95%" }}
+              src={
+                movieDetails &&
+                (movieDetails.poster_path
+                  ? baseUrl + movieDetails.poster_path
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png")
+              }
+              alt="movie poster"
             />
-          )}
-          <br />
-          <Typography variant="body1">
-            {movieDetails && movieDetails.overview}
-          </Typography>
-          <br />
-          <Typography variant="body1">
-            {movieDetails && "Release Date: " + movieDetails.release_date}
-          </Typography>
-          <br />
-          <Typography variant="h6">
-            {movieDetails && movieDetails.credits && "The Cast"}
-          </Typography>
-          {movieDetails && movieDetails.credits && (
-            <GridList cols={1} cellHeight={45} spacing={1}>
-              {displayCast()}
-            </GridList>
-          )}
+          </Grid>
+          {/* movie description, rating, and title */}
+          <Grid
+            className={classes.paper}
+            item
+            xs={5}
+            style={{ marginRight: 0 }}
+          >
+            <br />
+            <Grid className={classes.descriptionHeader}>
+              <Typography variant="h3">
+                {movieDetails && movieDetails.title}
+              </Typography>
+            </Grid>
+            <br />
+            {isLoggedIn && inUserList && !inBlackList && (
+              <RatingButtons
+                movie={movie}
+                userRating={userRating}
+                displayWords={true}
+              />
+            )}
+            <br />
+            <Typography variant="body1">
+              {movieDetails && movieDetails.overview}
+            </Typography>
+            <br />
+            <Typography variant="body1">
+              {movieDetails && "Release Date: " + movieDetails.release_date}
+            </Typography>
+            <br />
+            <Typography variant="h6">
+              {movieDetails && movieDetails.credits && "The Cast"}
+            </Typography>
+            {movieDetails && movieDetails.credits && (
+              <GridList cols={1} cellHeight={45} spacing={1}>
+                {displayCast()}
+              </GridList>
+            )}
+          </Grid>
+          {/* movie prices */}
+          <Grid className={classes.prices} item xs={3}>
+            <Typography variant="h6" style={{ marginLeft: 5, marginTop: "5%" }}>
+              Where to watch
+            </Typography>
+            <Prices />
+            <Typography variant="h6" style={{ marginLeft: 5, marginTop: 10 }}>
+              Related Movies
+            </Typography>
+            <RelatedMovies tmdb_id={tmdb_id} />
+          </Grid>
         </Grid>
-        {/* movie prices */}
-        <Grid className={classes.prices} item xs={3}>
-          <Typography variant="h6" style={{ marginLeft: 5, marginTop: "5%" }}>
-            Where to watch
-          </Typography>
-          <Prices />
-          <Typography variant="h6" style={{ marginLeft: 5, marginTop: 10 }}>
-            Related Movies
-          </Typography>
-          <RelatedMovies tmdb_id={tmdb_id} />
-        </Grid>
-      </Grid>
+      )}
     </Dialog>
   );
 }
