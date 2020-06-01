@@ -113,6 +113,9 @@ function SnackBar() {
         case SnackBarActionType.BLACKLIST:
           dispatch(closeMovieDetail());
           return;
+        case SnackBarActionType.RATING:
+          dispatch(closeMovieDetail());
+          return;
       }
     }
   };
