@@ -14,7 +14,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import { LoadingState } from "../../reducers/tmdbReducer";
 import { listMovies } from "../../actions/movieListActions";
 import { PageType } from "../../constants/General";
-import { getPopularMovies, searchMovies } from "../../actions/tmdbActions";
+import {
+  getPopularMovies,
+  searchMovies,
+  clearMovieSearchResults,
+} from "../../actions/tmdbActions";
 import { MovieListElement } from "../../actions/userInfoActions";
 
 export const ENTER_KEYCODE = 13;
@@ -66,6 +70,11 @@ function Home() {
   useEffect(() => {
     dispatch(getPopularMovies());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(clearMovieSearchResults());
+    // eslint-disable-next-line
+  }, []);
 
   const onSearchSubmit = () => {
     dispatch(searchMovies(movieQuery));

@@ -107,6 +107,11 @@ export const tmdbReducer = (
           [action.payload.id]: action.payload,
         },
       };
+    case TMDBActionType.CLEAR_MOVIE_SEARCH_RESULTS:
+      return {
+        ...state,
+        movieSearchResult: {},
+      };
     default:
       return state;
   }

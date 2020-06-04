@@ -13,6 +13,7 @@ export enum TMDBActionType {
   GET_POPULAR_MOVIES_END = "GET_POPULAR_MOVIES_END",
   GET_MOVIE_DETAILS_BEGIN = "GET_MOVIE_DETAILS_BEGIN",
   GET_MOVIE_DETAILS_END = "GET_MOVIE_DETAILS_END",
+  CLEAR_MOVIE_SEARCH_RESULTS = "CLEAR_MOVIE_SEARCH_RESULTS",
 }
 
 /**
@@ -43,6 +44,12 @@ export interface TMDBAction {
 export const searchMoviesBegin = (): Action => {
   return {
     type: TMDBActionType.SEARCH_MOVIES_BEGIN,
+  };
+};
+
+export const clearMovieSearchResults = (): Action => {
+  return {
+    type: TMDBActionType.CLEAR_MOVIE_SEARCH_RESULTS,
   };
 };
 
