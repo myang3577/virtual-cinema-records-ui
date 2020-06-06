@@ -42,6 +42,10 @@ function MovieCard(props: MovieCardProps) {
     (state) => state.loginData.username
   );
 
+  const movieDetailsOpen = useSelector<GlobalState, boolean>(
+    (state) => state.movieDetailData.movieDetailsOpen
+  );
+
   const userRating = useSelector<GlobalState, number>((state) => {
     const userMovieIDList = state.myMoviesData.movieIDList;
     const userMovieIDElement = userMovieIDList.find(
@@ -155,7 +159,7 @@ function MovieCard(props: MovieCardProps) {
             )
           }
         />
-        {props.page === PageType.MY_MOVIES && (
+        {props.page === PageType.MY_MOVIES && !movieDetailsOpen && (
           <CardContent>
             <RatingButtons
               movie={props.movie}
