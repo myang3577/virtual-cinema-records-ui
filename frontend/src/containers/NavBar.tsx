@@ -106,6 +106,9 @@ function NavBar(props: any) {
       case routes.recsLink:
         setValue(RECS_TAB_VAL);
         break;
+      case routes.blacklistLink:
+        setValue(false);
+        break;
     }
   }, [props.history.location.pathname]);
 
