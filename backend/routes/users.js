@@ -5,7 +5,7 @@ var recommender = require("./recommender");
 var blacklist = require("./blacklist");
 var AWS = require("aws-sdk");
 
-AWS.config.update({ region: "us-east-2" });
+AWS.config.update({ region: "us-west-2" });
 AWS.config.apiVersion = {
   dynamodb: "latest",
 };
