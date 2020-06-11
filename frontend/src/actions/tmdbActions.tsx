@@ -1,7 +1,7 @@
 import { Dispatch, Action } from "redux";
 
 // API key to query themoviedb database
-export const apiKey = "5e38014a47f9412c29d0ca4667091633";
+export const apiKey = "776126f4164205d32063604a2889fab7";
 
 /**
  * Define your own enumerator called ActionType with two possible

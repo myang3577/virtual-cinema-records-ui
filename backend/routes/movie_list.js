@@ -20,7 +20,7 @@ const genreTableName = "Genre";
 const actorTableName = "Actors";
 
 // API key to query themoviedb database
-const apiKey = "5e38014a47f9412c29d0ca4667091633";
+const apiKey = "776126f4164205d32063604a2889fab7";
 
 // api end point to get the movie details (specifically the title)
 const MOVIE_DETAILS_API =

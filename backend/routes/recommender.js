@@ -19,7 +19,7 @@ const movieTableName = "MovieList";
 const genreTableName = "Genre";
 const actorTableName = "Actors";
 const blacklistTableName = "Blacklist";
-const apiKey = "5e38014a47f9412c29d0ca4667091633";
+const apiKey = "776126f4164205d32063604a2889fab7";
 const MOVIE_DETAILS_API =
   "https://api.themoviedb.org/3/movie/$TMDB_ID?api_key=$APIKEY&language=en-US";
 
