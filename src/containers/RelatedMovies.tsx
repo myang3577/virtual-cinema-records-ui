@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setMovieDetail } from "../actions/movieDetailsActions";
 import { getMovieDetails } from "../actions/tmdbActions";

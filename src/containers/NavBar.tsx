@@ -13,8 +13,8 @@ import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import PersonIcon from "@material-ui/icons/Person";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import { Link as RouterLink , withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 
 import { toggleAccountDrawer } from "../actions/uiActions";
 import VCRBigLogo from "../images/VCRBigLogo.png";
@@ -43,19 +43,17 @@ function NavBar(props: any) {
 
   const accountString = isLoggedIn ? username : "Login";
 
-  const toggleDrawer = (open: boolean) => (event: {
-    type: string;
-    key: string;
-  }) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  const toggleDrawer =
+    (open: boolean) => (event: { type: string; key: string }) => {
+      if (
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
 
-    dispatch(toggleAccountDrawer(open));
-  };
+      dispatch(toggleAccountDrawer(open));
+    };
 
   const [displayFullBar, setDisplayFullBar] = useState<boolean>(true);
   const [width, setWidth] = useState(window.innerWidth);

@@ -1,5 +1,5 @@
 // https://material-ui.com/customization/color/#color
-import { lightGreen,teal } from "@material-ui/core/colors";
+import { lightGreen, teal } from "@material-ui/core/colors";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const tealLightGreenTheme = createMuiTheme({

@@ -14,7 +14,7 @@ import {
   putBlackListMovie,
 } from "../actions/blacklistAction";
 import { openMovieDetail } from "../actions/movieDetailsActions";
-import { deleteMovie,putMovie } from "../actions/movieListActions";
+import { deleteMovie, putMovie } from "../actions/movieListActions";
 import { getMovieDetails } from "../actions/tmdbActions";
 import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";

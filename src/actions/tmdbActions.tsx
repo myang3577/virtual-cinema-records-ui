@@ -1,4 +1,4 @@
-import { Action,Dispatch } from "redux";
+import { Action, Dispatch } from "redux";
 
 // API key to query themoviedb database
 export const apiKey = "776126f4164205d32063604a2889fab7";

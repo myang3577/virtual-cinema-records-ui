@@ -1,4 +1,4 @@
-import { Action,Dispatch } from "redux";
+import { Action, Dispatch } from "redux";
 
 import { hideMovie, unhideMovie } from "./recommendationActions";
 import { apiKey } from "./tmdbActions";

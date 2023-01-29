@@ -1,9 +1,9 @@
 import { IconButton, Slide } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
-import { Block,Person, Theaters } from "@material-ui/icons";
+import { Block, Person, Theaters } from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 import { closeMovieDetail } from "../actions/movieDetailsActions";
