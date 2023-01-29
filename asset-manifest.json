@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/virtual-cinema-records-ui/static/css/main.9dcbcda9.css",
-    "main.js": "/virtual-cinema-records-ui/static/js/main.6199dff5.js",
+    "main.css": "/virtual-cinema-records-ui/static/css/main.1c4bf46b.css",
+    "main.js": "/virtual-cinema-records-ui/static/js/main.b40fa7d5.js",
     "static/media/applelogo.jpeg": "/virtual-cinema-records-ui/static/media/applelogo.6eb997368dc8aebc52b0.jpeg",
     "static/media/disneypluslogo.jpeg": "/virtual-cinema-records-ui/static/media/disneypluslogo.62a311436c57260f0390.jpeg",
     "static/media/VCRBigLogo.png": "/virtual-cinema-records-ui/static/media/VCRBigLogo.d3aca17ddf61c1a69ca0.png",
@@ -11,11 +11,11 @@
     "static/media/amazonlogo.jpg": "/virtual-cinema-records-ui/static/media/amazonlogo.6a9ed98387229502f4ab.jpg",
     "static/media/hululogo.jpeg": "/virtual-cinema-records-ui/static/media/hululogo.88e90c446fcc982dcd25.jpeg",
     "index.html": "/virtual-cinema-records-ui/index.html",
-    "main.9dcbcda9.css.map": "/virtual-cinema-records-ui/static/css/main.9dcbcda9.css.map",
-    "main.6199dff5.js.map": "/virtual-cinema-records-ui/static/js/main.6199dff5.js.map"
+    "main.1c4bf46b.css.map": "/virtual-cinema-records-ui/static/css/main.1c4bf46b.css.map",
+    "main.b40fa7d5.js.map": "/virtual-cinema-records-ui/static/js/main.b40fa7d5.js.map"
   },
   "entrypoints": [
-    "static/css/main.9dcbcda9.css",
-    "static/js/main.6199dff5.js"
+    "static/css/main.1c4bf46b.css",
+    "static/js/main.b40fa7d5.js"
   ]
 }
