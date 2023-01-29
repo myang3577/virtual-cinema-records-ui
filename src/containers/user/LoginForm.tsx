@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { checkLogin } from "../../actions/loginActions";
 import { UsernameField } from "../../components/Username";
 import { PasswordField } from "../../components/Password";
 import { LoadingButton } from "../../components/LoadingButton";
@@ -34,8 +33,6 @@ function LoginForm() {
       );
     } else if (!validEmail(localUsername)) {
       dispatch(openSnackBar("Your username must be a valid email address"));
-    } else {
-      dispatch(checkLogin(localUsername, localPassword));
     }
   };
 

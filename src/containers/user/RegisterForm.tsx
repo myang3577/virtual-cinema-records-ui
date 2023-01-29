@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createAcct } from "../../actions/loginActions";
 import { UsernameField } from "../../components/Username";
 import { PasswordField } from "../../components/Password";
 import { LoadingButton } from "../../components/LoadingButton";
@@ -37,8 +36,6 @@ function LoginForm() {
       dispatch(openSnackBar("Your username must be a valid email address"));
     } else if (localPassword !== localRepeatPassword) {
       dispatch(openSnackBar("Passwords do not match"));
-    } else {
-      dispatch(createAcct(localUsername, localPassword, localRepeatPassword));
     }
   };
 

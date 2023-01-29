@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changePassword } from "../../actions/loginActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import { PasswordField } from "../../components/Password";
 import { LoadingButton } from "../../components/LoadingButton";
@@ -15,10 +14,6 @@ function ChangePassword() {
   const [localPassword, setLocalPassword] = useState("");
   const [newLocalPassword, setNewLocalPassword] = useState("");
   const [newRepeatLocalPassword, setNewRepeatLocalPassword] = useState("");
-
-  const username: any = useSelector<GlobalState>(
-    (state) => state.loginData.username
-  );
 
   const feedback: any = useSelector<GlobalState>(
     (state) => state.loginData.passwordChangeFeedback
@@ -47,15 +42,6 @@ function ChangePassword() {
     } else if (newLocalPassword !== newRepeatLocalPassword) {
       dispatch(
         openSnackBar("Your new password does not match your confirm password")
-      );
-    } else {
-      dispatch(
-        changePassword(
-          username,
-          localPassword,
-          newLocalPassword,
-          newRepeatLocalPassword
-        )
       );
     }
   };

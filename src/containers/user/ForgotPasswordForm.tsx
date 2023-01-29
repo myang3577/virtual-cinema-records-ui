@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { forgotPassword } from "../../actions/loginActions";
 import { GlobalState } from "../../reducers/rootReducer";
 import { UsernameField } from "../../components/Username";
 import { LoadingButton } from "../../components/LoadingButton";
@@ -26,8 +25,6 @@ function ForgotPassword() {
       );
     } else if (!validEmail(localUsername)) {
       dispatch(openSnackBar("Your username must be a valid email address"));
-    } else {
-      dispatch(forgotPassword(localUsername));
     }
   };
 
