@@ -89,15 +89,6 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-interface MovieDetailsProps {
-  movie: any;
-  tmdb_id: number;
-  movieDetailsOpen: boolean;
-  inUserList: boolean;
-  inBlackList: boolean;
-  userRating: number;
-}
-
 function MovieDetails() {
   const classes = useStyles();
 
