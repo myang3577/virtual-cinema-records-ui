@@ -1,6 +1,7 @@
 {
   "name": "virtual-cinema-records-ui",
   "version": "0.1.0",
+  "homepage": "https://https://myang3577.github.io/virtual-cinema-records-ui",
   "private": true,
   "type": "module",
   "dependencies": {
