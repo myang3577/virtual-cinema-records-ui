@@ -1,4 +1,4 @@
-View the site here: https://cao-test-daf85.web.app/
+View the site here: https://myang3577.github.io/virtual-cinema-records-ui/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
