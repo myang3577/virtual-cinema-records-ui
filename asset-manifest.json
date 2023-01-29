@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9dcbcda9.css",
+    "main.js": "/static/js/main.e0fdd7f5.js",
+    "static/media/applelogo.jpeg": "/static/media/applelogo.6eb997368dc8aebc52b0.jpeg",
+    "static/media/disneypluslogo.jpeg": "/static/media/disneypluslogo.62a311436c57260f0390.jpeg",
+    "static/media/VCRBigLogo.png": "/static/media/VCRBigLogo.d3aca17ddf61c1a69ca0.png",
+    "static/media/youtubelogo.jpeg": "/static/media/youtubelogo.071d3e55d396ad026ec5.jpeg",
+    "static/media/netflixlogo.jpeg": "/static/media/netflixlogo.59e39f04d9df834e4d7c.jpeg",
+    "static/media/VCRIconOnly.png": "/static/media/VCRIconOnly.f379fc1cf72e6bcf431c.png",
+    "static/media/amazonlogo.jpg": "/static/media/amazonlogo.6a9ed98387229502f4ab.jpg",
+    "static/media/hululogo.jpeg": "/static/media/hululogo.88e90c446fcc982dcd25.jpeg",
+    "index.html": "/index.html",
+    "main.9dcbcda9.css.map": "/static/css/main.9dcbcda9.css.map",
+    "main.e0fdd7f5.js.map": "/static/js/main.e0fdd7f5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9dcbcda9.css",
+    "static/js/main.e0fdd7f5.js"
+  ]
+}
