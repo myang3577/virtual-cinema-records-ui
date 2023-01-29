@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@types/react-dom": "^16.9.17",
     "@types/react-router-dom": "^5.3.3",
+    "gh-pages": "^5.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.9",
@@ -19,8 +20,9 @@
     "redux-thunk": "^2.4.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "devStart": "sudo npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
