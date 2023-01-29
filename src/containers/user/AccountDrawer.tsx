@@ -17,7 +17,6 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import clsx from "clsx";
 import React, { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { logout } from "../../actions/loginActions";
@@ -30,7 +29,7 @@ import {
   toggleAccountDrawer,
 } from "../../actions/uiActions";
 import VCRSmallLogo from "../../images/VCRIconOnly.png";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const useStyles = makeStyles({
   list: {
@@ -51,9 +50,9 @@ interface AccountDrawerProps {
 function AccountDrawer(props: AccountDrawerProps) {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const drawerOpen: any = useSelector<GlobalState>(
+  const drawerOpen: any = useAppSelector(
     (state) => state.uiData.accountDrawerOpen
   );
 
@@ -64,19 +63,17 @@ function AccountDrawer(props: AccountDrawerProps) {
     dispatch(toggleAccountDrawer(drawerOpen));
   }, [dispatch, drawerOpen]);
 
-  const toggleDrawer = (anchor: any, open: boolean) => (event: {
-    type: string;
-    key: string;
-  }) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  const toggleDrawer =
+    (anchor: any, open: boolean) => (event: { type: string; key: string }) => {
+      if (
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
 
-    dispatch(toggleAccountDrawer(open));
-  };
+      dispatch(toggleAccountDrawer(open));
+    };
 
   const onDrawerOptionClick = (index: any, event: any) => {
     if (index === 0) {
@@ -123,9 +120,7 @@ function AccountDrawer(props: AccountDrawerProps) {
     }
   };
 
-  const isLoggedIn: any = useSelector<GlobalState>(
-    (state) => state.loginData.isLoggedIn
-  );
+  const isLoggedIn: any = useAppSelector((state) => state.loginData.isLoggedIn);
 
   useEffect(() => {
     setButtonOptions(isLoggedIn); // eslint-disable-next-line

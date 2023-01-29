@@ -8,28 +8,25 @@ import {
 } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
-import React, { useEffect,useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import { getBlacklist } from "../../actions/blacklistAction";
 import { MovieResultElement } from "../../actions/recommendationActions";
 import { MovieListElement } from "../../actions/userInfoActions";
 import MovieGrid from "../../components/MovieGrid";
 import { PageType } from "../../constants/General";
-import { GlobalState } from "../../reducers/rootReducer";
 import { LoadingState } from "../../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { ENTER_KEYCODE } from "./Home";
 import NoLogin from "./NoLogin";
 
 function Blacklist() {
-  const dispatch = useDispatch();
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const dispatch = useAppDispatch();
+  const username = useAppSelector<string>((state) => state.loginData.username);
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const blacklist = useSelector<GlobalState, []>(
+  const blacklist = useAppSelector<[]>(
     (state) => state.blacklistData.blacklist
   );
   const blacklistIdArray: MovieListElement[] = blacklist.map(
@@ -37,7 +34,7 @@ function Blacklist() {
       return { tmdb_id: element.id, rating: 0 };
     }
   );
-  const blacklistLoading = useSelector<GlobalState, LoadingState>(
+  const blacklistLoading = useAppSelector<LoadingState>(
     (state) => state.blacklistData.loading
   );
 

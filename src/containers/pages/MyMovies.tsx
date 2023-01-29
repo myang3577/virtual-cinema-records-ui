@@ -8,36 +8,33 @@ import {
 } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
-import React, { useEffect,useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import { listMovies } from "../../actions/movieListActions";
 import { MovieListElement } from "../../actions/userInfoActions";
 import MovieGrid from "../../components/MovieGrid";
 import { PageType } from "../../constants/General";
-import { GlobalState } from "../../reducers/rootReducer";
 import { LoadingState } from "../../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { ENTER_KEYCODE } from "./Home";
 import NoLogin from "./NoLogin";
 
 function MyMovies() {
-  const dispatch = useDispatch();
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const dispatch = useAppDispatch();
+  const username = useAppSelector<string>((state) => state.loginData.username);
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const movieDataList = useSelector<GlobalState, any[]>(
+  const movieDataList = useAppSelector<any[]>(
     (state) => state.myMoviesData.movieDataList
   );
-  const movieIDList = useSelector<GlobalState, MovieListElement[]>(
+  const movieIDList = useAppSelector<MovieListElement[]>(
     (state) => state.myMoviesData.movieIDList
   );
-  const movieListLoading = useSelector<GlobalState, LoadingState>(
+  const movieListLoading = useAppSelector<LoadingState>(
     (state) => state.myMoviesData.loading
   );
-  const userBlackList = useSelector<GlobalState, any[]>(
+  const userBlackList = useAppSelector<any[]>(
     (state) => state.blacklistData.blacklist
   );
 

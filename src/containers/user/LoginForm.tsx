@@ -1,6 +1,5 @@
 import { Link } from "@material-ui/core";
-import React, { useEffect,useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import {
   AccountModalContent,
@@ -12,17 +11,17 @@ import { LoadingButton } from "../../components/LoadingButton";
 import { PasswordField } from "../../components/Password";
 import { UsernameField } from "../../components/Username";
 import { validEmail } from "../../constants/General";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 function LoginForm() {
   const [localUsername, setLocalUsername] = useState("");
   const [localPassword, setLocalPassword] = useState("");
 
-  const feedback: any = useSelector<GlobalState>(
+  const feedback: any = useAppSelector(
     (state) => state.loginData.loginFeedback
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
     if (localUsername === "" || localPassword === "") {

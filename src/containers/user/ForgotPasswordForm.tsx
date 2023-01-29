@@ -1,21 +1,20 @@
 import { Typography } from "@material-ui/core";
-import React, { useEffect,useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import { openSnackBar } from "../../actions/uiActions";
 import { LoadingButton } from "../../components/LoadingButton";
 import { UsernameField } from "../../components/Username";
 import { validEmail } from "../../constants/General";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 function ForgotPassword() {
   const [localUsername, setLocalUsername] = useState("");
 
-  const feedback: any = useSelector<GlobalState>(
+  const feedback: any = useAppSelector(
     (state) => state.loginData.passwordRecoverFeedback
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
     if (localUsername === "") {

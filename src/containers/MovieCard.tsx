@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   deleteBlackListMovie,
@@ -20,7 +19,7 @@ import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
 import { PageType } from "../constants/General";
-import { GlobalState } from "../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 import RatingButtons from "./RatingButtons";
 
 export interface MovieCardProps {
@@ -31,23 +30,19 @@ export interface MovieCardProps {
 }
 
 function MovieCard(props: MovieCardProps) {
-  const baseUrl = useSelector<GlobalState, string>(
-    (state) => state.uiData.tmdbBaseUrl
-  );
+  const baseUrl = useAppSelector<string>((state) => state.uiData.tmdbBaseUrl);
 
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
 
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const movieDetailsOpen = useSelector<GlobalState, boolean>(
+  const movieDetailsOpen = useAppSelector<boolean>(
     (state) => state.movieDetailData.movieDetailsOpen
   );
 
-  const userRating = useSelector<GlobalState, number>((state) => {
+  const userRating = useAppSelector<number>((state) => {
     const userMovieIDList = state.myMoviesData.movieIDList;
     const userMovieIDElement = userMovieIDList.find(
       (e) => e.tmdb_id === props.movie.id
@@ -59,7 +54,7 @@ function MovieCard(props: MovieCardProps) {
     return 0;
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const addRemoveIconButtonClick = () => {
     if (props.inUserList) {

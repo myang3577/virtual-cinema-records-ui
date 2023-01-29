@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
 
 import { getUserInfo, setPreferencesFlag } from "../../actions/userInfoActions";
 import LoadingButton from "../../components/LoadingButton";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 function About() {
-  const movieSearchResult: any = useSelector<GlobalState>(
+  const movieSearchResult: any = useAppSelector(
     (state) => state.tmdbData.movieSearchResult
   );
 
-  const userData: any = useSelector<GlobalState>((state) => state.userInfo);
+  const userData: any = useAppSelector((state) => state.userInfo);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     console.log(userData);

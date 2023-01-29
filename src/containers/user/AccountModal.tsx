@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
 
 import {
   AccountModalContent,
@@ -17,30 +16,28 @@ import {
   SnackBarActionType,
 } from "../../actions/uiActions";
 import VCRSmallLogo from "../../images/VCRIconOnly.png";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 import ChangePasswordForm from "./ChangePasswordForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 function AccountModal() {
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
 
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const isModalOpen = useSelector<GlobalState, boolean>(
+  const isModalOpen = useAppSelector<boolean>(
     (state) => state.uiData.accountModalOpen
   );
 
-  const modalType = useSelector<GlobalState, AccountModalContent>(
+  const modalType = useAppSelector<AccountModalContent>(
     (state) => state.uiData.accountModalContent
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const closeModal = () => {
     dispatch(closeAccountModal());

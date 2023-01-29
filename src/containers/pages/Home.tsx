@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
 
 import { listMovies } from "../../actions/movieListActions";
 import {
@@ -19,48 +18,46 @@ import {
 import { MovieListElement } from "../../actions/userInfoActions";
 import MovieGrid from "../../components/MovieGrid";
 import { PageType } from "../../constants/General";
-import { GlobalState } from "../../reducers/rootReducer";
 import { LoadingState } from "../../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 export const ENTER_KEYCODE = 13;
 
 function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [movieQuery, setMovieQuery] = useState("");
   const [movieQueryDisplay, setMovieQueryDisplay] = useState("");
 
   // This is the actual movies that need to be rendered to the user
-  const movieSearchResult = useSelector<GlobalState, any>(
+  const movieSearchResult = useAppSelector<any>(
     (state) => state.tmdbData.movieSearchResult
   );
-  const popularMovies = useSelector<GlobalState, any>(
+  const popularMovies = useAppSelector<any>(
     (state) => state.tmdbData.popularMovies
   );
 
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
-  const userMyMoviesList = useSelector<GlobalState, any[]>(
+  const userMyMoviesList = useAppSelector<any[]>(
     (state) => state.myMoviesData.movieDataList
   );
-  const userBlackList = useSelector<GlobalState, any[]>(
+  const userBlackList = useAppSelector<any[]>(
     (state) => state.blacklistData.blacklist
   );
-  const movieDataLoading = useSelector<GlobalState, LoadingState>(
+  const movieDataLoading = useAppSelector<LoadingState>(
     (state) => state.tmdbData.loading
   );
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const loading: LoadingState = useSelector<GlobalState, LoadingState>(
+  const loading: LoadingState = useAppSelector<LoadingState>(
     (state) => state.tmdbData.loading
   );
 
-  const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
+  const userMovieIDList = useAppSelector<MovieListElement[]>(
     (state) => state.myMoviesData.movieIDList
   );
 

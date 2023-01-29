@@ -13,13 +13,12 @@ import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import PersonIcon from "@material-ui/icons/Person";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, withRouter } from "react-router-dom";
 
 import { toggleAccountDrawer } from "../actions/uiActions";
 import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";
-import { GlobalState } from "../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 import { routes } from "./pages/App";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
@@ -31,15 +30,11 @@ const MYMOVIES_TAB_VAL = 3;
 const LOGIN_TAB_VAL = 4;
 
 function NavBar(props: any) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const isLoggedIn: any = useSelector<GlobalState>(
-    (state) => state.loginData.isLoggedIn
-  );
+  const isLoggedIn: any = useAppSelector((state) => state.loginData.isLoggedIn);
 
-  const username: any = useSelector<GlobalState>(
-    (state) => state.loginData.username
-  );
+  const username: any = useAppSelector((state) => state.loginData.username);
 
   const accountString = isLoggedIn ? username : "Login";
 

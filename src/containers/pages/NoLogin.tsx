@@ -1,15 +1,15 @@
-import { Link,Typography } from "@material-ui/core";
+import { Link, Typography } from "@material-ui/core";
 import React from "react";
-import { useDispatch } from "react-redux";
 
 import {
   AccountModalContent,
   openAccountModal,
   setAccountModalContent,
 } from "../../actions/uiActions";
+import { useAppDispatch } from "../../store";
 
 function NoLogin() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <Typography variant="h4" gutterBottom>

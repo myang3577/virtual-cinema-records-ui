@@ -19,7 +19,6 @@ import {
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   deleteBlackListMovie,
@@ -33,8 +32,8 @@ import { deleteMovie, putMovie } from "../actions/movieListActions";
 import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
-import { GlobalState } from "../reducers/rootReducer";
 import { LoadingState } from "../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 import Prices from "./Prices";
 import RatingButtons from "./RatingButtons";
 import RelatedMovies from "./RelatedMovies";
@@ -93,49 +92,43 @@ const Transition = React.forwardRef(function Transition(
 function MovieDetails() {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const movie = useSelector<GlobalState, any>(
-    (state) => state.movieDetailData.movie
-  );
+  const movie = useAppSelector<any>((state) => state.movieDetailData.movie);
 
-  const tmdb_id = useSelector<GlobalState, number>(
+  const tmdb_id = useAppSelector<number>(
     (state) => state.movieDetailData.tmdb_id
   );
 
-  const movieDetailsOpen = useSelector<GlobalState, boolean>(
+  const movieDetailsOpen = useAppSelector<boolean>(
     (state) => state.movieDetailData.movieDetailsOpen
   );
 
-  const inUserList = useSelector<GlobalState, boolean>(
+  const inUserList = useAppSelector<boolean>(
     (state) => state.movieDetailData.inUserList
   );
 
-  const inBlackList = useSelector<GlobalState, boolean>(
+  const inBlackList = useAppSelector<boolean>(
     (state) => state.movieDetailData.inBlackList
   );
 
-  const userRating = useSelector<GlobalState, number>(
+  const userRating = useAppSelector<number>(
     (state) => state.movieDetailData.userRating
   );
 
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
 
-  const baseUrl = useSelector<GlobalState, string>(
-    (state) => state.uiData.tmdbBaseUrl
-  );
+  const baseUrl = useAppSelector<string>((state) => state.uiData.tmdbBaseUrl);
 
-  const movieDetails = useSelector<GlobalState, any>(
+  const movieDetails = useAppSelector<any>(
     (state) => state.tmdbData.movieDetails[tmdb_id]
   );
 
-  const movieDetailsLoading = useSelector<GlobalState, LoadingState>(
+  const movieDetailsLoading = useAppSelector<LoadingState>(
     (state) => state.tmdbData.movieDetailsLoading
   );
 

@@ -1,13 +1,12 @@
 import { Typography } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { setMovieRating } from "../actions/movieDetailsActions";
 import { deleteRating, putRating } from "../actions/movieListActions";
 import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
-import { GlobalState } from "../reducers/rootReducer";
 import { LoadingState } from "../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 
 export interface RatingButtonsProps {
   movie: any;
@@ -17,13 +16,11 @@ export interface RatingButtonsProps {
 }
 
 function RatingButtons(props: RatingButtonsProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const ratingLoadingStatus = useSelector<GlobalState, LoadingState>(
+  const ratingLoadingStatus = useAppSelector<LoadingState>(
     (state) => state.myMoviesData.ratingLoadingStatus[props.movie.id]
   );
 

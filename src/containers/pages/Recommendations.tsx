@@ -1,7 +1,6 @@
-import { IconButton, Link,Slide, Typography } from "@material-ui/core";
+import { IconButton, Link, Slide, Typography } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import React, { useEffect,useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import { getBlacklist } from "../../actions/blacklistAction";
 import { listMovies } from "../../actions/movieListActions";
@@ -24,113 +23,105 @@ import RecommendationSection from "../../components/RecommendationSection";
 import { PageType } from "../../constants/General";
 import { genreMap } from "../../constants/Recommendation";
 import { RecommendationListObject } from "../../reducers/recommendationReducer";
-import { GlobalState } from "../../reducers/rootReducer";
 import { LoadingState } from "../../reducers/tmdbReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
 
 function Recommendations() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // This is movie recommendations that need to be rendered to the user on the
   // gridlist
-  const movieRecommendationResult = useSelector<
-    GlobalState,
-    RecommendationListObject
-  >((state) => state.recommendationData.movieRecommendationList);
+  const movieRecommendationResult = useAppSelector<RecommendationListObject>(
+    (state) => state.recommendationData.movieRecommendationList
+  );
 
   // This is actor recommendations that need to be rendered to the user on the
   // gridlist
-  const actorRecommendationResult = useSelector<
-    GlobalState,
-    RecommendationListObject
-  >((state) => state.recommendationData.actorRecommendationList);
+  const actorRecommendationResult = useAppSelector<RecommendationListObject>(
+    (state) => state.recommendationData.actorRecommendationList
+  );
 
   // This is genre recommendations that need to be rendered to the user on the
   // gridlist
-  const genreRecommendationResult = useSelector<
-    GlobalState,
-    RecommendationListObject
-  >((state) => state.recommendationData.genreRecommendationList);
+  const genreRecommendationResult = useAppSelector<RecommendationListObject>(
+    (state) => state.recommendationData.genreRecommendationList
+  );
 
   // This is general recommendations. They are not specific to the user
-  const generalRecommendationList = useSelector<
-    GlobalState,
-    RecommendationListObject
-  >((state) => state.recommendationData.generalRecommendationList);
+  const generalRecommendationList = useAppSelector<RecommendationListObject>(
+    (state) => state.recommendationData.generalRecommendationList
+  );
 
-  const generalRecommendationLoading = useSelector<GlobalState, LoadingState>(
+  const generalRecommendationLoading = useAppSelector<LoadingState>(
     (state) => state.recommendationData.generalRecommendationLoading
   );
-  const movieRecommendationLoading = useSelector<GlobalState, LoadingState>(
+  const movieRecommendationLoading = useAppSelector<LoadingState>(
     (state) => state.recommendationData.movieRecommendationLoading
   );
-  const actorRecommendationLoading = useSelector<GlobalState, LoadingState>(
+  const actorRecommendationLoading = useAppSelector<LoadingState>(
     (state) => state.recommendationData.actorRecommendationLoading
   );
-  const genreRecommendationLoading = useSelector<GlobalState, LoadingState>(
+  const genreRecommendationLoading = useAppSelector<LoadingState>(
     (state) => state.recommendationData.genreRecommendationLoading
   );
 
   // This just gets the user's movie list. It is not for rendering purposes.
   // Instead, it is used to indicate if a movie has been added or not
-  const userMyMoviesList = useSelector<GlobalState, any[]>(
+  const userMyMoviesList = useAppSelector<any[]>(
     (state) => state.myMoviesData.movieDataList
   );
 
-  const movieDataLoading = useSelector<GlobalState, LoadingState>(
+  const movieDataLoading = useAppSelector<LoadingState>(
     (state) => state.tmdbData.loading
   );
-  const userListDataLoading = useSelector<GlobalState, LoadingState>(
+  const userListDataLoading = useAppSelector<LoadingState>(
     (state) => state.myMoviesData.listDataLoading
   );
-  const isLoggedIn = useSelector<GlobalState, boolean>(
+  const isLoggedIn = useAppSelector<boolean>(
     (state) => state.loginData.isLoggedIn
   );
-  const username = useSelector<GlobalState, string>(
-    (state) => state.loginData.username
-  );
+  const username = useAppSelector<string>((state) => state.loginData.username);
 
-  const userMovieIDList = useSelector<GlobalState, MovieListElement[]>(
+  const userMovieIDList = useAppSelector<MovieListElement[]>(
     (state) => state.myMoviesData.movieIDList
   );
 
-  const userBlackListDataLoading = useSelector<GlobalState, LoadingState>(
+  const userBlackListDataLoading = useAppSelector<LoadingState>(
     (state) => state.blacklistData.loading
   );
-  const userBlackList = useSelector<GlobalState, any[]>(
+  const userBlackList = useAppSelector<any[]>(
     (state) => state.blacklistData.blacklist
   );
 
   // Flags used to indicate which movies the user wants to view. True to view,
   // false to hide
-  const [genreToDisplay, setGenreToDisplay]: [
-    { [key: string]: boolean },
-    any
-  ] = useState({
-    "Now Playing": true,
-    Popular: true,
-    Upcoming: true,
-    Action: false,
-    Adventure: false,
-    Animation: false,
-    Comedy: false,
-    Crime: false,
-    Documentary: false,
-    Drama: false,
-    Family: false,
-    Fantasy: false,
-    History: false,
-    Horror: false,
-    Music: false,
-    Mystery: false,
-    Romance: false,
-    "Science Fiction": false,
-    "TV Movie": false,
-    Thriller: false,
-    War: false,
-    Western: false,
-  });
+  const [genreToDisplay, setGenreToDisplay]: [{ [key: string]: boolean }, any] =
+    useState({
+      "Now Playing": true,
+      Popular: true,
+      Upcoming: true,
+      Action: false,
+      Adventure: false,
+      Animation: false,
+      Comedy: false,
+      Crime: false,
+      Documentary: false,
+      Drama: false,
+      Family: false,
+      Fantasy: false,
+      History: false,
+      Horror: false,
+      Music: false,
+      Mystery: false,
+      Romance: false,
+      "Science Fiction": false,
+      "TV Movie": false,
+      Thriller: false,
+      War: false,
+      Western: false,
+    });
 
   const [recommendationToDisplay, setRecommendationToDisplay]: [
     { [key: string]: boolean },

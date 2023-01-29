@@ -1,6 +1,5 @@
 import { Link } from "@material-ui/core";
-import React, { useEffect,useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import {
   AccountModalContent,
@@ -9,18 +8,18 @@ import {
 } from "../../actions/uiActions";
 import { LoadingButton } from "../../components/LoadingButton";
 import { PasswordField } from "../../components/Password";
-import { GlobalState } from "../../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 function ChangePassword() {
   const [localPassword, setLocalPassword] = useState("");
   const [newLocalPassword, setNewLocalPassword] = useState("");
   const [newRepeatLocalPassword, setNewRepeatLocalPassword] = useState("");
 
-  const feedback: any = useSelector<GlobalState>(
+  const feedback: any = useAppSelector(
     (state) => state.loginData.passwordChangeFeedback
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (feedback !== "") {

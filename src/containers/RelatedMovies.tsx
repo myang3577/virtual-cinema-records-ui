@@ -7,33 +7,30 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { setMovieDetail } from "../actions/movieDetailsActions";
 import { getMovieDetails } from "../actions/tmdbActions";
-import { GlobalState } from "../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 
 interface RelatedMoviesProps {
   tmdb_id: number;
 }
 
 function RelatedMovies(props: RelatedMoviesProps) {
-  const relatedMovies = useSelector<GlobalState, any>((state) =>
+  const relatedMovies = useAppSelector<any>((state) =>
     state.tmdbData.movieDetails[props.tmdb_id]
       ? state.tmdbData.movieDetails[props.tmdb_id].similar.results
       : undefined
   );
 
-  const baseUrl = useSelector<GlobalState, string>(
-    (state) => state.uiData.tmdbBaseUrl
-  );
+  const baseUrl = useAppSelector<string>((state) => state.uiData.tmdbBaseUrl);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const userMyMoviesList = useSelector<GlobalState, any[]>(
+  const userMyMoviesList = useAppSelector<any[]>(
     (state) => state.myMoviesData.movieDataList
   );
-  const userBlackList = useSelector<GlobalState, any[]>(
+  const userBlackList = useAppSelector<any[]>(
     (state) => state.blacklistData.blacklist
   );
 
@@ -45,7 +42,7 @@ function RelatedMovies(props: RelatedMoviesProps) {
 
   const [currMovie, setCurrMovie] = useState<any>({});
 
-  const userRating = useSelector<GlobalState, number>((state) => {
+  const userRating = useAppSelector<number>((state) => {
     const userMovieIDList = state.myMoviesData.movieIDList;
     const userMovieIDElement = userMovieIDList.find(
       (e) => e.tmdb_id === currMovie.id

@@ -1,7 +1,5 @@
 import { Action, Dispatch } from "redux";
 
-// import { useSelector, useDispatch } from "react-redux";
-// import { GlobalState } from "../reducers/rootReducer";
 import {
   MAX_PAGE_SEARCH_LIMIT,
   NUM_GENERAL_RECOMMENDATIONS,

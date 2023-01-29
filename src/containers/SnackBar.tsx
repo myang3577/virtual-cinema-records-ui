@@ -3,7 +3,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Block, Person, Theaters } from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 import { closeMovieDetail } from "../actions/movieDetailsActions";
@@ -13,7 +12,7 @@ import {
   setAccountModalContent,
   SnackBarActionType,
 } from "../actions/uiActions";
-import { GlobalState } from "../reducers/rootReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 import { routes } from "./pages/App";
 import RatingButtons from "./RatingButtons";
 
@@ -28,21 +27,21 @@ export interface SnackbarMessage {
 }
 
 function SnackBar() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const snackBarOpen: any = useSelector<GlobalState>(
+  const snackBarOpen: any = useAppSelector(
     (state) => state.uiData.snackBarOpen
   );
 
-  const snackBarString = useSelector<GlobalState, string>(
+  const snackBarString = useAppSelector<string>(
     (state) => state.uiData.snackBarString
   );
 
-  const snackBarAction = useSelector<GlobalState, SnackBarActionType>(
+  const snackBarAction = useAppSelector<SnackBarActionType>(
     (state) => state.uiData.snackBarAction
   );
 
-  const snackBarExtraPayload: any = useSelector<GlobalState>(
+  const snackBarExtraPayload: any = useAppSelector(
     (state) => state.uiData.snackBarExtraPayload
   );
 
