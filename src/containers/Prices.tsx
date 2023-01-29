@@ -1,12 +1,13 @@
-import React from "react";
 import { GridList, GridListTile } from "@material-ui/core";
-import PriceCard from "./PriceCard";
-import netflixlogo from "../images/netflixlogo.jpeg";
-import hululogo from "../images/hululogo.jpeg";
-import disneypluslogo from "../images/disneypluslogo.jpeg";
-import youtubelogo from "../images/youtubelogo.jpeg";
+import React from "react";
+
 import amazonlogo from "../images/amazonlogo.jpg";
 import applelogo from "../images/applelogo.jpeg";
+import disneypluslogo from "../images/disneypluslogo.jpeg";
+import hululogo from "../images/hululogo.jpeg";
+import netflixlogo from "../images/netflixlogo.jpeg";
+import youtubelogo from "../images/youtubelogo.jpeg";
+import PriceCard from "./PriceCard";
 
 function Prices() {
   const displayPrices = () => {

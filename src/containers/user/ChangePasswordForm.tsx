@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
-import { PasswordField } from "../../components/Password";
-import { LoadingButton } from "../../components/LoadingButton";
+import { Link } from "@material-ui/core";
+import React, { useEffect,useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import {
+  AccountModalContent,
   openSnackBar,
   setAccountModalContent,
-  AccountModalContent,
 } from "../../actions/uiActions";
-import { Link } from "@material-ui/core";
+import { LoadingButton } from "../../components/LoadingButton";
+import { PasswordField } from "../../components/Password";
+import { GlobalState } from "../../reducers/rootReducer";
 
 function ChangePassword() {
   const [localPassword, setLocalPassword] = useState("");

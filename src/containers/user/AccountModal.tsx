@@ -1,25 +1,27 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
+import "../../styles/App.css";
+
 import {
-  IconButton,
   Dialog,
   DialogContent,
   DialogTitle,
+  IconButton,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import "../../styles/App.css";
+import React, { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import {
-  closeAccountModal,
   AccountModalContent,
+  closeAccountModal,
   openSnackBar,
   SnackBarActionType,
 } from "../../actions/uiActions";
+import VCRSmallLogo from "../../images/VCRIconOnly.png";
+import { GlobalState } from "../../reducers/rootReducer";
+import ChangePasswordForm from "./ChangePasswordForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import ForgotPasswordForm from "./ForgotPasswordForm";
-import ChangePasswordForm from "./ChangePasswordForm";
-import VCRSmallLogo from "../../images/VCRIconOnly.png";
 
 function AccountModal() {
   const isLoggedIn = useSelector<GlobalState, boolean>(

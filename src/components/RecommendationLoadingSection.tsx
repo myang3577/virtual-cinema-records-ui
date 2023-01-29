@@ -1,5 +1,5 @@
+import { CircularProgress,Typography } from "@material-ui/core";
 import React from "react";
-import { Typography, CircularProgress } from "@material-ui/core";
 
 interface RecommendationLoadingSectionProps {
   loadingText: string;

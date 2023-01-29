@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+
 import { clearMovieDataList } from "./movieListActions";
 import { clearRecommendationData } from "./recommendationActions";
 

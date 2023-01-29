@@ -1,11 +1,10 @@
-import { LoadingState } from "./tmdbReducer";
-
 import {
-  RecommendationActionType,
-  RecommendationAction,
-  MovieResultElement,
   GeneralRecommendationAction,
+  MovieResultElement,
+  RecommendationAction,
+  RecommendationActionType,
 } from "../actions/recommendationActions";
+import { LoadingState } from "./tmdbReducer";
 
 export interface RecommendationListObject {
   [key: string]: MovieResultElement[];

@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react";
-import MovieGrid from "../../components/MovieGrid";
-import { useDispatch, useSelector } from "react-redux";
-import { listMovies } from "../../actions/movieListActions";
-import { GlobalState } from "../../reducers/rootReducer";
 import {
-  Typography,
-  TextField,
-  InputAdornment,
-  IconButton,
-  Slide,
   CircularProgress,
+  IconButton,
+  InputAdornment,
+  Slide,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingState } from "../../reducers/tmdbReducer";
-import { PageType } from "../../constants/General";
-import NoLogin from "./NoLogin";
-import { ENTER_KEYCODE } from "./Home";
+import SearchIcon from "@material-ui/icons/Search";
+import React, { useEffect,useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { listMovies } from "../../actions/movieListActions";
 import { MovieListElement } from "../../actions/userInfoActions";
+import MovieGrid from "../../components/MovieGrid";
+import { PageType } from "../../constants/General";
+import { GlobalState } from "../../reducers/rootReducer";
+import { LoadingState } from "../../reducers/tmdbReducer";
+import { ENTER_KEYCODE } from "./Home";
+import NoLogin from "./NoLogin";
 
 function MyMovies() {
   const dispatch = useDispatch();

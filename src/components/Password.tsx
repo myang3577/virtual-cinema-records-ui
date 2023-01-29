@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { TextField, InputAdornment, IconButton } from "@material-ui/core";
-import { Lock, Visibility, VisibilityOff } from "@material-ui/icons";
 import "../styles/App.css";
+
+import { IconButton,InputAdornment, TextField } from "@material-ui/core";
+import { Lock, Visibility, VisibilityOff } from "@material-ui/icons";
+import React, { useState } from "react";
 
 export interface PasswordFormProps {
   password: string;

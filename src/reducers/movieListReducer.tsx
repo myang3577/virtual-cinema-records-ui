@@ -1,11 +1,11 @@
-import { LoadingState } from "./tmdbReducer";
 import {
-  MovieListActionType,
   MovieListAction,
+  MovieListActionType,
   RatingUpdateAction,
   SetMovieDataListAction,
 } from "../actions/movieListActions";
 import { MovieListElement } from "../actions/userInfoActions";
+import { LoadingState } from "./tmdbReducer";
 
 export interface MovieListState {
   loading: LoadingState;
@@ -37,9 +37,9 @@ export const movieListReducer = (
       );
 
       if (movieIndex >= 0)
-        newMovieIDList[
-          movieIndex
-        ].rating = (action as RatingUpdateAction).payload.rating!;
+        newMovieIDList[movieIndex].rating = (
+          action as RatingUpdateAction
+        ).payload.rating!;
 
       return {
         ...state,

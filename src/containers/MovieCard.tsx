@@ -1,26 +1,27 @@
-import React from "react";
 import {
   Card,
+  CardActionArea,
+  CardContent,
   CardHeader,
   CardMedia,
-  CardContent,
-  CardActionArea,
   Typography,
 } from "@material-ui/core";
-import { PageType } from "../constants/General";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
-import { GlobalState } from "../reducers/rootReducer";
-import { putMovie, deleteMovie } from "../actions/movieListActions";
+
 import {
-  putBlackListMovie,
   deleteBlackListMovie,
+  putBlackListMovie,
 } from "../actions/blacklistAction";
-import RatingButtons from "./RatingButtons";
+import { openMovieDetail } from "../actions/movieDetailsActions";
+import { deleteMovie,putMovie } from "../actions/movieListActions";
+import { getMovieDetails } from "../actions/tmdbActions";
+import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
 import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
 import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
-import { getMovieDetails } from "../actions/tmdbActions";
-import { openMovieDetail } from "../actions/movieDetailsActions";
+import { PageType } from "../constants/General";
+import { GlobalState } from "../reducers/rootReducer";
+import RatingButtons from "./RatingButtons";
 
 export interface MovieCardProps {
   movie: any;

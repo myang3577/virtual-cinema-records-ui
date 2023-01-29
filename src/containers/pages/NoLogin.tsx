@@ -1,10 +1,11 @@
+import { Link,Typography } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Typography, Link } from "@material-ui/core";
+
 import {
+  AccountModalContent,
   openAccountModal,
   setAccountModalContent,
-  AccountModalContent,
 } from "../../actions/uiActions";
 
 function NoLogin() {

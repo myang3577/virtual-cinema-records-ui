@@ -1,14 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
-import Home from "./Home";
-import About from "./About";
-import Recommendations from "./Recommendations";
-import Blacklist from "./Blacklist";
-import MyMovies from "./MyMovies";
+import React from "react";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
+
+import MovieDetails from "../MovieDetails";
 import Navbar from "../NavBar";
 import SnackBar from "../SnackBar";
-import MovieDetails from "../MovieDetails";
+import About from "./About";
+import Blacklist from "./Blacklist";
+import Home from "./Home";
+import MyMovies from "./MyMovies";
+import Recommendations from "./Recommendations";
 
 export const routes = {
   homeLink: "/",

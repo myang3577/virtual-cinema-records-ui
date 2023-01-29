@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
-import { Typography, IconButton, Slide, Link } from "@material-ui/core";
+import { IconButton, Link,Slide, Typography } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingState } from "../../reducers/tmdbReducer";
+import React, { useEffect,useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
+import { getBlacklist } from "../../actions/blacklistAction";
 import { listMovies } from "../../actions/movieListActions";
-import SimpleListMenu from "../../components/DropdownMenu";
-import { genreMap } from "../../constants/Recommendation";
 import {
-  getMovieRecommendation,
   getActorRecommendation,
-  getGenreRecommendation,
   getGeneralRecommendation,
+  getGenreRecommendation,
+  getMovieRecommendation,
   getSpecificRecommendation,
 } from "../../actions/recommendationActions";
-import { PageType } from "../../constants/General";
-import { RecommendationListObject } from "../../reducers/recommendationReducer";
 import {
+  AccountModalContent,
   openAccountModal,
   setAccountModalContent,
-  AccountModalContent,
 } from "../../actions/uiActions";
-import RecommendationSection from "../../components/RecommendationSection";
 import { MovieListElement } from "../../actions/userInfoActions";
-import { getBlacklist } from "../../actions/blacklistAction";
+import SimpleListMenu from "../../components/DropdownMenu";
 import RecommendationLoadingSection from "../../components/RecommendationLoadingSection";
+import RecommendationSection from "../../components/RecommendationSection";
+import { PageType } from "../../constants/General";
+import { genreMap } from "../../constants/Recommendation";
+import { RecommendationListObject } from "../../reducers/recommendationReducer";
+import { GlobalState } from "../../reducers/rootReducer";
+import { LoadingState } from "../../reducers/tmdbReducer";
+
 const isEmpty = (object: {}) => Object.keys(object).length === 0;
 
 function Recommendations() {

@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
+import "../styles/App.css";
+
 import {
-  Tabs,
-  Tab,
-  Paper,
-  Fade,
-  Typography,
   Collapse,
+  Fade,
+  Paper,
+  Tab,
+  Tabs,
+  Typography,
 } from "@material-ui/core";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MovieFilterIcon from "@material-ui/icons/MovieFilter";
-import TheatersIcon from "@material-ui/icons/Theaters";
 import PersonIcon from "@material-ui/icons/Person";
-import "../styles/App.css";
+import TheatersIcon from "@material-ui/icons/Theaters";
+import React, { useEffect, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { Link as RouterLink , withRouter } from "react-router-dom";
+
 import { toggleAccountDrawer } from "../actions/uiActions";
-import { routes } from "./pages/App";
 import VCRBigLogo from "../images/VCRBigLogo.png";
 import VCRIconOnly from "../images/VCRIconOnly.png";
+import { GlobalState } from "../reducers/rootReducer";
+import { routes } from "./pages/App";
 import AccountDrawer from "./user/AccountDrawer";
 import AccountModal from "./user/AccountModal";
-import { withRouter } from "react-router-dom";
 
 const HOME_TAB_VAL = 0;
 const RECS_TAB_VAL = 1;

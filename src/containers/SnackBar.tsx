@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
+import { IconButton, Slide } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
+import { Block,Person, Theaters } from "@material-ui/icons";
+import CloseIcon from "@material-ui/icons/Close";
+import React, { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
+
+import { closeMovieDetail } from "../actions/movieDetailsActions";
 import {
-  SnackBarActionType,
-  setAccountModalContent,
   AccountModalContent,
   openAccountModal,
+  setAccountModalContent,
+  SnackBarActionType,
 } from "../actions/uiActions";
-import { IconButton, Slide } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import { Person, Theaters, Block } from "@material-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
+import { GlobalState } from "../reducers/rootReducer";
 import { routes } from "./pages/App";
 import RatingButtons from "./RatingButtons";
-import { closeMovieDetail } from "../actions/movieDetailsActions";
 
 export interface SnackbarMessage {
   message: string;

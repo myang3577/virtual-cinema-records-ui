@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
 import {
-  GridList,
-  GridListTile,
   Card,
   CardActionArea,
   CardContent,
+  GridList,
+  GridListTile,
   Typography,
 } from "@material-ui/core";
+import React, { useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import { setMovieDetail } from "../actions/movieDetailsActions";
 import { getMovieDetails } from "../actions/tmdbActions";
+import { GlobalState } from "../reducers/rootReducer";
 
 interface RelatedMoviesProps {
   tmdb_id: number;

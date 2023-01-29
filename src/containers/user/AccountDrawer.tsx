@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import clsx from "clsx";
-import { Link } from "react-router-dom";
 import {
-  Drawer,
   Divider,
+  Drawer,
   List,
   ListItem,
   ListItemIcon,
@@ -13,23 +10,27 @@ import {
   MenuItem,
   withStyles,
 } from "@material-ui/core";
+import BlockIcon from "@material-ui/icons/Block";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import BlockIcon from "@material-ui/icons/Block";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
+import clsx from "clsx";
+import React, { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { logout } from "../../actions/loginActions";
 import {
-  toggleAccountDrawer,
-  openAccountModal,
-  setAccountModalContent,
   AccountModalContent,
+  openAccountModal,
   openSnackBar,
+  setAccountModalContent,
   SnackBarActionType,
+  toggleAccountDrawer,
 } from "../../actions/uiActions";
 import VCRSmallLogo from "../../images/VCRIconOnly.png";
-import { logout } from "../../actions/loginActions";
+import { GlobalState } from "../../reducers/rootReducer";
 
 const useStyles = makeStyles({
   list: {

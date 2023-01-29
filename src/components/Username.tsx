@@ -1,7 +1,8 @@
-import React from "react";
-import { TextField, InputAdornment } from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
 import "../styles/App.css";
+
+import { InputAdornment,TextField } from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
+import React from "react";
 
 export interface UsernameFormProps {
   error: boolean;

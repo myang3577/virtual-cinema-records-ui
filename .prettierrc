@@ -4,16 +4,12 @@
   "bracketSpacing": true,
   "tabWidth": 2,
   "printWidth": 80,
-  "packageManager": "npm",
   "jsxSingleQuote": false,
-  "jsxBracketSameLine": false,
   "insertPragma": false,
   "endOfLine": "crlf",
   "semi": true,
   "singleQuote": false,
-  "resolveGlobalModules": false,
   "requirePragma": false,
-  "requireConfig": false,
   "quoteProps": "as-needed",
   "proseWrap": "preserve"
 }

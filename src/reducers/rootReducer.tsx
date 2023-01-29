@@ -1,15 +1,16 @@
 import { combineReducers } from "redux";
-import { tmdbReducer, TMDBState } from "./tmdbReducer";
+
+import { blacklistReducer, BlacklistState } from "./blacklistReducer";
 import { loginReducer, LoginState } from "./loginReducer";
+import { movieDetailReducer, MovieDetailState } from "./movieDetailReducer";
 import { movieListReducer, MovieListState } from "./movieListReducer";
-import { userInfoReducer, UserInfoState } from "./userReducer";
-import { uiReducer, UIState } from "./uiReducer";
 import {
   recommendationReducer,
   RecommendationState,
 } from "./recommendationReducer";
-import { blacklistReducer, BlacklistState } from "./blacklistReducer";
-import { movieDetailReducer, MovieDetailState } from "./movieDetailReducer";
+import { tmdbReducer, TMDBState } from "./tmdbReducer";
+import { uiReducer, UIState } from "./uiReducer";
+import { userInfoReducer, UserInfoState } from "./userReducer";
 
 export interface GlobalState {
   tmdbData: TMDBState;

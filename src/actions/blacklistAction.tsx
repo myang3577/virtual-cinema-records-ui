@@ -1,6 +1,6 @@
 import {
-  MovieResultElement,
   hideMovie,
+  MovieResultElement,
   unhideMovie,
 } from "./recommendationActions";
 

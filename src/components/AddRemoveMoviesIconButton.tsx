@@ -1,6 +1,6 @@
-import React from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
+import React from "react";
 
 export interface AddRemoveMoviesIconButtonProps {
   inUserList: boolean;

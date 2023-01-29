@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
-import LoadingButton from "../../components/LoadingButton";
+import { useDispatch,useSelector } from "react-redux";
+
 import { getUserInfo, setPreferencesFlag } from "../../actions/userInfoActions";
+import LoadingButton from "../../components/LoadingButton";
+import { GlobalState } from "../../reducers/rootReducer";
 
 function About() {
   const movieSearchResult: any = useSelector<GlobalState>(

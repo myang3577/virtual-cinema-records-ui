@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
+import React, { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
-import { putRating, deleteRating } from "../actions/movieListActions";
-import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
-import { LoadingState } from "../reducers/tmdbReducer";
+
 import { setMovieRating } from "../actions/movieDetailsActions";
+import { deleteRating,putRating } from "../actions/movieListActions";
+import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
+import { GlobalState } from "../reducers/rootReducer";
+import { LoadingState } from "../reducers/tmdbReducer";
 
 export interface RatingButtonsProps {
   movie: any;

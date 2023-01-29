@@ -1,7 +1,8 @@
-import { Dispatch, Action } from "redux";
+import { Action,Dispatch } from "redux";
+
+import { hideMovie, unhideMovie } from "./recommendationActions";
 import { apiKey } from "./tmdbActions";
 import { MovieListElement } from "./userInfoActions";
-import { hideMovie, unhideMovie } from "./recommendationActions";
 
 export enum MovieListActionType {
   PUT_RATING_BEGIN = "PUT_RATING_BEGIN",

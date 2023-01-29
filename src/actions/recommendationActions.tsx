@@ -1,11 +1,12 @@
-import { Dispatch, Action } from "redux";
-import { RecommendationListObject } from "../reducers/recommendationReducer";
+import { Action,Dispatch } from "redux";
+
 // import { useSelector, useDispatch } from "react-redux";
 // import { GlobalState } from "../reducers/rootReducer";
 import {
-  NUM_GENERAL_RECOMMENDATIONS,
   MAX_PAGE_SEARCH_LIMIT,
+  NUM_GENERAL_RECOMMENDATIONS,
 } from "../constants/Recommendation";
+import { RecommendationListObject } from "../reducers/recommendationReducer";
 import { apiKey } from "./tmdbActions";
 
 export enum RecommendationActionType {

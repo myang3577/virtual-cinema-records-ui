@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Fade, Collapse, IconButton, Typography } from "@material-ui/core";
-import { LoadingState } from "../reducers/tmdbReducer";
-import { PageType } from "../constants/General";
-import MovieGrid from "./MovieGrid";
+import { Collapse, Fade, IconButton, Typography } from "@material-ui/core";
+import { createStyles,makeStyles, Theme } from "@material-ui/core/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+
 import { MovieListElement } from "../actions/userInfoActions";
+import { PageType } from "../constants/General";
+import { LoadingState } from "../reducers/tmdbReducer";
+import MovieGrid from "./MovieGrid";
 
 export interface RecommendationSectionProps {
   header: string;

@@ -1,8 +1,8 @@
-import { LoadingState } from "./tmdbReducer";
 import {
   BlacklistAction,
   BlacklistActionType,
 } from "../actions/blacklistAction";
+import { LoadingState } from "./tmdbReducer";
 
 export interface BlacklistState {
   loading: LoadingState;

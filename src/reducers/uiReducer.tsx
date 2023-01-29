@@ -1,10 +1,10 @@
 import {
+  AccountModalContent,
+  SnackBarActionType,
   UIAction,
   UIActionType,
-  AccountModalContent,
   UISetModalContentAction,
   UISnackBarAction,
-  SnackBarActionType,
 } from "../actions/uiActions";
 
 export interface UIState {

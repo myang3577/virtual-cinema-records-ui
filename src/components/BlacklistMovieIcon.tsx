@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  IconButton,
-  Tooltip,
-  makeStyles,
   createStyles,
+  IconButton,
+  makeStyles,
   Theme,
+  Tooltip,
 } from "@material-ui/core";
 import BlockIcon from "@material-ui/icons/Block";
+import React from "react";
 
 export interface BlacklistMovieProps {
   inBlacklist: boolean;

@@ -1,5 +1,5 @@
-import { LoadingState } from "./tmdbReducer";
 import { UserInfoAction, UserInfoActionType } from "../actions/userInfoActions";
+import { LoadingState } from "./tmdbReducer";
 
 export interface UserInfoState {
   loading: LoadingState;

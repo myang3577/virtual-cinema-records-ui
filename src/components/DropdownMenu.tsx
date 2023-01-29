@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import List from "@material-ui/core/List";
 import {
+  ClickAwayListener,
   ListItem,
   ListItemText,
-  Popper,
-  ClickAwayListener,
   Paper,
+  Popper,
 } from "@material-ui/core";
+import List from "@material-ui/core/List";
+import React, { useEffect } from "react";
+
 import CheckBoxLabels from "./CheckBoxLabels";
 
 interface MenuProps {

@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../../reducers/rootReducer";
-import MovieGrid from "../../components/MovieGrid";
 import {
-  Typography,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
   Slide,
   TextField,
-  InputAdornment,
-  IconButton,
-  CircularProgress,
+  Typography,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { LoadingState } from "../../reducers/tmdbReducer";
+import React, { useEffect, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import { listMovies } from "../../actions/movieListActions";
-import { PageType } from "../../constants/General";
 import {
+  clearMovieSearchResults,
   getPopularMovies,
   searchMovies,
-  clearMovieSearchResults,
 } from "../../actions/tmdbActions";
 import { MovieListElement } from "../../actions/userInfoActions";
+import MovieGrid from "../../components/MovieGrid";
+import { PageType } from "../../constants/General";
+import { GlobalState } from "../../reducers/rootReducer";
+import { LoadingState } from "../../reducers/tmdbReducer";
 
 export const ENTER_KEYCODE = 13;
 

@@ -1,17 +1,18 @@
-import React from "react";
 import {
   GridList,
   GridListTile,
-  withWidth,
   isWidthUp,
+  withWidth,
   WithWidthProps,
 } from "@material-ui/core";
+import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import { Skeleton } from "@material-ui/lab";
+import React from "react";
+
+import { MovieListElement } from "../actions/userInfoActions";
+import { PageType } from "../constants/General";
 import MovieCard from "../containers/MovieCard";
 import { LoadingState } from "../reducers/tmdbReducer";
-import { PageType } from "../constants/General";
-import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
-import { MovieListElement } from "../actions/userInfoActions";
 
 interface MovieGridProps {
   displayMovieList: [];

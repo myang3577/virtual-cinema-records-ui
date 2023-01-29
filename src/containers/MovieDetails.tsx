@@ -1,33 +1,26 @@
-import React from "react";
 import {
-  makeStyles,
-  Dialog,
-  Toolbar,
-  IconButton,
-  Slide,
-  Typography,
-  Grid,
-  createStyles,
-  Theme,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
   Avatar,
-  GridList,
-  Paper,
   CircularProgress,
+  createStyles,
+  Dialog,
+  Grid,
+  GridList,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  makeStyles,
+  Paper,
+  Slide,
+  Theme,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
-import { GlobalState } from "../reducers/rootReducer";
-import CloseIcon from "@material-ui/icons/Close";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import Prices from "./Prices";
-import { deleteMovie, putMovie } from "../actions/movieListActions";
-import RatingButtons from "./RatingButtons";
-import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
-import RelatedMovies from "./RelatedMovies";
-import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
-import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
+import CloseIcon from "@material-ui/icons/Close";
+import React from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import {
   deleteBlackListMovie,
   putBlackListMovie,
@@ -36,7 +29,15 @@ import {
   closeMovieDetail,
   setMovieButtons,
 } from "../actions/movieDetailsActions";
+import { deleteMovie, putMovie } from "../actions/movieListActions";
+import { openSnackBar, SnackBarActionType } from "../actions/uiActions";
+import AddRemoveMoviesIconButton from "../components/AddRemoveMoviesIconButton";
+import BlacklistMovieIcon from "../components/BlacklistMovieIcon";
+import { GlobalState } from "../reducers/rootReducer";
 import { LoadingState } from "../reducers/tmdbReducer";
+import Prices from "./Prices";
+import RatingButtons from "./RatingButtons";
+import RelatedMovies from "./RelatedMovies";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

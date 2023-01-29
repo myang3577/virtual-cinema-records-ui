@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Grid, Paper } from "@material-ui/core";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import React, { useState } from "react";
 
 interface CheckBoxLabelsProps {
   handlerFunction: (event: React.ChangeEvent<HTMLInputElement>) => any;
